@@ -31,9 +31,7 @@ class Team extends Model
     ];
 
     /**
-     * Get the team owner.
-     *
-     * @return User
+     * Get the current team owner.
      */
     public function owner()
     {
@@ -41,9 +39,7 @@ class Team extends Model
     }
 
     /**
-     * Get the team members.
-     *
-     * @return Users
+     * Get all the team members.
      */
     public function members()
     {

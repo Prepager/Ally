@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay;
 
+use Laravel\Passport\Passport;
 use Braintree_Configuration as Braintree;
 use Illuminate\Support\ServiceProvider;
 
