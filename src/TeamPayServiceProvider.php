@@ -30,7 +30,9 @@ class TeamPayServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        class_alias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay');
+        if (! class_exists('TeamPay')) {
+            class_alias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay');
+        }
 
         if ($this->app->runningInConsole()) {
             $this->commands([
