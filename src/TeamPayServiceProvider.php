@@ -2,8 +2,8 @@
 
 namespace ZapsterStudios\TeamPay;
 
-use Illuminate\Support\ServiceProvider;
 use Braintree_Configuration as Braintree;
+use Illuminate\Support\ServiceProvider;
 
 class TeamPayServiceProvider extends ServiceProvider
 {
@@ -16,13 +16,13 @@ class TeamPayServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
-        
+
         Braintree::environment(config('services.braintree.environment'));
         Braintree::merchantId(config('services.braintree.merchant_id'));
         Braintree::publicKey(config('services.braintree.public_key'));
         Braintree::privateKey(config('services.braintree.private_key'));
     }
-    
+
     /**
      * Register the package service provider.
      *
@@ -31,8 +31,8 @@ class TeamPayServiceProvider extends ServiceProvider
     public function register()
     {
         class_alias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay');
-        
-        if($this->app->runningInConsole()) {
+
+        if ($this->app->runningInConsole()) {
             $this->commands([
                 //
             ]);
