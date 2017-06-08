@@ -9,7 +9,7 @@
     ],
     "require": {
         "laravel/passport": "^2.0",
-        "laravel/cashier": "^7.0"
+        "laravel/cashier-braintree": "^2.0"
     },
     "autoload": {
         "psr-4": {

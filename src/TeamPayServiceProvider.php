@@ -13,6 +13,6 @@ class TeamPayServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        dd('123');
     }
 }
