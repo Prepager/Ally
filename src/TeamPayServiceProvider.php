@@ -13,6 +13,15 @@ class TeamPayServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__.'/migrations');
+        class_alias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay');
+        
+        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
+        $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
+        
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                //
+            ]);
+        }
     }
 }
