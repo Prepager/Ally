@@ -1,0 +1,19 @@
+{
+    "name": "zapsterstudios/teampay",
+    "description": "An attempt at building a team billing API for Laravel. Inspired by Laravel Spark.",
+    "authors": [
+        {
+            "name": "ZapsterStudios",
+            "email": "andreas@zapsterstudios.com"
+        }
+    ],
+    "require": {
+        "laravel/passport": "^2.0",
+        "laravel/cashier": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZapsterStudios\\TeamPay\\": "src/"
+        }
+    }
+}
