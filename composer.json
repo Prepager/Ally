@@ -15,5 +15,6 @@
         "psr-4": {
             "ZapsterStudios\\TeamPay\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
