@@ -2,8 +2,8 @@
 
 namespace ZapsterStudios\TeamPay\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Cashier\Billable;
+use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {

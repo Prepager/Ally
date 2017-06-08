@@ -3,8 +3,8 @@
 namespace ZapsterStudios\TeamPay\Controllers;
 
 use Auth;
-use Laravel\Passport\Client;
 use Illuminate\Http\Request;
+use Laravel\Passport\Client;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
@@ -17,16 +17,16 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return $this->proxy('password', [
                 'username' => $request->email,
-                'password' => $request->password
+                'password' => $request->password,
             ]);
         }
-        
+
         return response()->json('Incorrect email or password.', 401);
     }
-    
+
     /**
      * Refresh authentication token and return it.
      *
@@ -36,10 +36,10 @@ class AuthController extends Controller
     public function refresh(Request $request)
     {
         return $this->proxy('refresh_token', [
-            'refresh_token' => $request->token
+            'refresh_token' => $request->token,
         ]);
     }
-    
+
     /**
      * Revoke current authentication token.
      *
@@ -49,7 +49,7 @@ class AuthController extends Controller
     {
         Auth::user()->token()->revoke();
     }
-    
+
     /**
      * Proxy OAuth password calls using Guzzle.
      *
@@ -60,7 +60,7 @@ class AuthController extends Controller
     public function proxy($grantType, $data = [])
     {
         $client = Client::where('password_client', 1)->firstOrFail();
-        
+
         $http = new \GuzzleHttp\Client;
         $response = $http->post(env('OAUTH_URL').'/oauth/token', [
             'form_params' => array_merge($data, [
@@ -69,7 +69,7 @@ class AuthController extends Controller
                 'client_secret' => $client->secret,
             ]),
         ]);
-    
+
         return json_decode((string) $response->getBody(), true);
     }
 }
