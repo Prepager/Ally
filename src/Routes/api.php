@@ -17,8 +17,8 @@ Route::group([
         // Auth
         Route::post('/login', 'AuthController@login');
         Route::post('/login/refresh', 'AuthController@refresh');
-        
-        Route::get('/test', function() {
+
+        Route::get('/test', function () {
             return config('app.env');
         });
 
@@ -27,7 +27,6 @@ Route::group([
 
             // Auth
             Route::post('/logout', 'AuthController@logout');
-            
         });
     });
 });

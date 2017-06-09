@@ -65,8 +65,9 @@ class AuthController extends Controller
             'client_id' => $client->id,
             'client_secret' => $client->secret,
         ]));
-        
+
         $response = app()->handle($request);
+
         return response()->json(json_decode($response->getContent()), $response->getStatusCode());
     }
 }
