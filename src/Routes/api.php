@@ -2,7 +2,6 @@
 
 // Group
 Route::group([
-    'prefix' => 'api',
     'middleware' => 'api',
 ], function () {
 
@@ -18,12 +17,17 @@ Route::group([
         // Auth
         Route::post('/login', 'AuthController@login');
         Route::post('/login/refresh', 'AuthController@refresh');
+        
+        Route::get('/test', function() {
+            return config('app.env');
+        });
 
         // Authenticated
         Route::group(['middleware' => 'auth:api'], function () {
 
             // Auth
             Route::post('/logout', 'AuthController@logout');
+            
         });
     });
 });

@@ -16,6 +16,8 @@ class TeamPayServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
+        
+        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/Database/Factories');
 
         Braintree::environment(config('services.braintree.environment'));
         Braintree::merchantId(config('services.braintree.merchant_id'));

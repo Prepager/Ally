@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\TeamPay\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
 use App\Http\Controllers\Controller;
@@ -17,7 +16,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
             return $this->proxy('password', [
                 'username' => $request->email,
                 'password' => $request->password,
@@ -47,11 +46,11 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        Auth::user()->token()->revoke();
+        auth()->user()->token()->revoke();
     }
 
     /**
-     * Proxy OAuth password calls using Guzzle.
+     * Proxy OAuth password calls using internal calls.
      *
      * @param  string  $grantType
      * @param  array  $data
@@ -61,15 +60,13 @@ class AuthController extends Controller
     {
         $client = Client::where('password_client', 1)->firstOrFail();
 
-        $http = new \GuzzleHttp\Client;
-        $response = $http->post(env('OAUTH_URL').'/oauth/token', [
-            'form_params' => array_merge($data, [
-                'grant_type' => $grantType,
-                'client_id' => $client->id,
-                'client_secret' => $client->secret,
-            ]),
-        ]);
-
-        return json_decode((string) $response->getBody(), true);
+        $request = request()->create('/oauth/token', 'POST', array_merge($data, [
+            'grant_type' => $grantType,
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+        ]));
+        
+        $response = app()->handle($request);
+        return response()->json(json_decode($response->getContent()), $response->getStatusCode());
     }
 }
