@@ -18,10 +18,6 @@ Route::group([
         Route::post('/login', 'AuthController@login');
         Route::post('/login/refresh', 'AuthController@refresh');
 
-        Route::get('/test', function () {
-            return config('app.env');
-        });
-
         // Authenticated
         Route::group(['middleware' => 'auth:api'], function () {
 

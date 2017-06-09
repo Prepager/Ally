@@ -3,6 +3,7 @@
 namespace ZapsterStudios\TeamPay\Tests\Feature;
 
 use App\User;
+use Illuminate\Support\Facades\DB;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -22,6 +23,8 @@ class AuthenticationTest extends TestCase
             'token_type', 'expires_in',
             'access_token', 'refresh_token',
         ]);
+        
+        return json_decode($response->getContent());
     }
 
     /** @test */
@@ -34,22 +37,46 @@ class AuthenticationTest extends TestCase
 
         $response->assertStatus(401);
     }
-
-    /** @test */
-    public function userCanRefreshTokenWithValidToken()
+    
+    /**
+     * @test
+     * @depends userCanLoginWithValidCredentials
+     */
+    public function userCanLogout($token)
     {
-        //
+        $response = $this->json('POST', '/logout', [], [
+            'HTTP_Authorization' => 'Bearer ' . $token->access_token,
+        ]);
+        
+        $response->assertStatus(200);
+        
+        return $token;
+    }
+
+    /**
+     * @test
+     * @depends userCanLogout
+     */
+    public function userCanRefreshTokenWithValidToken($token)
+    {
+        $response = $this->json('POST', '/login/refresh', [
+            'token' => $token->refresh_token
+        ]);
+        
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'token_type', 'expires_in',
+            'access_token', 'refresh_token',
+        ]);
     }
 
     /** @test */
     public function userCanNotRefreshTokenWithInvalidToken()
     {
-        //
-    }
-
-    /** @test */
-    public function userCanLogout()
-    {
-        //
+        $response = $this->json('POST', '/login/refresh', [
+            'token' => 'invalid-token',
+        ]);
+        
+        $response->assertStatus(400);
     }
 }
