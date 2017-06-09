@@ -46,3 +46,8 @@ Passport
 ```
 php artisan passport:install
 ```
+
+Tests
+```
+phpunit TeamPay
+```
