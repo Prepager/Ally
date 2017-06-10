@@ -14,9 +14,15 @@ Route::group([
     // Namespace
     Route::group(['namespace' => 'ZapsterStudios\TeamPay\Controllers'], function () {
 
-        // Auth
-        Route::post('/login', 'AuthController@login');
-        Route::post('/login/refresh', 'AuthController@refresh');
+        // Unauthenticated
+        Route::group([], function () {
+            
+            // Auth
+            Route::post('/login', 'AuthController@login');
+            Route::post('/login/refresh', 'AuthController@refresh');
+            Route::post('/register', 'AuthController@register');
+            
+        });
 
         // Authenticated
         Route::group(['middleware' => 'auth:api'], function () {

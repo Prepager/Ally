@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay\Controllers;
 
+use \App\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
 use App\Http\Controllers\Controller;
@@ -47,9 +48,31 @@ class AuthController extends Controller
     public function logout()
     {
         $token = auth()->user()->token();
+
         if ($token) {
             $token->revoke();
         }
+    }
+    
+    /**
+     * Register and Authenticate user.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function register(Request $request)
+    {
+        $this->validate($request, User::$rules);
+        
+        $user = User::create(array_merge($request->except([
+            '_method',
+            'password',
+            'password_confirmation',
+        ]), [
+            'password' => bcrypt($request->password),
+        ]));
+        
+        return response()->json($user, 200);
     }
 
     /**
