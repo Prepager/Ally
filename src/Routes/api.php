@@ -16,12 +16,11 @@ Route::group([
 
         // Unauthenticated
         Route::group([], function () {
-            
+
             // Auth
             Route::post('/login', 'AuthController@login');
             Route::post('/login/refresh', 'AuthController@refresh');
             Route::post('/register', 'AuthController@register');
-            
         });
 
         // Authenticated
