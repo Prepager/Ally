@@ -17,7 +17,7 @@ class TeamController extends Controller
     {
         return response()->json(auth()->user()->teams());
     }
-    
+
     /**
      * Store a newly created team in storage.
      *
@@ -60,7 +60,7 @@ class TeamController extends Controller
     {
         $this->authorize('update', $team);
         $this->validate($request, Team::$rules);
-        
+
         return $team->update(array_merge($request->all(), [
             'slug' => str_slug($request->name),
         ]));

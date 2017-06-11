@@ -31,7 +31,6 @@ Route::group([
 
             // Teams
             Route::apiResource('/'.str_plural(TeamPay::$teamName), 'TeamController');
-
         });
     });
 });
