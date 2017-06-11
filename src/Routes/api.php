@@ -28,6 +28,10 @@ Route::group([
 
             // Auth
             Route::post('/logout', 'AuthController@logout');
+
+            // Teams
+            Route::apiResource('/'.str_plural(TeamPay::$teamName), 'TeamController');
+
         });
     });
 });

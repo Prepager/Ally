@@ -72,7 +72,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]));
 
-        return response()->json($user, 200);
+        return response()->json($user);
     }
 
     /**
