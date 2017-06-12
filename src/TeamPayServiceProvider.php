@@ -34,8 +34,8 @@ class TeamPayServiceProvider extends ServiceProvider
         Passport::tokensCan([
             // Teams
             'view-teams' => 'View Teams',
-            'manage-teams' => 'Manage Teams (Create, Update & Delete)'
-            
+            'manage-teams' => 'Manage Teams (Create, Update & Delete)',
+
             //
         ]);
     }

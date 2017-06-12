@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof AuthorizationException && $request->expectsJson()) {
+        if ($exception instanceof AuthorizationException && $request->expectsJson()) {
             return response()->json(['error' => 'Forbidden.'], 403);
         }
 
