@@ -17,4 +17,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Team'); // Add member teams.
     }
+    
+    /**
+     * Check the users access to a team.
+     */
+    public function canMange($team)
+    {
+        return ($team->user_id == $this->id); // Check for member.
+    }
 }

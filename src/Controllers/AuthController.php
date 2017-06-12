@@ -21,6 +21,7 @@ class AuthController extends Controller
             return $this->proxy('password', [
                 'username' => $request->email,
                 'password' => $request->password,
+                'scope' => '*',
             ]);
         }
 
@@ -37,6 +38,7 @@ class AuthController extends Controller
     {
         return $this->proxy('refresh_token', [
             'refresh_token' => $request->token,
+            'scope' => '*',
         ]);
     }
 

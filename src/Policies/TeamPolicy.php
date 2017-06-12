@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace ZapsterStudios\TeamPay\Policies;
 
 use App\Team;
 use App\User;
@@ -19,7 +19,7 @@ class TeamPolicy
      */
     public function view(User $user, Team $team)
     {
-        //
+        return $user->tokenCan('view-teams') && $user->canMange($team);
     }
 
     /**
@@ -30,7 +30,7 @@ class TeamPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->tokenCan('manage-teams') && $user->canMange($team);
     }
 
     /**
@@ -42,7 +42,7 @@ class TeamPolicy
      */
     public function update(User $user, Team $team)
     {
-        //
+        return $user->tokenCan('manage-teams') && $user->canMange($team);
     }
 
     /**
@@ -54,6 +54,6 @@ class TeamPolicy
      */
     public function delete(User $user, Team $team)
     {
-        //
+        return $user->tokenCan('manage-teams') && $user->canMange($team);
     }
 }
