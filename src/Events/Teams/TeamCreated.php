@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\TeamPay\Events\Teams;
 
-
 use App\Team;
 use Illuminate\Queue\SerializesModels;
 

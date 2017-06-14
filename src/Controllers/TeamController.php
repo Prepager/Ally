@@ -4,7 +4,6 @@ namespace ZapsterStudios\TeamPay\Controllers;
 
 use App\Team;
 use Illuminate\Http\Request;
-use ZapsterStudios\TeamPay\Controllers\Controller;
 use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
 use ZapsterStudios\TeamPay\Events\Teams\TeamDeleated;
 
@@ -65,7 +64,7 @@ class TeamController extends Controller
         $this->authorize('update', $team);
         $this->validate($request, Team::$rules);
 
-        return tap($team)->update($this->requestSlug($request)); 
+        return tap($team)->update($this->requestSlug($request));
     }
 
     /**
