@@ -97,7 +97,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('users', [
-            'email' => 'andreas@example.com'
+            'email' => 'andreas@example.com',
         ]);
     }
 

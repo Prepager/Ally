@@ -2,8 +2,8 @@
 
 namespace ZapsterStudios\TeamPay\Tests\Feature;
 
-use App\User;
 use App\Team;
+use App\User;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
@@ -13,7 +13,7 @@ class TeamTest extends TestCase
         'id', 'name', 'slug',
         'created_at', 'updated_at',
     ];
-    
+
     /** @test */
     public function guestCanNotRetrieveTeams()
     {
@@ -21,7 +21,7 @@ class TeamTest extends TestCase
 
         $response->assertStatus(401);
     }
-    
+
     /** @test */
     public function userCanRetrieveTeams()
     {
@@ -53,14 +53,14 @@ class TeamTest extends TestCase
         Passport::actingAs($user, ['manage-teams']);
 
         $response = $this->json('POST', '/teams', [
-            'name' => 'Example'
+            'name' => 'Example',
         ]);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->teamStructure);
 
         $this->assertDatabaseHas('teams', [
-            'name' => 'Example'
+            'name' => 'Example',
         ]);
     }
 

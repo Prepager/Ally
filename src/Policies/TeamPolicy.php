@@ -19,7 +19,7 @@ class TeamPolicy
      */
     public function view(User $user, Team $team = null)
     {
-        return $user->tokenCan('view-teams') && (!$team || $user->canMange($team));
+        return $user->tokenCan('view-teams') && (! $team || $user->canMange($team));
     }
 
     /**
