@@ -4,10 +4,11 @@ namespace ZapsterStudios\TeamPay\Models;
 
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Team extends Model
 {
-    use Billable;
+    use Billable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +30,16 @@ class Team extends Model
         'card_brand',
         'card_last_four',
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * Get the current team owner.

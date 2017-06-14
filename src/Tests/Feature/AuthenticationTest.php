@@ -92,8 +92,12 @@ class AuthenticationTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
-            'name', 'email', 'country',
+            'id', 'name', 'email', 'country',
             'created_at', 'updated_at',
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'andreas@example.com'
         ]);
     }
 

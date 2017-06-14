@@ -17,9 +17,9 @@ class TeamPolicy
      * @param  \App\Team  $team
      * @return mixed
      */
-    public function view(User $user, Team $team)
+    public function view(User $user, Team $team = null)
     {
-        return $user->tokenCan('view-teams') && $user->canMange($team);
+        return $user->tokenCan('view-teams') && (!$team || $user->canMange($team));
     }
 
     /**
@@ -30,7 +30,7 @@ class TeamPolicy
      */
     public function create(User $user)
     {
-        return $user->tokenCan('manage-teams') && $user->canMange($team);
+        return $user->tokenCan('manage-teams');
     }
 
     /**

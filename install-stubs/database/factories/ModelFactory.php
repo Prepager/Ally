@@ -23,3 +23,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'country' => $faker->countryCode,
     ];
 });
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Team::class, function (Faker\Generator $faker) {
+    $company = $faker->company;
+
+    return [
+        'user_id' => factory(App\User::class)->create()->id,
+        'name' => $company,
+        'slug' => str_slug($company),
+    ];
+});

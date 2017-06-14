@@ -4,7 +4,9 @@ namespace ZapsterStudios\TeamPay\Controllers;
 
 use App\Team;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\TeamPay\Controllers\Controller;
+use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
+use ZapsterStudios\TeamPay\Events\Teams\TeamDeleated;
 
 class TeamController extends Controller
 {
@@ -15,7 +17,9 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return response()->json(auth()->user()->teams());
+        $this->authorize('view', Team::class);
+
+        return response()->json(auth()->user()->teams()->get());
     }
 
     /**
@@ -26,12 +30,12 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', $team);
+        $this->authorize('create', Team::class);
         $this->validate($request, Team::$rules);
 
-        $team = auth()->user()->teams()->create(array_merge($request->all(), [
-            'slug' => str_slug($request->name),
-        ]));
+        $team = auth()->user()->teams()->create($this->requestSlug($request));
+
+        event(new TeamCreated($team));
 
         return response()->json($team);
     }
@@ -61,9 +65,7 @@ class TeamController extends Controller
         $this->authorize('update', $team);
         $this->validate($request, Team::$rules);
 
-        return $team->update(array_merge($request->all(), [
-            'slug' => str_slug($request->name),
-        ]));
+        return tap($team)->update($this->requestSlug($request)); 
     }
 
     /**
@@ -77,5 +79,7 @@ class TeamController extends Controller
         $this->authorize('delete', $team);
 
         $team->delete();
+
+        event(new TeamDeleated($team));
     }
 }
