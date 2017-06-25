@@ -11,18 +11,40 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     /**
-     * Get the users teams.
+     * Get all the users teams.
      */
     public function teams()
     {
-        return $this->hasMany('App\Team'); // Add member teams.
+        return $this->belongsToMany('App\Team', 'team_members', 'user_id', 'team_id');
+    }
+    
+    /**
+     * Get all the users owned teams.
+     */
+    public function ownedTeams()
+    {
+        return $this->hasMany('App\Team', 'user_id', 'id');
     }
 
     /**
-     * Check the users access to a team.
+     * Check if user is on team.
+     * 
+     * @param  \App\Team  $team
+     * @return bool
      */
-    public function canMange($team)
+    public function onTeam($team)
     {
-        return $team->user_id == $this->id; // Check for member.
+        return $this->teams->contains($team);
+    }
+
+    /**
+     * Check if user owns team.
+     * 
+     * @param  \App\Team  $team
+     * @return bool
+     */
+    public function ownsTeam($team)
+    {
+        return $this->id === $team->user_id;
     }
 }

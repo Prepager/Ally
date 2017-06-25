@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use TeamPay;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -43,13 +45,18 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        if ($exception instanceof AuthorizationException && $request->expectsJson()) {
-            return response()->json(['error' => 'Forbidden.'], 403);
+        if ($request->expectsJson() && ! $e instanceof ValidationException) {
+            $response = parent::render($request, $e);
+            $message = TeamPay::getResponseMessage($response->getStatusCode());
+
+            return response()->json([
+                'error' => $message,
+            ], $response->getStatusCode());
         }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 
     /**

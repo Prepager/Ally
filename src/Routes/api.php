@@ -14,7 +14,7 @@ Route::group([
     // Namespace
     Route::group(['namespace' => 'ZapsterStudios\TeamPay\Controllers'], function () {
 
-        // Unauthenticated
+        // Group: Unauthenticated
         Route::group([], function () {
 
             // Auth
@@ -23,14 +23,22 @@ Route::group([
             Route::post('/register', 'AuthController@register');
         });
 
-        // Authenticated
+        // Group: Authenticated
         Route::group(['middleware' => 'auth:api'], function () {
 
             // Auth
+            Route::get('/user', 'AuthController@user');
             Route::post('/logout', 'AuthController@logout');
 
             // Teams
             Route::apiResource('/'.str_plural(TeamPay::$teamName), 'TeamController');
+
+            // Group: Teams
+            Route::group(['prefix' => '/'.str_plural(TeamPay::$teamName)], function () {
+
+                // Members
+                Route::apiResource('/{team}/members', 'TeamMemberController');
+            });
         });
     });
 });

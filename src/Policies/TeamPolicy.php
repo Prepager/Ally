@@ -19,7 +19,8 @@ class TeamPolicy
      */
     public function view(User $user, Team $team = null)
     {
-        return $user->tokenCan('view-teams') && (! $team || $user->canMange($team));
+        return $user->tokenCan('view-teams')
+            && (! $team || $user->onTeam($team));
     }
 
     /**
@@ -42,7 +43,8 @@ class TeamPolicy
      */
     public function update(User $user, Team $team)
     {
-        return $user->tokenCan('manage-teams') && $user->canMange($team);
+        return $user->tokenCan('manage-teams')
+            && $user->ownsTeam($team);
     }
 
     /**
@@ -54,6 +56,7 @@ class TeamPolicy
      */
     public function delete(User $user, Team $team)
     {
-        return $user->tokenCan('manage-teams') && $user->canMange($team);
+        return $user->tokenCan('manage-teams')
+            && $user->ownsTeam($team);
     }
 }

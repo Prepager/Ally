@@ -2,8 +2,10 @@
 
 namespace ZapsterStudios\TeamPay\Models;
 
+use Validator;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Team extends Model
@@ -32,6 +34,20 @@ class Team extends Model
     ];
 
     /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('members', function (Builder $builder) {
+            $builder->with('members');
+        });
+    }
+
+    /**
      * Get the route key for the model.
      *
      * @return string
@@ -42,18 +58,37 @@ class Team extends Model
     }
 
     /**
-     * Get the current team owner.
-     */
-    public function owner()
-    {
-        return $this->belongsTo('App\User');
-    }
-
-    /**
      * Get all the team members.
      */
     public function members()
     {
-        // TODO
+        return $this->belongsToMany('App\User', 'team_members', 'team_id', 'user_id')
+            ->withPivot('group', 'overwrites');
+    }
+
+    /**
+     * Get all the team member fields.
+     */
+    public function teamMembers()
+    {
+        return $this->hasMany('ZapsterStudios\TeamPay\Models\TeamMember', 'team_id', 'id');
+    }
+
+    /**
+     * Generate team slug.
+     */
+    static public function generateSlug($id, $slug, $current = false)
+    {
+        if($current && $current == $slug) {
+            return $slug;
+        }
+
+        $unique = Validator::make(['slug' => $slug], [
+            'slug' => 'required|unique:teams,slug'
+        ]);
+
+        return ($unique->fails() 
+            ? self::generateSlug($id+1, $slug.'-'.$id, $current) 
+            : $slug);
     }
 }

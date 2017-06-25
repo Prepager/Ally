@@ -30,6 +30,7 @@ class Team extends TeamPayTeam
      * @var array
      */
     public static $rules = [
-        'name' => 'required|min:2',
+        'name' => 'required|min:2|unique:teams,name',
+        'slug' => 'sometimes|required|alpha_dash|unique:teams,slug',
     ];
 }

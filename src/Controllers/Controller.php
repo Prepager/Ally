@@ -14,10 +14,10 @@ class Controller extends BaseController
      * @param  string  $name
      * @return array
      */
-    public function requestSlug($request, $disallowSlug = false, $slug = 'slug', $name = 'name')
+    public function requestSlug($request, $extra = [], $except = '', $slug = 'slug', $name = 'name')
     {
         return array_merge([
             $slug => str_slug($request->$name),
-        ], $request->except($disallowSlug ? 'slug' : ''));
+        ], $extra, $request->except($except));
     }
 }

@@ -14,11 +14,11 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('view', Team::class);
 
-        return response()->json(auth()->user()->teams()->get());
+        return response()->json($request->user()->teams()->get());
     }
 
     /**
@@ -29,10 +29,19 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        $request->request->add([
+            'slug' => Team::generateSlug(1, str_slug($request->name))
+        ]);
+
         $this->authorize('create', Team::class);
         $this->validate($request, Team::$rules);
 
-        $team = auth()->user()->teams()->create($this->requestSlug($request));
+        $team = $request->user()->ownedTeams()->create($request->all());
+        $team->teamMembers()->forceCreate([
+            'team_id' => $team->id,
+            'user_id' => $request->user()->id,
+            'group' => 'owner',
+        ]);
 
         event(new TeamCreated($team));
 
@@ -49,7 +58,7 @@ class TeamController extends Controller
     {
         $this->authorize('view', $team);
 
-        return $team;
+        return response()->json($team);
     }
 
     /**
@@ -61,6 +70,10 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
+        $request->request->add([
+            'slug' => Team::generateSlug(1, str_slug($request->name), $team->slug)
+        ]);
+
         $this->authorize('update', $team);
         $this->validate($request, Team::$rules);
 
@@ -78,6 +91,7 @@ class TeamController extends Controller
         $this->authorize('delete', $team);
 
         $team->delete();
+        // Delete members too..
 
         event(new TeamDeleated($team));
     }

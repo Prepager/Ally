@@ -9,6 +9,16 @@ use Laravel\Passport\Client;
 class AuthController extends Controller
 {
     /**
+     * Retrieve authenticated user.
+     *
+     * @return Response
+     */
+    public function user()
+    {
+        return response()->json(auth()->user());
+    }
+
+    /**
      * Authenticate user and return token.
      *
      * @param  Request  $request
