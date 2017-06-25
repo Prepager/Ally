@@ -14,7 +14,7 @@ class TeamMember extends Model
     protected $fillable = [
         'group',
     ];
-    
+
     /**
      * The model validation rules.
      *
@@ -24,7 +24,7 @@ class TeamMember extends Model
         'user_id' => 'required',
         'group' => 'required', // in array?
     ];
-    
+
     /**
      * Get the team.
      */

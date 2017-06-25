@@ -30,7 +30,7 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $request->request->add([
-            'slug' => Team::generateSlug(1, str_slug($request->name))
+            'slug' => Team::generateSlug(1, str_slug($request->name)),
         ]);
 
         $this->authorize('create', Team::class);
@@ -71,7 +71,7 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         $request->request->add([
-            'slug' => Team::generateSlug(1, str_slug($request->name), $team->slug)
+            'slug' => Team::generateSlug(1, str_slug($request->name), $team->slug),
         ]);
 
         $this->authorize('update', $team);

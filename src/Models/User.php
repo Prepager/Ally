@@ -17,7 +17,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Team', 'team_members', 'user_id', 'team_id');
     }
-    
+
     /**
      * Get all the users owned teams.
      */
@@ -28,7 +28,7 @@ class User extends Authenticatable
 
     /**
      * Check if user is on team.
-     * 
+     *
      * @param  \App\Team  $team
      * @return bool
      */
@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     /**
      * Check if user owns team.
-     * 
+     *
      * @param  \App\Team  $team
      * @return bool
      */
