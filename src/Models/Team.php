@@ -77,18 +77,18 @@ class Team extends Model
     /**
      * Generate team slug.
      */
-    static public function generateSlug($id, $slug, $current = false)
+    public static function generateSlug($id, $slug, $current = false)
     {
-        if($current && $current == $slug) {
+        if ($current && $current == $slug) {
             return $slug;
         }
 
         $unique = Validator::make(['slug' => $slug], [
-            'slug' => 'required|unique:teams,slug'
+            'slug' => 'required|unique:teams,slug',
         ]);
 
-        return ($unique->fails() 
-            ? self::generateSlug($id+1, $slug.'-'.$id, $current) 
-            : $slug);
+        return $unique->fails()
+            ? self::generateSlug($id + 1, $slug.'-'.$id, $current)
+            : $slug;
     }
 }

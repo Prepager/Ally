@@ -8,7 +8,7 @@ trait ResponseList
     {
         return self::getResponseMessages()[$code] ?? 'Unknown error';
     }
-    
+
     public static function getResponseMessages()
     {
         return [

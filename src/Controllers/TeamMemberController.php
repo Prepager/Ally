@@ -3,11 +3,8 @@
 namespace ZapsterStudios\TeamPay\Controllers;
 
 use App\Team;
-use ZapsterStudios\TeamPay\Models\TeamMember;
-
 use Illuminate\Http\Request;
-use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
-use ZapsterStudios\TeamPay\Events\Teams\TeamDeleated;
+use ZapsterStudios\TeamPay\Models\TeamMember;
 
 class TeamMemberController extends Controller
 {
@@ -62,7 +59,7 @@ class TeamMemberController extends Controller
         abort_if($member->team_id != $team->id, 404);
 
         return response()->json(tap($member)->update([
-            'group' => $request->group
+            'group' => $request->group,
         ]));
     }
 
