@@ -90,8 +90,8 @@ class TeamController extends Controller
     {
         $this->authorize('delete', $team);
 
+        $team->teamMembers()->delete();
         $team->delete();
-        // Delete members too..
 
         event(new TeamDeleated($team));
     }

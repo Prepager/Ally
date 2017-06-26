@@ -6,6 +6,7 @@ use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\TeamPay\Models\TeamMember;
 
 class TeamTest extends TestCase
 {
@@ -26,8 +27,8 @@ class TeamTest extends TestCase
     public function userCanRetrieveTeams()
     {
         $user = factory(User::class)->create();
+        
         Passport::actingAs($user, ['view-teams']);
-
         $response = $this->json('GET', '/teams');
 
         $response->assertStatus(200);
@@ -38,8 +39,25 @@ class TeamTest extends TestCase
     {
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create());
-        Passport::actingAs($user, ['view-teams']);
 
+        Passport::actingAs($user, ['view-teams']);
+        $response = $this->json('GET', '/teams/'.$team->slug);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure($this->teamStructure);
+    }
+
+    /** @test */
+    public function memberCanViewTeam()
+    {
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create();
+        $member = $team->members()->save(factory(TeamMember::class)->create([
+            'user_id' => $user->id,
+            'team_id' => $team->id,
+        ]));
+
+        Passport::actingAs($user, ['view-teams']);
         $response = $this->json('GET', '/teams/'.$team->slug);
 
         $response->assertStatus(200);
@@ -50,15 +68,14 @@ class TeamTest extends TestCase
     public function userCanCreateNewTeam()
     {
         $user = factory(User::class)->create();
-        Passport::actingAs($user, ['manage-teams']);
 
+        Passport::actingAs($user, ['manage-teams']);
         $response = $this->json('POST', '/teams', [
             'name' => 'Example',
         ]);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->teamStructure);
-
         $this->assertDatabaseHas('teams', [
             'name' => 'Example',
         ]);
@@ -68,16 +85,15 @@ class TeamTest extends TestCase
     public function userCanUpdateExistingTeam()
     {
         $user = factory(User::class)->create();
-        $team = $user->teams()->save(factory(Team::class)->create());
-        Passport::actingAs($user, ['manage-teams']);
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
 
+        Passport::actingAs($user, ['manage-teams']);
         $response = $this->json('PUT', '/teams/'.$team->slug, [
             'name' => 'Foobar',
         ]);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->teamStructure);
-
         $this->assertDatabaseHas('teams', [
             'name' => 'Foobar',
             'slug' => str_slug('Foobar'),
@@ -88,13 +104,12 @@ class TeamTest extends TestCase
     public function userCanDeleteTeam()
     {
         $user = factory(User::class)->create();
-        $team = $user->teams()->save(factory(Team::class)->create());
-        Passport::actingAs($user, ['manage-teams']);
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
 
+        Passport::actingAs($user, ['manage-teams']);
         $response = $this->json('DELETE', '/teams/'.$team->slug);
 
         $response->assertStatus(200);
-
         $this->assertSoftDeleted('teams', [
             'slug' => $team->slug,
         ]);
