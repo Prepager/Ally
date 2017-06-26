@@ -27,7 +27,7 @@ class TeamTest extends TestCase
     public function userCanRetrieveTeams()
     {
         $user = factory(User::class)->create();
-        
+
         Passport::actingAs($user, ['view-teams']);
         $response = $this->json('GET', '/teams');
 
