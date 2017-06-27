@@ -9,7 +9,7 @@ class DatabaseDebugger
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        if (! config('app.debug') || config('app.env') != 'local') {
+        if (! env('DB_LOGGER') || ! method_exists($response, 'getData')) {
             return $response;
         }
 

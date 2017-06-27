@@ -80,6 +80,10 @@ class TeamPayServiceProvider extends ServiceProvider
      */
     public function recordQueries()
     {
+        if (! env('DB_LOGGER') || ! method_exists($response, 'getData')) {
+            return;
+        }
+
         \DB::listen(function ($query) {
             array_push(\TeamPay::$queryLog, [
                 vsprintf(str_replace(['%', '?'], ['%%', '%s'], $query->sql), $query->bindings),

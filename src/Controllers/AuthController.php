@@ -119,9 +119,10 @@ class AuthController extends Controller
     {
         abort_if(! in_array($method, ['recent', 'all']), 404);
 
-        $unread = $request->user()->unreadNotifications;
-        $read = $request->user()->readNotifications; // Limit amount
+        if ($method == 'recent') {
+            return response()->json($request->user()->notifications()->limit(6));
+        }
 
-        return response()->json($unread->merge($read)->sortByDesc('created_at'));
+        return response()->json($request->user()->notifications()->paginate(30));
     }
 }
