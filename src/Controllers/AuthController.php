@@ -117,7 +117,7 @@ class AuthController extends Controller
      */
     public function notifications(Request $request, $method = 'recent')
     {
-        abort_if(!in_array($method, ['recent', 'all']), 404);
+        abort_if(! in_array($method, ['recent', 'all']), 404);
 
         $unread = $request->user()->unreadNotifications;
         $read = $request->user()->readNotifications; // Limit amount

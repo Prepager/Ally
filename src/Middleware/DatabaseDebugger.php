@@ -9,14 +9,14 @@ class DatabaseDebugger
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        if(!config('app.debug') || config('app.env') != 'local') {
+        if (! config('app.debug') || config('app.env') != 'local') {
             return $response;
         }
 
         $data = $response->getData();
-        if(is_array($data)) {
+        if (is_array($data)) {
             $data['queries'] = \TeamPay::$queryLog;
-        }else{
+        } else {
             $data->queries = \TeamPay::$queryLog;
         }
 
