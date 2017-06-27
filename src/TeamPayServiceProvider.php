@@ -75,7 +75,7 @@ class TeamPayServiceProvider extends ServiceProvider
 
     /**
      * Record database queries.
-     * 
+     *
      * @return void
      */
     public function recordQueries()
@@ -83,7 +83,7 @@ class TeamPayServiceProvider extends ServiceProvider
         \DB::listen(function ($query) {
             array_push(\TeamPay::$queryLog, [
                 vsprintf(str_replace(['%', '?'], ['%%', '%s'], $query->sql), $query->bindings),
-                $query->time
+                $query->time,
             ]);
         });
     }
