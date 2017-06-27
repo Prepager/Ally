@@ -80,7 +80,7 @@ class TeamPayServiceProvider extends ServiceProvider
      */
     public function recordQueries()
     {
-        if (! env('DB_LOGGER') || ! method_exists($response, 'getData')) {
+        if (! env('DB_LOGGER')) {
             return;
         }
 
