@@ -107,4 +107,21 @@ class AuthController extends Controller
 
         return response()->json(json_decode($response->getContent()), $response->getStatusCode());
     }
+
+    /**
+     * Display an authenticated users notifications.
+     *
+     * @param  Request  $request
+     * @param  string  $method
+     * @return Response
+     */
+    public function notifications(Request $request, $method = 'recent')
+    {
+        abort_if(!in_array($method, ['recent', 'all']), 404);
+
+        $unread = $request->user()->unreadNotifications;
+        $read = $request->user()->readNotifications; // Limit amount
+
+        return response()->json($unread->merge($read)->sortByDesc('created_at'));
+    }
 }

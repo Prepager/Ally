@@ -69,5 +69,22 @@ class TeamPayServiceProvider extends ServiceProvider
                 //
             ]);
         }
+
+        $this->recordQueries();
+    }
+
+    /**
+     * Record database queries.
+     * 
+     * @return void
+     */
+    public function recordQueries()
+    {
+        \DB::listen(function ($query) {
+            array_push(\TeamPay::$queryLog, [
+                vsprintf(str_replace(['%', '?'], ['%%', '%s'], $query->sql), $query->bindings),
+                $query->time
+            ]);
+        });
     }
 }

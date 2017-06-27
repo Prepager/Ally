@@ -11,7 +11,7 @@ Route::group([
     // Cashier
     Route::post('/braintree/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
 
-    // Namespace
+    // Group: Namespaced
     Route::group(['namespace' => 'ZapsterStudios\TeamPay\Controllers'], function () {
 
         // Group: Unauthenticated
@@ -29,6 +29,7 @@ Route::group([
             // Auth
             Route::get('/user', 'AuthController@user');
             Route::post('/logout', 'AuthController@logout');
+            Route::get('/notifications/{method?}', 'AuthController@notifications');
 
             // Teams
             Route::apiResource('/'.str_plural(TeamPay::$teamName), 'TeamController');

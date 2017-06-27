@@ -6,7 +6,7 @@ use App\Team;
 use Illuminate\Http\Request;
 use ZapsterStudios\TeamPay\Models\TeamMember;
 
-class TeamMemberController extends Controller
+class TeamInvitationController extends Controller
 {
     /**
      * Display a listing of the teams members.
@@ -15,9 +15,18 @@ class TeamMemberController extends Controller
      */
     public function index(Team $team)
     {
-        $this->authorize('view', Team::class);
+        //
+    }
 
-        return response()->json($team->members()->get());
+    /**
+     * Store a newly created team member in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, Team $team)
+    {
+        //
     }
 
     /**
@@ -28,10 +37,7 @@ class TeamMemberController extends Controller
      */
     public function show(Team $team, TeamMember $member)
     {
-        $this->authorize('view', $team);
-        abort_if($member->team_id != $team->id, 404);
-
-        return response()->json($member);
+        //
     }
 
     /**
@@ -43,13 +49,7 @@ class TeamMemberController extends Controller
      */
     public function update(Request $request, Team $team, TeamMember $member)
     {
-        $this->authorize('update', $team);
-        $this->validate($request, TeamMember::$rules);
-        abort_if($member->team_id != $team->id, 404);
-
-        return response()->json(tap($member)->update([
-            'group' => $request->group,
-        ]));
+        //
     }
 
     /**
@@ -60,11 +60,6 @@ class TeamMemberController extends Controller
      */
     public function destroy(Team $team, TeamMember $member)
     {
-        $this->authorize('update', $team);
-        abort_if($member->team_id != $team->id, 404);
-
-        $member->delete();
-
-        // Event...
+        //
     }
 }
