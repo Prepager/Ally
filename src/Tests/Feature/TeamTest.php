@@ -44,6 +44,7 @@ class TeamTest extends TestCase
         $response = $this->json('GET', '/teams/'.$team->slug);
 
         $response->assertStatus(200);
+        $response->assertJson($team->toArray());
         $response->assertJsonStructure($this->teamStructure);
     }
 
@@ -61,6 +62,7 @@ class TeamTest extends TestCase
         $response = $this->json('GET', '/teams/'.$team->slug);
 
         $response->assertStatus(200);
+        $response->assertJson($team->toArray());
         $response->assertJsonStructure($this->teamStructure);
     }
 
@@ -75,7 +77,11 @@ class TeamTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+        $response->assertJson([
+            'name' => 'Example',
+        ]);
         $response->assertJsonStructure($this->teamStructure);
+
         $this->assertDatabaseHas('teams', [
             'name' => 'Example',
         ]);
@@ -93,7 +99,12 @@ class TeamTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+        $response->assertJson(array_merge($team->toArray(), [
+            'name' => 'Foobar',
+            'slug' => str_slug('Foobar'),
+        ]));
         $response->assertJsonStructure($this->teamStructure);
+
         $this->assertDatabaseHas('teams', [
             'name' => 'Foobar',
             'slug' => str_slug('Foobar'),
