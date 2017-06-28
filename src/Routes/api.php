@@ -38,7 +38,7 @@ Route::group([
             Route::group(['prefix' => '/'.str_plural(TeamPay::$teamName)], function () {
 
                 // Members
-                Route::apiResource('/{team}/members', 'TeamMemberController');
+                Route::apiResource('/{team}/members', 'TeamMemberController', ['except' => ['store']]);
             });
         });
     });
