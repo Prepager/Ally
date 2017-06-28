@@ -34,7 +34,7 @@ class TeamPayServiceProvider extends ServiceProvider
         Passport::tokensCan([
             // Teams
             'view-teams' => 'View Teams',
-            'manage-teams' => 'Manage Teams (Create, Update & Delete)',
+            'manage-teams' => 'Manage Teams and its Members',
 
             //
         ]);
@@ -85,6 +85,12 @@ class TeamPayServiceProvider extends ServiceProvider
         }
 
         \DB::listen(function ($query) {
+            foreach($query->bindings as $index => $binding) {
+                if ($binding instanceof \DateTime) {
+                    $query->bindings[$index] = $binding->format('\'Y-m-d H:i:s\'');
+                }
+            }
+
             array_push(\TeamPay::$queryLog, [
                 vsprintf(str_replace(['%', '?'], ['%%', '%s'], $query->sql), $query->bindings),
                 $query->time,

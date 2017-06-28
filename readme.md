@@ -49,5 +49,5 @@ php artisan passport:install
 
 Tests
 ```
-phpunit TeamPay
+vendor/bin/phpunit TeamPay
 ```
