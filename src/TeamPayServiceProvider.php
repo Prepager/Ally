@@ -85,7 +85,7 @@ class TeamPayServiceProvider extends ServiceProvider
         }
 
         \DB::listen(function ($query) {
-            foreach($query->bindings as $index => $binding) {
+            foreach ($query->bindings as $index => $binding) {
                 if ($binding instanceof \DateTime) {
                     $query->bindings[$index] = $binding->format('\'Y-m-d H:i:s\'');
                 }
