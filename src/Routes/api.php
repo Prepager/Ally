@@ -37,7 +37,7 @@ Route::group(['middleware' => 'api'], function () {
                     'show' => 'teams.show',
                     'update' => 'teams.update',
                     'destroy' => 'teams.destroy',
-                ]
+                ],
             ]);
 
             // Group: Teams
