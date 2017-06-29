@@ -12,7 +12,7 @@ class AuthenticationTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->json('POST', '/login', [
+        $response = $this->json('POST', route('login'), [
             'email' => $user->email,
             'password' => 'secret',
         ]);
@@ -29,7 +29,7 @@ class AuthenticationTest extends TestCase
     /** @test */
     public function userCanNotLoginWithInvalidCredentials()
     {
-        $response = $this->json('POST', '/login', [
+        $response = $this->json('POST', route('login'), [
             'email' => 'unregistered@example.com',
             'password' => 'unregistered',
         ]);
@@ -43,7 +43,7 @@ class AuthenticationTest extends TestCase
      */
     public function userCanLogout($token)
     {
-        $response = $this->json('POST', '/logout', [], [
+        $response = $this->json('POST', route('logout'), [], [
             'HTTP_Authorization' => 'Bearer '.$token->access_token,
         ]);
 
@@ -58,7 +58,7 @@ class AuthenticationTest extends TestCase
      */
     public function userCanRefreshTokenWithValidToken($token)
     {
-        $response = $this->json('POST', '/login/refresh', [
+        $response = $this->json('POST', route('refresh'), [
             'token' => $token->refresh_token,
         ]);
 
@@ -72,7 +72,7 @@ class AuthenticationTest extends TestCase
     /** @test */
     public function userCanNotRefreshTokenWithInvalidToken()
     {
-        $response = $this->json('POST', '/login/refresh', [
+        $response = $this->json('POST', route('refresh'), [
             'token' => 'invalid-token',
         ]);
 
@@ -82,7 +82,7 @@ class AuthenticationTest extends TestCase
     /** @test */
     public function guestCanRegisterWithValidInformation()
     {
-        $response = $this->json('POST', '/register', [
+        $response = $this->json('POST', route('register'), [
             'name' => 'Andreas',
             'email' => 'andreas@example.com',
             'password' => 'secret',
@@ -107,7 +107,7 @@ class AuthenticationTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->json('POST', '/register', [
+        $response = $this->json('POST', route('register'), [
             'name' => $user->name,
             'email' => $user->email,
             'password' => 'secret',
@@ -121,7 +121,7 @@ class AuthenticationTest extends TestCase
     /** @test */
     public function guestCanNotRegisterWithInsufficientInformation()
     {
-        $response = $this->json('POST', '/register', [
+        $response = $this->json('POST', route('register'), [
             'name' => 'Andreas',
         ]);
 
