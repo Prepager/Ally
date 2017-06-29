@@ -125,4 +125,19 @@ class TeamTest extends TestCase
             'slug' => $team->slug,
         ]);
     }
+
+    /** @test */
+    public function canGenerateUniqueSlug()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user, ['manage-teams']);
+        $team1 = $this->json('POST', route('teams.store'), ['name' => 'Example Community']);
+        $team2 = $this->json('POST', route('teams.store'), ['name' => 'Example-Community']);
+        $team3 = $this->json('POST', route('teams.store'), ['name' => 'Example_Community']);
+
+        $team1->assertJson(['slug' => 'example-community']);
+        $team2->assertJson(['slug' => 'example-community-1']);
+        $team3->assertJson(['slug' => 'example-community-2']);
+    }
 }

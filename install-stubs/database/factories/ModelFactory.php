@@ -24,13 +24,13 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Team::class, function (Faker\Generator $faker) {
     $company = $faker->company;
 
     return [
         'user_id' => factory(App\User::class)->create()->id,
         'name' => $company,
-        'slug' => str_slug($company),
+        'slug' => App\Team::generateSlug(str_slug($company)),
     ];
 });

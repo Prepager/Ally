@@ -77,8 +77,10 @@ class Team extends Model
     /**
      * Generate team slug.
      */
-    public static function generateSlug($id, $slug, $current = false)
+    public static function generateSlug($slug, $original = null, $current = false, $id = 1)
     {
+        if(!$original) { $original = $slug; }
+
         if ($current && $current == $slug) {
             return $slug;
         }
@@ -88,7 +90,7 @@ class Team extends Model
         ]);
 
         return $unique->fails()
-            ? self::generateSlug($id + 1, $slug.'-'.$id, $current)
+            ? self::generateSlug($original.'-'.$id, $original, $current, $id + 1)
             : $slug;
     }
 }
