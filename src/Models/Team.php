@@ -79,7 +79,9 @@ class Team extends Model
      */
     public static function generateSlug($slug, $original = null, $current = false, $id = 1)
     {
-        if(!$original) { $original = $slug; }
+        if (! $original) {
+            $original = $slug;
+        }
 
         if ($current && $current == $slug) {
             return $slug;
