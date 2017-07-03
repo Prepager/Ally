@@ -16,7 +16,7 @@ class TeamMemberController extends Controller
      */
     public function index(Team $team)
     {
-        $this->authorize('view', Team::class);
+        $this->authorize('view', $team);
 
         return response()->json($team->members()->get());
     }
@@ -44,6 +44,10 @@ class TeamMemberController extends Controller
      */
     public function update(Request $request, Team $team, TeamMember $member)
     {
+        $request->request->add([
+            'user_id' => $member->id,
+        ]);
+
         $this->authorize('update', $team);
         $this->validate($request, TeamMember::$rules);
         abort_if($member->team_id != $team->id, 404);

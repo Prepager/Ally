@@ -6,6 +6,7 @@ use TeamPay;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -50,9 +51,14 @@ class Handler extends ExceptionHandler
             $response = parent::render($request, $e);
             $message = TeamPay::getResponseMessage($response->getStatusCode());
 
-            return response()->json([
-                'error' => $message,
-            ], $response->getStatusCode());
+            $data = ['message' => $message];
+            if(config('app.debug')) {
+                $data['exception'] = class_basename($e) . ' in ' .
+                    basename($e->getFile()) . ' line ' .
+                    $e->getLine() . ': ' . $e->getMessage();
+            }
+
+            return response()->json($data, $response->getStatusCode());
         }
 
         return parent::render($request, $e);
