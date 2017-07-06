@@ -2,7 +2,7 @@
 
 namespace ZapsterStudios\TeamPay\Models;
 
-use Validator;
+use TeamPay, Validator;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -72,6 +72,32 @@ class Team extends Model
     public function teamMembers()
     {
         return $this->hasMany('ZapsterStudios\TeamPay\Models\TeamMember', 'team_id', 'id');
+    }
+
+    /**
+     * Get the teams active plan.
+     */
+    public function plan()
+    {
+        // Check subscription.
+
+        return TeamPay::freePlans()->first();
+    }
+
+    /**
+     * Get the teams plan permissions.
+     */
+    public function permissions()
+    {
+        return $this->plan()->permissions;
+    }
+
+    /**
+     * Get a specefic teams plan permission.
+     */
+    public function permission($permission)
+    {
+        return $this->plan()->permissions[$permission];
     }
 
     /**

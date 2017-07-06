@@ -8,6 +8,8 @@ class TeamPay
      * Use configuration files.
      */
     use Configuration\TeamConfiguration;
+    use Configuration\PlanConfiguration;
+
     /*
      * Use data repositories.
      */
