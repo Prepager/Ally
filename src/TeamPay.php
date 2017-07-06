@@ -9,7 +9,6 @@ class TeamPay
      */
     use Configuration\TeamConfiguration;
     use Configuration\PlanConfiguration;
-
     /*
      * Use data repositories.
      */

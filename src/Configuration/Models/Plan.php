@@ -21,21 +21,21 @@ class Plan
     /**
      * The plan price (0 for free).
      *
-     * @var integer
+     * @var int
      */
     public $price;
 
     /**
      * The current plan status (0 for archived).
      *
-     * @var integer
+     * @var int
      */
     public $active = 1;
 
     /**
      * The max amount of members on the team (0 for unlimited).
      *
-     * @var integer
+     * @var int
      */
     public $members = 0;
 
@@ -47,7 +47,7 @@ class Plan
     public $features = [];
 
     /**
-     * The plan permissions
+     * The plan permissions.
      *
      * @var array
      */
@@ -69,15 +69,17 @@ class Plan
     public function archive()
     {
         $this->active = 0;
+
         return $this;
     }
 
     /**
-     * Set maximum amount of members
+     * Set maximum amount of members.
      */
     public function maxMembers($count)
     {
         $this->members = $count;
+
         return $this;
     }
 
@@ -87,6 +89,7 @@ class Plan
     public function features($features)
     {
         $this->features = $features;
+
         return $this;
     }
 
@@ -96,6 +99,7 @@ class Plan
     public function permissions($permissions)
     {
         $this->permissions = $permissions;
+
         return $this;
     }
 }

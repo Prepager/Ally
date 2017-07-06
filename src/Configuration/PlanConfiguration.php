@@ -24,7 +24,7 @@ trait PlanConfiguration
 
     /**
      * Return all plans.
-     * 
+     *
      * @returns array
      */
     public static function plans()
@@ -34,7 +34,7 @@ trait PlanConfiguration
 
     /**
      * Return free plans.
-     * 
+     *
      * @returns array
      */
     public static function freePlans()
@@ -46,7 +46,7 @@ trait PlanConfiguration
 
     /**
      * Return active plans.
-     * 
+     *
      * @returns array
      */
     public static function activePlans()
@@ -58,7 +58,7 @@ trait PlanConfiguration
 
     /**
      * Return archived plans.
-     * 
+     *
      * @returns array
      */
     public static function archivedPlans()

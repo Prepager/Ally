@@ -2,7 +2,8 @@
 
 namespace ZapsterStudios\TeamPay\Models;
 
-use TeamPay, Validator;
+use TeamPay;
+use Validator;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
