@@ -50,7 +50,7 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * Cancel a teams subscription
+     * Cancel a teams subscription.
      *
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
@@ -65,7 +65,7 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * Resume a teams subscription
+     * Resume a teams subscription.
      *
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
