@@ -32,13 +32,16 @@ Route::group(['middleware' => 'api'], function () {
         // Group: Authenticated
         Route::group(['middleware' => 'auth:api'], function () {
 
+            // Variables
+            $plural = str_plural(TeamPay::$teamName);
+
             // Auth
             Route::get('/user', 'AuthController@user')->name('user');
             Route::post('/logout', 'AuthController@logout')->name('logout');
             Route::get('/notifications/{method?}', 'AuthController@notifications')->name('notifications');
 
             // Teams
-            Route::apiResource('/'.str_plural(TeamPay::$teamName), 'TeamController', [
+            Route::apiResource('/'.$plural, 'TeamController', [
                 'names' => [
                     'index' => 'teams.index',
                     'store' => 'teams.store',
@@ -49,13 +52,21 @@ Route::group(['middleware' => 'api'], function () {
             ]);
 
             // Group: Teams
-            Route::group(['prefix' => '/'.str_plural(TeamPay::$teamName)], function () {
+            Route::group(['prefix' => '/'.$plural.'/{team}'], function () {
 
-                // Subscribe
-                Route::post('/{team}/subscribe', 'TeamSubscriptionController@subscribe');
+                // Subscription
+                Route::post('/subscription', 'SubscriptionController@subscription')->name('subscription');
+
+                // Group: Subscribed
+                Route::group(['middleware' => 'subscribed'], function () {
+
+                    // Subscription
+                    Route::post('/subscription/cancel', 'SubscriptionController@cancel')->name('subscription.cancel');
+                    Route::post('/subscription/resume', 'SubscriptionController@resume')->name('subscription.resume');
+                });
 
                 // Members
-                Route::apiResource('/{team}/members', 'TeamMemberController', [
+                Route::apiResource('/members', 'TeamMemberController', [
                     'except' => ['store'],
                     'as' => 'team',
                 ]);
