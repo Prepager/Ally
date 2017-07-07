@@ -3,7 +3,6 @@
 namespace ZapsterStudios\TeamPay\Controllers;
 
 use App\User;
-use App\Team;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
 
