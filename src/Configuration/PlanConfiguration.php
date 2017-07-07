@@ -28,7 +28,7 @@ trait PlanConfiguration
     public static function duplicatePlan($duplicate, $id, $name = null, $price = null)
     {
         $existing = static::plans()->where('id', $duplicate)->first();
-        if(! $existing) {
+        if (! $existing) {
             throw new \Exception('Unable to duplicate plan ('.$duplicate.').');
         }
 
