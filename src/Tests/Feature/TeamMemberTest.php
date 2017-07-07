@@ -13,7 +13,7 @@ class TeamMemberTest extends TestCase
     public function guestCanNotRetrieveMembers()
     {
         $team = factory(Team::class)->create();
-        $response = $this->json('GET', route('team.members.index', $team->slug));
+        $response = $this->json('GET', route('teams.members.index', $team->slug));
 
         $response->assertStatus(401);
     }
@@ -25,7 +25,7 @@ class TeamMemberTest extends TestCase
         $team = factory(Team::class)->create();
 
         Passport::actingAs($user, ['view-teams']);
-        $response = $this->json('GET', route('team.members.index', $team->slug));
+        $response = $this->json('GET', route('teams.members.index', $team->slug));
 
         $response->assertStatus(403);
     }
@@ -38,7 +38,7 @@ class TeamMemberTest extends TestCase
         $extra = $team->members()->save(factory(User::class)->create());
 
         Passport::actingAs($extra, ['view-teams']);
-        $response = $this->json('GET', route('team.members.index', $team->slug));
+        $response = $this->json('GET', route('teams.members.index', $team->slug));
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -59,7 +59,7 @@ class TeamMemberTest extends TestCase
         $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
 
         Passport::actingAs($user, ['manage-teams']);
-        $response = $this->json('PUT', route('team.members.update', [$team->slug, $member->id]), [
+        $response = $this->json('PUT', route('teams.members.update', [$team->slug, $member->id]), [
             'group' => 'member',
         ]);
 
@@ -81,7 +81,7 @@ class TeamMemberTest extends TestCase
         $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
 
         Passport::actingAs($user, ['manage-teams']);
-        $response = $this->json('DELETE', route('team.members.destroy', [$team->slug, $member->id]));
+        $response = $this->json('DELETE', route('teams.members.destroy', [$team->slug, $member->id]));
 
         $response->assertStatus(200);
     }

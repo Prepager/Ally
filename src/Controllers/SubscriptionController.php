@@ -17,16 +17,19 @@ class SubscriptionController extends Controller
      */
     public function subscription(Request $request, Team $team)
     {
-        $planIDs = TeamPay::activePlans()->implode('id', ',');
-
         $this->authorize('update', $team);
         $this->validate($request, [
-            'plan' => 'required|in_array:'.$planIDs,
+            'plan' => 'required',
             'type' => 'required',
             'nonce' => 'required',
         ]);
 
         $plan = TeamPay::activePlans()->where('id', $request->plan)->first();
+        if (! $plan) {
+            return response()->json([
+                'plan' => ['Unavailable plan.']
+            ]);
+        }
 
         if ($plan->id === TeamPay::freePlan()->id) {
             $team->subscription()->cancel();

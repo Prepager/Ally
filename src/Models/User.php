@@ -11,6 +11,14 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     /**
+     * Get the users active team.
+     */
+    public function team()
+    {
+        return $this->hasOne('App\Team', 'id', 'team_id');
+    }
+
+    /**
      * Get all the users teams.
      */
     public function teams()

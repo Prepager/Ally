@@ -95,4 +95,21 @@ class TeamController extends Controller
 
         event(new TeamDeleated($team));
     }
+
+    /**
+     * Change a users active team.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function change(Request $request, Team $team)
+    {
+        $this->authorize('view', $team);
+
+        $user = $request->user();
+        $user->team_id = $team->id;
+        $user->save();
+
+        return response()->json($team);
+    }
 }

@@ -15,7 +15,14 @@ class Subscribed
      */
     public function handle($request, Closure $next)
     {
-        // Some check
+        if (! $request->user()) {
+            return response()->json('Unauthenticated.', 401);
+        }
+
+        $team = ($request->route('team') ?? $request->user()->team);
+        if (! $team || ! $team->subscribed()) {
+            return response()->json('Subscription required.', 403);
+        }
 
         return $next($request);
     }
