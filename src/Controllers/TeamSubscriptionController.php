@@ -23,10 +23,12 @@ class TeamSubscriptionController extends Controller
 
         $plan = TeamPay::activePlans()->where('id', $request->plan)->first();
 
-        if ($plan->price == 0) {
-            //
+        if ($plan->id === TeamPay::freePlan()->id) {
+            $team->subscription()->cancel();
 
-            return;
+            return response()->json([
+                'message' => 'Subscription cancelled',
+            ]);
         }
 
         if ($team->subscribed()) {

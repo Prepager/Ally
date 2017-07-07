@@ -23,6 +23,24 @@ trait PlanConfiguration
     }
 
     /**
+     * Duplicate an existing plan.
+     */
+    public static function duplicatePlan($duplicate, $id, $name = null, $price = null)
+    {
+        $existing = static::plans()->where('id', $duplicate)->first();
+        if(! $existing) {
+            throw new \Exception('Unable to duplicate plan ('.$duplicate.').');
+        }
+
+        $plan = clone $existing;
+        $plan->__construct($id, ($name ?? $plan->name), ($price ?? $plan->price));
+
+        static::$plans[] = $plan;
+
+        return $plan;
+    }
+
+    /**
      * Return all plans.
      *
      * @returns array
@@ -54,6 +72,16 @@ trait PlanConfiguration
         return static::plans()->reject(function ($value) {
             return $value->price;
         });
+    }
+
+    /**
+     * Return the default free plan.
+     *
+     * @returns array
+     */
+    public static function freePlan()
+    {
+        return static::freePlans()->first();
     }
 
     /**

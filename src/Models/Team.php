@@ -84,7 +84,7 @@ class Team extends Model
             return TeamPay::plan($this->subscription()->braintree_plan);
         }
 
-        return TeamPay::freePlans()->first();
+        return TeamPay::freePlan();
     }
 
     /**
