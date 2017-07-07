@@ -27,7 +27,7 @@ class SubscriptionController extends Controller
         $plan = TeamPay::activePlans()->where('id', $request->plan)->first();
         if (! $plan) {
             return response()->json([
-                'plan' => ['Unavailable plan.']
+                'plan' => ['Unavailable plan.'],
             ]);
         }
 
