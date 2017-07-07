@@ -33,6 +33,18 @@ trait PlanConfiguration
     }
 
     /**
+     * Return single plan.
+     *
+     * @returns array
+     */
+    public static function plan($id)
+    {
+        return static::plans()->first(function($plan) use ($id) {
+            return $plan->id === $id;
+        });
+    }
+
+    /**
      * Return free plans.
      *
      * @returns array
@@ -53,6 +65,18 @@ trait PlanConfiguration
     {
         return static::plans()->reject(function ($value) {
             return ! $value->active;
+        });
+    }
+
+    /**
+     * Return active plan ids.
+     *
+     * @returns array
+     */
+    public static function activePlanIDs()
+    {
+        return static::activePlans()->map(function($plan) {
+            return $plan->id;
         });
     }
 

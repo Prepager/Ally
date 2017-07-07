@@ -80,7 +80,9 @@ class Team extends Model
      */
     public function plan()
     {
-        // Check subscription.
+        if ($this->subscribed()) {
+            return TeamPay::plan($this->subscription()->braintree_plan);
+        }
 
         return TeamPay::freePlans()->first();
     }

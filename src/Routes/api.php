@@ -12,6 +12,14 @@ Route::group(['middleware' => 'api'], function () {
     // Group: Namespaced
     Route::group(['namespace' => 'ZapsterStudios\TeamPay\Controllers'], function () {
 
+        // Group: App
+        Route::group(['prefix' => '/app'], function () {
+
+            // Settings
+            Route::get('/', 'AppController@index')->name('app');
+            Route::get('/token', 'AppController@token')->name('app.token');
+        });
+
         // Group: Unauthenticated
         Route::group([], function () {
 
@@ -42,6 +50,9 @@ Route::group(['middleware' => 'api'], function () {
 
             // Group: Teams
             Route::group(['prefix' => '/'.str_plural(TeamPay::$teamName)], function () {
+
+                // Subscribe
+                Route::post('/{team}/subscribe', 'TeamSubscriptionController@subscribe');
 
                 // Members
                 Route::apiResource('/{team}/members', 'TeamMemberController', [
