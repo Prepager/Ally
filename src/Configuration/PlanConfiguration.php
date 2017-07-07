@@ -39,7 +39,7 @@ trait PlanConfiguration
      */
     public static function plan($id)
     {
-        return static::plans()->first(function($plan) use ($id) {
+        return static::plans()->first(function ($plan) use ($id) {
             return $plan->id === $id;
         });
     }
@@ -75,7 +75,7 @@ trait PlanConfiguration
      */
     public static function activePlanIDs()
     {
-        return static::activePlans()->map(function($plan) {
+        return static::activePlans()->map(function ($plan) {
             return $plan->id;
         });
     }
