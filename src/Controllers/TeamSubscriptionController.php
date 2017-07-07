@@ -23,7 +23,7 @@ class TeamSubscriptionController extends Controller
 
         $plan = TeamPay::activePlans()->where('id', $request->plan)->first();
 
-        if($plan->price == 0) {
+        if ($plan->price == 0) {
             //
 
             return;
