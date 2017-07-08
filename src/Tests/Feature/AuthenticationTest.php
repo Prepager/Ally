@@ -2,8 +2,8 @@
 
 namespace ZapsterStudios\TeamPay\Tests\Feature;
 
-use App\User;
 use App\Team;
+use App\User;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
