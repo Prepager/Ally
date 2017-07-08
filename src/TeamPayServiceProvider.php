@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay;
 
+use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Illuminate\Support\ServiceProvider;
 use Braintree_Configuration as Braintree;
@@ -31,7 +32,13 @@ class TeamPayServiceProvider extends ServiceProvider
      */
     public function bootPassport()
     {
+        Passport::tokensExpireIn(Carbon::now()->addMinutes(30));
+        Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+
         Passport::tokensCan([
+            // User
+            'view-notifications' => 'Read Notifications',
+
             // Teams
             'view-teams' => 'View Teams',
             'manage-teams' => 'Manage Teams and its Members',

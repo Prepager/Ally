@@ -3,6 +3,8 @@
 namespace ZapsterStudios\TeamPay\Tests\Feature;
 
 use App\User;
+use App\Team;
+use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -22,8 +24,6 @@ class AuthenticationTest extends TestCase
             'token_type', 'expires_in',
             'access_token', 'refresh_token',
         ]);
-
-        return json_decode($response->getContent());
     }
 
     /** @test */
@@ -37,29 +37,21 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /**
-     * @test
-     * @depends userCanLoginWithValidCredentials
-     */
-    public function userCanLogout($token)
+    /** @test */
+    public function userCanRefreshTokenWithValidToken()
     {
-        $response = $this->json('POST', route('logout'), [], [
-            'HTTP_Authorization' => 'Bearer '.$token->access_token,
+        $user = factory(User::class)->create();
+
+        $response = $this->json('POST', route('login'), [
+            'email' => $user->email,
+            'password' => 'secret',
         ]);
 
         $response->assertStatus(200);
 
-        return $token;
-    }
-
-    /**
-     * @test
-     * @depends userCanLogout
-     */
-    public function userCanRefreshTokenWithValidToken($token)
-    {
+        $token = json_decode($response->getContent());
         $response = $this->json('POST', route('refresh'), [
-            'token' => $token->refresh_token,
+            'refresh_token' => $token->refresh_token,
         ]);
 
         $response->assertStatus(200);
@@ -70,10 +62,30 @@ class AuthenticationTest extends TestCase
     }
 
     /** @test */
+    public function userCanLogout()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->json('POST', route('login'), [
+            'email' => $user->email,
+            'password' => 'secret',
+        ]);
+
+        $response->assertStatus(200);
+
+        $token = json_decode($response->getContent());
+        $response = $this->json('POST', route('logout'), [], [
+            'HTTP_Authorization' => 'Bearer '.$token->access_token,
+        ]);
+
+        $response->assertStatus(200);
+    }
+
+    /** @test */
     public function userCanNotRefreshTokenWithInvalidToken()
     {
         $response = $this->json('POST', route('refresh'), [
-            'token' => 'invalid-token',
+            'refresh_token' => 'invalid-token',
         ]);
 
         $response->assertStatus(400);
@@ -126,5 +138,48 @@ class AuthenticationTest extends TestCase
         ]);
 
         $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function userCanChangeActiveTeam()
+    {
+        $user = factory(User::class)->create();
+        $team = $user->teams()->save(factory(Team::class)->create());
+
+        Passport::actingAs($user, ['view-teams']);
+        $response = $this->json('POST', route('teams.change', $team->slug));
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'team_id' => $team->id,
+        ]);
+    }
+
+    /** @test */
+    public function userCanNotChangeActiveTeamToUnownedTeam()
+    {
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create();
+
+        Passport::actingAs($user, ['view-teams']);
+        $response = $this->json('POST', route('teams.change', $team->slug));
+
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function userCanRetrieveNotifications()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user, ['view-notifications']);
+        $responseAll = $this->json('GET', route('notifications', 'all'));
+        $responseRecent = $this->json('GET', route('notifications', 'recent'));
+
+        $responseAll->assertStatus(200);
+        $responseRecent->assertStatus(200);
+
+        // Check response data.
     }
 }

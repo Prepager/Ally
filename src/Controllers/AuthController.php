@@ -46,7 +46,7 @@ class AuthController extends Controller
     public function refresh(Request $request)
     {
         return $this->proxy('refresh_token', [
-            'refresh_token' => $request->token,
+            'refresh_token' => $request->refresh_token,
             'scope' => '*',
         ]);
     }
@@ -62,6 +62,7 @@ class AuthController extends Controller
 
         if ($token) {
             $token->revoke();
+            $token->delete();
         }
     }
 
@@ -117,6 +118,7 @@ class AuthController extends Controller
      */
     public function notifications(Request $request, $method = 'recent')
     {
+        abort_if(! $request->user()->tokenCan('view-notifications'), 403);
         abort_if(! in_array($method, ['recent', 'all']), 404);
 
         if ($method == 'recent') {

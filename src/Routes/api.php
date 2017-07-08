@@ -16,16 +16,11 @@ Route::group([
     'namespace' => 'ZapsterStudios\TeamPay\Controllers',
 ], function () {
 
-    // Group: App
-    Route::group(['prefix' => '/app'], function () {
-
-        // Settings
-        Route::get('/', 'AppController@index')->name('app');
-        Route::get('/token', 'AppController@token')->name('app.token');
-    });
-
     // Group: Unauthenticated
     Route::group([], function () {
+
+        // App
+        Route::get('/app', 'AppController@index')->name('app');
 
         // Auth
         Route::post('/login', 'AuthController@login')->name('login');
@@ -38,6 +33,9 @@ Route::group([
 
         // Variables
         $plural = str_plural(TeamPay::$teamName);
+
+        // App
+        Route::get('/app/token', 'AppController@token')->name('app.token');
 
         // Auth
         Route::get('/user', 'AuthController@user')->name('user');

@@ -4,6 +4,7 @@ namespace ZapsterStudios\TeamPay\Controllers;
 
 use TeamPay;
 use Braintree\ClientToken;
+use Illuminate\Http\Request;
 
 class AppController extends Controller
 {
@@ -22,13 +23,16 @@ class AppController extends Controller
     /**
      * Return a new billing provider token.
      *
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function token()
+    public function token(Request $request)
     {
+        $team = $request->user()->team;
+
         return response()->json([
             'token' => ClientToken::generate([
-                'customerId' => $team->braintree_id,
+                'customerId' => ($team ? $team->braintree_id : ''),
             ]),
         ]);
     }
