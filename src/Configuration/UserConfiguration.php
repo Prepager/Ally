@@ -28,6 +28,6 @@ trait UserConfiguration
      */
     public static function isAdmin($email)
     {
-        return static::$admins->contains($email);
+        return static::admins()->contains($email);
     }
 }
