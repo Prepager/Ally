@@ -20,17 +20,18 @@ trait TeamConfiguration
 
     /**
      * Create default groups.
-     * 
+     *
      * @returns void
      */
-    public static function teamSetup() {
+    public static function teamSetup()
+    {
         static::addGroup('owner', 'Owner', ['*']);
         static::addGroup('member', 'Member');
     }
 
     /**
-     * Add a new team group
-     * 
+     * Add a new team group.
+     *
      * @returns Group
      */
     public static function addGroup($id, $name, $permissions = [])

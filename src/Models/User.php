@@ -82,11 +82,11 @@ class User extends Authenticatable
      */
     public function teamMember($team)
     {
-        $member = $team->members->first(function($user) {
+        $member = $team->members->first(function ($user) {
             return $this->id === $user->id;
         });
 
-        return ($member ? $member->pivot : null);
+        return $member ? $member->pivot : null;
     }
 
     /**
@@ -112,7 +112,7 @@ class User extends Authenticatable
      */
     public function groupPermission($team, $permission)
     {
-        return $this->groupPermissions($team)->first(function($perm) use ($permission) {
+        return $this->groupPermissions($team)->first(function ($perm) use ($permission) {
             return fnmatch($perm, $permission);
         }) ? true : false;
     }

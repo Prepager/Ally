@@ -30,8 +30,7 @@ Route::group([
 
     // Group: Authenticated
     Route::group(['middleware' => 'auth:api'], function () {
-
-        Route::get('/debug/{team}', function(\Illuminate\Http\Request $request, App\Team $team) {
+        Route::get('/debug/{team}', function (\Illuminate\Http\Request $request, App\Team $team) {
             dd($request->user()->groupCan($team, 'test'));
             //dd($team->group(Auth::user()));
         });
