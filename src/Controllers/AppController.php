@@ -18,6 +18,7 @@ class AppController extends Controller
     {
         return response()->json([
             'plans' => TeamPay::plans(),
+            'groups' => TeamPay::groups(),
         ]);
     }
 

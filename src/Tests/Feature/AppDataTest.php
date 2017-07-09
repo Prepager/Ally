@@ -15,7 +15,7 @@ class AppDataTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
-            'plans', // Reset of config options.
+            'plans', 'groups', // Reset of config options.
         ]);
     }
 
