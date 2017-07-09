@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\TeamPay\Models;
 
-use TeamPay;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamMember extends Model
