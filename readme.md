@@ -49,5 +49,10 @@ php artisan passport:install
 
 Tests
 ```
+Braintree: valid-first-plan | Valid First Plan | $5 | 1 Month
+Braintree: valid-second-plan | Valid Second Plan | $10 | 1 Month
+```
+
+```
 vendor/bin/phpunit TeamPay
 ```

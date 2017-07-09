@@ -17,10 +17,10 @@ class SubscriptionController extends Controller
      */
     public function subscription(Request $request, Team $team)
     {
+        abort_unless($request->user()->tokenCan('manage-subscriptions'), 401);
         $this->authorize('update', $team);
         $this->validate($request, [
             'plan' => 'required',
-            'type' => 'required',
             'nonce' => 'required',
         ]);
 
@@ -28,7 +28,7 @@ class SubscriptionController extends Controller
         if (! $plan) {
             return response()->json([
                 'plan' => ['Unavailable plan.'],
-            ]);
+            ], 422);
         }
 
         if ($plan->id === TeamPay::freePlan()->id) {
@@ -55,11 +55,13 @@ class SubscriptionController extends Controller
     /**
      * Cancel a teams subscription.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function cancel(Team $team)
+    public function cancel(Request $request, Team $team)
     {
+        abort_unless($request->user()->tokenCan('manage-subscriptions'), 401);
         $this->authorize('update', $team);
 
         $subscription = $team->subscription()->cancel();
@@ -70,11 +72,13 @@ class SubscriptionController extends Controller
     /**
      * Resume a teams subscription.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function resume(Team $team)
+    public function resume(Request $request, Team $team)
     {
+        abort_unless($request->user()->tokenCan('manage-subscriptions'), 401);
         $this->authorize('update', $team);
 
         $subscription = $team->subscription()->resume();

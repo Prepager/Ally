@@ -42,6 +42,7 @@ class TeamPayServiceProvider extends ServiceProvider
             // Teams
             'view-teams' => 'View Teams',
             'manage-teams' => 'Manage Teams and its Members',
+            'manage-subscriptions' => 'Manage Subscriptions',
 
             //
         ]);
