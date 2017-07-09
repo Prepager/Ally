@@ -100,7 +100,7 @@ class SubscriptionController extends Controller
 
         $invoices = [];
         if ($team->hasBraintreeId()) {
-            $invoices = $team->invoices(true)->map(function($invoice) {
+            $invoices = $team->invoices(true)->map(function ($invoice) {
                 return [
                     'id' => $invoice->id,
                     'status' => $invoice->status,
