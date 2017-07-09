@@ -27,7 +27,7 @@ class Group
 
     /**
      * Apply group details.
-     * 
+     *
      * @returns void
      */
     public function __construct($id, $name, $permissions)
@@ -39,7 +39,7 @@ class Group
 
     /**
      * Rename an existing group.
-     * 
+     *
      * @returns Group
      */
     public function rename($name)

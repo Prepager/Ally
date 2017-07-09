@@ -27,7 +27,8 @@ class TeamPay
      *
      * @returns void
      */
-    public static function setup() {
+    public static function setup()
+    {
         static::teamSetup();
     }
 }
