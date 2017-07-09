@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay\Models;
 
+use TeamPay;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,5 +55,25 @@ class User extends Authenticatable
     public function ownsTeam($team)
     {
         return $this->id === $team->user_id;
+    }
+
+    /**
+     * Check if a user is an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isVerified() && TeamPay::isAdmin($this->email);
+    }
+
+    /**
+     * Check if a user has verified their email.
+     *
+     * @return bool
+     */
+    public function isVerified()
+    {
+        return true; // Missing check here.
     }
 }
