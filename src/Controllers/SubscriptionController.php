@@ -24,16 +24,11 @@ class SubscriptionController extends Controller
         abort_unless($request->user()->tokenCan('manage-subscriptions'), 401);
         $this->authorize('update', $team);
         $this->validate($request, [
-            'plan' => 'required',
+            'plan' => 'required|in:'.TeamPay::plans()->implode('id', ','),
             'nonce' => 'required',
         ]);
 
         $plan = TeamPay::activePlans()->where('id', $request->plan)->first();
-        if (! $plan) {
-            return response()->json([
-                'plan' => ['Unavailable plan.'],
-            ], 422);
-        }
 
         if ($plan->id === TeamPay::freePlan()->id) {
             $team->subscription()->cancel();
