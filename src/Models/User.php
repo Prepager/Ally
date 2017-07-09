@@ -76,4 +76,54 @@ class User extends Authenticatable
     {
         return true; // Missing check here.
     }
+
+    /**
+     * Return a users team member on a team.
+     */
+    public function teamMember($team)
+    {
+        $member = $team->members->first(function($user) {
+            return $this->id === $user->id;
+        });
+
+        return ($member ? $member->pivot : null);
+    }
+
+    /**
+     * Return all permissions for a users team.
+     *
+     * @return array
+     */
+    public function groupPermissions($team)
+    {
+        $member = $this->teamMember($team);
+        if (! $member) {
+            return [];
+        }
+
+        return collect(TeamPay::group($member->group)->permissions)
+            ->merge($member->overwrites);
+    }
+
+    /**
+     * Return a single permission for a users team.
+     *
+     * @return bool
+     */
+    public function groupPermission($team, $permission)
+    {
+        return $this->groupPermissions($team)->first(function($perm) use ($permission) {
+            return fnmatch($perm, $permission);
+        }) ? true : false;
+    }
+
+    /**
+     * Short alias of groupPermission.
+     *
+     * @return array
+     */
+    public function groupCan(...$params)
+    {
+        return $this->groupPermission(...$params);
+    }
 }

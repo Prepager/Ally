@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay;
 
+use TeamPay;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Illuminate\Support\ServiceProvider;
@@ -71,6 +72,7 @@ class TeamPayServiceProvider extends ServiceProvider
     {
         if (! class_exists('TeamPay')) {
             class_alias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay');
+            TeamPay::setup();
         }
 
         if ($this->app->runningInConsole()) {

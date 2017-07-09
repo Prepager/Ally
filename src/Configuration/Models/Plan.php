@@ -64,7 +64,7 @@ class Plan
     }
 
     /**
-     * Archive plan to prevent news subs.
+     * Archive plan to prevent new subs.
      */
     public function archive()
     {

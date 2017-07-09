@@ -8,8 +8,8 @@ class TeamPay
      * Use configuration files.
      */
     use Configuration\TeamConfiguration;
-    use Configuration\PlanConfiguration;
     use Configuration\UserConfiguration;
+    use Configuration\PlanConfiguration;
     /*
      * Use data repositories.
      */
@@ -21,4 +21,13 @@ class TeamPay
      * @var array
      */
     public static $queryLog = [];
+
+    /**
+     * Setup configuration.
+     *
+     * @returns void
+     */
+    public static function setup() {
+        static::teamSetup();
+    }
 }
