@@ -72,6 +72,23 @@ class TeamMemberTest extends TestCase
     }
 
     /** @test */
+    public function ownerCanNotUpdateMemberWithInvalidGroup()
+    {
+        $user = factory(User::class)->create();
+        $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
+
+        $extra = $team->members()->save(factory(User::class)->create());
+        $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
+
+        Passport::actingAs($user, ['manage-teams']);
+        $response = $this->json('PUT', route('teams.members.update', [$team->slug, $member->id]), [
+            'group' => 'invalid-group',
+        ]);
+
+        $response->assertStatus(422);
+    }
+
+    /** @test */
     public function ownerCanDeleteMember()
     {
         $user = factory(User::class)->create();

@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay\Controllers;
 
+use TeamPay;
 use App\Team;
 use Illuminate\Http\Request;
 use ZapsterStudios\TeamPay\Models\TeamMember;
@@ -48,8 +49,11 @@ class TeamMemberController extends Controller
             'user_id' => $member->id,
         ]);
 
+        $rules = TeamMember::$rules;
+        $rules['group'] = $rules['group'].'|in:'.TeamPay::groups()->implode('id', ',');
+
         $this->authorize('update', $team);
-        $this->validate($request, TeamMember::$rules);
+        $this->validate($request, $rules);
         abort_if($member->team_id != $team->id, 404);
 
         return response()->json(tap($member)->update([

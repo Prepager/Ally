@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay\Models;
 
+use TeamPay;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamMember extends Model
@@ -22,7 +23,7 @@ class TeamMember extends Model
      */
     public static $rules = [
         'user_id' => 'required',
-        'group' => 'required', // in array?
+        'group' => 'required',
     ];
 
     /**
