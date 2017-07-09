@@ -22,6 +22,16 @@ trait UserConfiguration
     }
 
     /**
+     * Set app admin emails.
+     *
+     * @returns void
+     */
+    public static function setAdmins($newAdmins)
+    {
+        static::$admins = $newAdmins;
+    }
+
+    /**
      * Check if email is admin.
      *
      * @returns bool
