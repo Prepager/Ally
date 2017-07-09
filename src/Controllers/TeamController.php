@@ -114,7 +114,7 @@ class TeamController extends Controller
 
     /**
      * Restore a deleated team.
-     * 
+     *
      * @return Response
      */
     public function restore($team)
