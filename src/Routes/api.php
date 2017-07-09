@@ -68,6 +68,10 @@ Route::group([
                 Route::post('/subscription/resume', 'SubscriptionController@resume')->name('subscription.resume');
             });
 
+            // Invoices
+            Route::get('/invoices', 'SubscriptionController@invoices')->name('invoices');
+            Route::get('/invoices/{id}', 'SubscriptionController@invoice')->name('invoice');
+
             // Members
             Route::get('/members', 'TeamMemberController@index')->name('teams.members.index');
             Route::get('/members/{member}', 'TeamMemberController@show')->name('teams.members.show');
