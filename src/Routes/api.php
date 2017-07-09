@@ -49,13 +49,12 @@ Route::group([
         // Group: Teams
         Route::group(['prefix' => $plural.'/{team}'], function () {
 
-            // Team
-            Route::post('/change', 'TeamController@change')->name('teams.change');
-
             // Teams
             Route::get('/', 'TeamController@show')->name('teams.show');
             Route::put('/', 'TeamController@update')->name('teams.update');
             Route::delete('/', 'TeamController@destroy')->name('teams.destroy');
+            Route::post('/change', 'TeamController@change')->name('teams.change');
+            Route::post('/restore', 'TeamController@restore')->name('teams.restore');
 
             // Subscription
             Route::post('/subscription', 'SubscriptionController@subscription')->name('subscription');

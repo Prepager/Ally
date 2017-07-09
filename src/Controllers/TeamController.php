@@ -18,7 +18,7 @@ class TeamController extends Controller
     {
         $this->authorize('view', Team::class);
 
-        return response()->json($request->user()->teams()->get());
+        return response()->json($request->user()->teams()->withTrashed()->get());
     }
 
     /**
@@ -90,7 +90,6 @@ class TeamController extends Controller
     {
         $this->authorize('delete', $team);
 
-        $team->teamMembers()->delete();
         $team->delete();
 
         event(new TeamDeleated($team));
@@ -109,6 +108,23 @@ class TeamController extends Controller
         $user = $request->user();
         $user->team_id = $team->id;
         $user->save();
+
+        return response()->json($team);
+    }
+
+    /**
+     * Restore a deleated team.
+     * 
+     * @return Response
+     */
+    public function restore($team)
+    {
+        $team = Team::where('slug', $team)->withTrashed()->firstOrFail();
+        $this->authorize('update', $team);
+
+        if ($team->trashed()) {
+            $team->restore();
+        }
 
         return response()->json($team);
     }

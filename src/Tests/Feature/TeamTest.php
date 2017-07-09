@@ -127,6 +127,24 @@ class TeamTest extends TestCase
     }
 
     /** @test */
+    public function userCanRestoreTeam()
+    {
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
+
+        $team->delete();
+
+        Passport::actingAs($user, ['manage-teams']);
+        $response = $this->json('POST', route('teams.restore', $team->slug));
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('teams', [
+            'slug' => $team->slug,
+            'deleted_at' => null,
+        ]);
+    }
+
+    /** @test */
     public function canGenerateUniqueSlug()
     {
         $user = factory(User::class)->create();
