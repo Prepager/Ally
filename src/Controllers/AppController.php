@@ -5,6 +5,7 @@ namespace ZapsterStudios\TeamPay\Controllers;
 use TeamPay;
 use Braintree\ClientToken;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 
 class AppController extends Controller
 {
@@ -18,6 +19,25 @@ class AppController extends Controller
         return response()->json([
             'plans' => TeamPay::plans(),
         ]);
+    }
+
+    /**
+     * Display a listing of the app settings.
+     *
+     * @param  Router  $router
+     * @return \Illuminate\Http\Response
+     */
+    public function routes(Router $router)
+    {
+        $routes = collect($router->getRoutes())->reject(function ($route) {
+            return ! $route->getName();
+        })->mapWithKeys(function ($route) {
+            return [
+                $route->getName() => $route->uri(),
+            ];
+        })->all();
+
+        return response()->json($routes);
     }
 
     /**

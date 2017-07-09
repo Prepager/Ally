@@ -21,6 +21,7 @@ Route::group([
 
         // App
         Route::get('/app', 'AppController@index')->name('app');
+        Route::get('/app/routes', 'AppController@routes')->name('app.routes');
 
         // Auth
         Route::post('/login', 'AuthController@login')->name('login');
