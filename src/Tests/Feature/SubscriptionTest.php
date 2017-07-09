@@ -5,7 +5,6 @@ namespace ZapsterStudios\TeamPay\Tests\Feature;
 use TeamPay;
 use App\Team;
 use App\User;
-use Braintree;
 use Braintree_Configuration;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
