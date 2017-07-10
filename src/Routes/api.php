@@ -87,7 +87,7 @@ Route::group([
 
             // Users
             Route::get('/dashboard/users', 'DashboardController@users')->name('dashboard.users');
-            Route::get('/dashboard/users/{user}'. 'DashboardController@user')->name('dashboard.users.show');
+            Route::get('/dashboard/users/{user}'.'DashboardController@user')->name('dashboard.users.show');
             Route::post('/dashboard/users/search', 'DashboardController@searchUsers')->name('dashboard.users.search');
 
             // Impersonate
@@ -96,8 +96,8 @@ Route::group([
 
             // Teams
             Route::get('/dashboard/teams', 'DashboardController@teams')->name('dashboard.teams');
-            Route::get('/dashboard/teams/{team}'. 'DashboardController@team')->name('dashboard.teams.show');
+            Route::get('/dashboard/teams/{team}'.'DashboardController@team')->name('dashboard.teams.show');
             Route::post('/dashboard/teams/search', 'DashboardController@searchTeams')->name('dashboard.teams.search');
         });
-    });   
+    });
 });
