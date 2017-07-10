@@ -78,5 +78,26 @@ Route::group([
             Route::put('/members/{member}', 'TeamMemberController@update')->name('teams.members.update');
             Route::delete('/members/{member}', 'TeamMemberController@destroy')->name('teams.members.destroy');
         });
-    });
+
+        // Group: Administrator
+        Route::group(['middleware' => 'administrator'], function () {
+
+            // Dashboard
+            Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+            // Users
+            Route::get('/dashboard/users', 'DashboardController@users')->name('dashboard.users');
+            Route::get('/dashboard/users/{user}'. 'DashboardController@user')->name('dashboard.users.show');
+            Route::post('/dashboard/users/search', 'DashboardController@searchUsers')->name('dashboard.users.search');
+
+            // Impersonate
+            Route::post('/dashboard/users/impersonate/{user}', 'DashboardController@impersonate')->name('dashboard.users.impersonate');
+            Route::delete('/dashboard/users/impersonate', 'DashboardController@stopImpersonation')->name('dashboard.users.impersonate.stop');
+
+            // Teams
+            Route::get('/dashboard/teams', 'DashboardController@teams')->name('dashboard.teams');
+            Route::get('/dashboard/teams/{team}'. 'DashboardController@team')->name('dashboard.teams.show');
+            Route::post('/dashboard/teams/search', 'DashboardController@searchTeams')->name('dashboard.teams.search');
+        });
+    });   
 });

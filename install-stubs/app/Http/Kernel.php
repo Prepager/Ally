@@ -58,5 +58,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'subscribed' => \ZapsterStudios\TeamPay\Middleware\Subscribed::class,
+        'administrator' => \ZapsterStudios\TeamPay\Middleware\Administrator::class,
     ];
 }
