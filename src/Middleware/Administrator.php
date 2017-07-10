@@ -19,7 +19,7 @@ class Administrator
             return response()->json('Unauthenticated.', 401);
         }
 
-        if(! $request->user()->isAdmin()) {
+        if (! $request->user()->isAdmin()) {
             return response()->json('Insufficient permissions.', 403);
         }
 
