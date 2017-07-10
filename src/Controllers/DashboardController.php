@@ -25,7 +25,7 @@ class DashboardController extends Controller
      */
     public function users()
     {
-        //
+        return response()->json(User::paginate(30));
     }
 
     /**
@@ -33,9 +33,9 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function user(User $user)
+    public function user($id)
     {
-        //
+        return response()->json(User::with('teams')->findOrFail($id));
     }
 
     /**
@@ -45,7 +45,14 @@ class DashboardController extends Controller
      */
     public function searchUsers(Request $request)
     {
-        //
+        $search = $request->search;
+
+        return response()->json(User::where('id', $search)
+            ->orWhere('country', $search)
+            ->orWhere('name', 'LIKE', '%'.$search.'%')
+            ->orWhere('email', 'LIKE', '%'.$search.'%')
+            ->paginate(30)
+        );
     }
 
     /**
@@ -75,7 +82,7 @@ class DashboardController extends Controller
      */
     public function teams()
     {
-        //
+        return response()->json(Team::paginate(30));
     }
 
     /**
@@ -83,9 +90,9 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function team(Team $team)
+    public function team($id)
     {
-        //
+        return response()->json(Team::findOrFail($id));
     }
 
     /**
@@ -95,6 +102,13 @@ class DashboardController extends Controller
      */
     public function searchTeams(Request $request)
     {
-        //
+        $search = $request->search;
+
+        return response()->json(Team::where('id', $search)
+            ->orWhere('user_id', $search)
+            ->orWhere('name', 'LIKE', '%'.$search.'%')
+            ->orWhere('slug', 'LIKE', '%'.$search.'%')
+            ->paginate(30)
+        );
     }
 }

@@ -47,6 +47,9 @@ class TeamPayServiceProvider extends ServiceProvider
             // Subscriptions
             'view-invoices' => 'View Invoices',
             'manage-subscriptions' => 'Manage Subscriptions',
+
+            // Other
+            'access-dashboard' => 'Access Dashboard',
         ]);
     }
 
