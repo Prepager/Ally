@@ -75,8 +75,8 @@ class DashboardTest extends TestCase
             'teams' => [
                 [
                     'slug' => $team->slug,
-                ], 
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -136,8 +136,8 @@ class DashboardTest extends TestCase
             'members' => [
                 [
                     'id' => $extra->id,
-                ], 
-            ]
+                ],
+            ],
         ]);
     }
 
