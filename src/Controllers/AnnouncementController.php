@@ -4,6 +4,7 @@ namespace ZapsterStudios\TeamPay\Controllers;
 
 use Illuminate\Http\Request;
 use ZapsterStudios\TeamPay\Models\Announcement;
+use ZapsterStudios\TeamPay\Events\Announcements\AnnouncementCreated;
 
 class AnnouncementController extends Controller
 {
@@ -31,9 +32,13 @@ class AnnouncementController extends Controller
     {
         $this->validate($request, Announcement::$rules);
 
-        return response()->json(Announcement::create(
+        $announcement = Announcement::create(
             $request->intersect(['user_id', 'message', 'visit'])
-        ));
+        );
+
+        event(new AnnouncementCreated($announcement));
+
+        return response()->json($announcement);
     }
 
     /**
