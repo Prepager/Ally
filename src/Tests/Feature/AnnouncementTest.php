@@ -114,7 +114,7 @@ class AnnouncementTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertDatabaseMissing('announcements', [
-            'id' => $announcement->id
+            'id' => $announcement->id,
         ]);
     }
 }

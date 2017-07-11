@@ -19,7 +19,7 @@ $factory->define(ZapsterStudios\TeamPay\Models\TeamMember::class, function (Fake
     ];
 });
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(ZapsterStudios\TeamPay\Models\Announcement::class, function (Faker\Generator $faker) {
     return [
         'message' => $faker->sentence(),
