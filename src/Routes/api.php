@@ -1,5 +1,8 @@
 <?php
 
+// Patterns
+Route::pattern('method', 'recent|all');
+
 // Group: Third-Party
 Route::group(['middleware' => 'api'], function () {
 
@@ -27,6 +30,10 @@ Route::group([
         Route::post('/login', 'AuthController@login')->name('login');
         Route::post('/login/refresh', 'AuthController@refresh')->name('refresh');
         Route::post('/register', 'AuthController@register')->name('register');
+
+        // Announcements
+        Route::get('/announcements/{method?}', 'AnnouncementController@index')->name('announcements.index');
+        Route::get('/announcements/{announcement}', 'AnnouncementController@show')->name('announcements.show');
     });
 
     // Group: Authenticated
@@ -83,10 +90,15 @@ Route::group([
         Route::group(['middleware' => 'administrator'], function () {
 
             // Dashboard
-            Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+            Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+
+            // Announcements
+            Route::post('/announcements', 'AnnouncementController@store')->name('announcements.store');
+            Route::put('/announcements/{announcement}', 'AnnouncementController@update')->name('announcements.update');
+            Route::delete('/announcements/{announcement}', 'AnnouncementController@destroy')->name('announcements.destroy');
 
             // Users
-            Route::get('/dashboard/users', 'DashboardController@users')->name('dashboard.users');
+            Route::get('/dashboard/users', 'DashboardController@users')->name('dashboard.users.index');
             Route::get('/dashboard/users/{user}', 'DashboardController@user')->name('dashboard.users.show');
             Route::post('/dashboard/users/search', 'DashboardController@searchUsers')->name('dashboard.users.search');
 
@@ -95,7 +107,7 @@ Route::group([
             Route::delete('/dashboard/users/impersonate', 'DashboardController@stopImpersonation')->name('dashboard.users.impersonate.stop');
 
             // Teams
-            Route::get('/dashboard/teams', 'DashboardController@teams')->name('dashboard.teams');
+            Route::get('/dashboard/teams', 'DashboardController@teams')->name('dashboard.teams.index');
             Route::get('/dashboard/teams/{team}', 'DashboardController@team')->name('dashboard.teams.show');
             Route::post('/dashboard/teams/search', 'DashboardController@searchTeams')->name('dashboard.teams.search');
         });

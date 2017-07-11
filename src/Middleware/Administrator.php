@@ -15,11 +15,13 @@ class Administrator
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->user()) {
+        $user = $request->user();
+
+        if (! $user) {
             return response()->json('Unauthenticated.', 401);
         }
 
-        if (! $request->user()->isAdmin()) {
+        if (! $user->isAdmin() || ! $user->tokenCan('manage-application')) {
             return response()->json('Insufficient permissions.', 403);
         }
 

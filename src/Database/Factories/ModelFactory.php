@@ -13,10 +13,16 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(ZapsterStudios\TeamPay\Models\TeamMember::class, function (Faker\Generator $faker) {
-    static $password;
-
     return [
         'user_id' => factory(App\User::class)->create()->id,
         'team_id' => factory(App\Team::class)->create()->id,
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(ZapsterStudios\TeamPay\Models\Announcement::class, function (Faker\Generator $faker) {
+    return [
+        'message' => $faker->sentence(),
+        'visit' => '#',
     ];
 });

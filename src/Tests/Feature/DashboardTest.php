@@ -13,7 +13,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function guestCanNotAccessDashboard()
     {
-        $response = $this->json('GET', route('dashboard'));
+        $response = $this->json('GET', route('dashboard.index'));
 
         $response->assertStatus(401);
     }
@@ -23,8 +23,8 @@ class DashboardTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['access-dashboard']);
-        $response = $this->json('GET', route('dashboard'));
+        Passport::actingAs($user, ['manage-application']);
+        $response = $this->json('GET', route('dashboard.index'));
 
         $response->assertStatus(403);
     }
@@ -35,8 +35,8 @@ class DashboardTest extends TestCase
         $user = factory(User::class)->create();
         TeamPay::setAdmins([$user->email]);
 
-        Passport::actingAs($user, ['access-dashboard']);
-        $response = $this->json('GET', route('dashboard'));
+        Passport::actingAs($user, ['manage-application']);
+        $response = $this->json('GET', route('dashboard.index'));
 
         $response->assertStatus(200);
         // Assert response.
@@ -50,8 +50,8 @@ class DashboardTest extends TestCase
 
         factory(User::class, 10)->create();
 
-        Passport::actingAs($user, ['access-dashboard']);
-        $response = $this->json('GET', route('dashboard.users'));
+        Passport::actingAs($user, ['manage-application']);
+        $response = $this->json('GET', route('dashboard.users.index'));
 
         $response->assertStatus(200);
         $this->assertEquals(11, $response->getData()->total);
@@ -66,7 +66,7 @@ class DashboardTest extends TestCase
         $extra = factory(User::class)->create();
         $team = $extra->teams()->save(factory(Team::class)->create());
 
-        Passport::actingAs($user, ['access-dashboard']);
+        Passport::actingAs($user, ['manage-application']);
         $response = $this->json('GET', route('dashboard.users.show', $extra->id));
 
         $response->assertStatus(200);
@@ -88,7 +88,7 @@ class DashboardTest extends TestCase
 
         $extra = factory(User::class)->create();
 
-        Passport::actingAs($user, ['access-dashboard']);
+        Passport::actingAs($user, ['manage-application']);
         $response = $this->json('POST', route('dashboard.users.search'), [
             'search' => $extra->email,
         ]);
@@ -111,8 +111,8 @@ class DashboardTest extends TestCase
 
         factory(Team::class, 10)->create();
 
-        Passport::actingAs($user, ['access-dashboard']);
-        $response = $this->json('GET', route('dashboard.teams'));
+        Passport::actingAs($user, ['manage-application']);
+        $response = $this->json('GET', route('dashboard.teams.index'));
 
         $response->assertStatus(200);
         $this->assertEquals(10, $response->getData()->total);
@@ -127,7 +127,7 @@ class DashboardTest extends TestCase
         $extra = factory(User::class)->create();
         $team = $extra->teams()->save(factory(Team::class)->create());
 
-        Passport::actingAs($user, ['access-dashboard']);
+        Passport::actingAs($user, ['manage-application']);
         $response = $this->json('GET', route('dashboard.teams.show', $team->id));
 
         $response->assertStatus(200);
@@ -149,7 +149,7 @@ class DashboardTest extends TestCase
 
         $team = factory(Team::class)->create();
 
-        Passport::actingAs($user, ['access-dashboard']);
+        Passport::actingAs($user, ['manage-application']);
         $response = $this->json('POST', route('dashboard.teams.search'), [
             'search' => $team->slug,
         ]);
