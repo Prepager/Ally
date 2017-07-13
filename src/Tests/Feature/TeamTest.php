@@ -160,7 +160,6 @@ class TeamTest extends TestCase
         $team3->assertJson(['slug' => 'example-community-2']);
     }
 
-
     /** @test */
     public function suspendedTeamCanNotRetrieveData()
     {
@@ -181,7 +180,6 @@ class TeamTest extends TestCase
             'suspended_reason' => $team->suspended_reason,
         ]);
     }
-
 
     /** @test */
     public function expiredSuspendedUserCanRetrieveData()
