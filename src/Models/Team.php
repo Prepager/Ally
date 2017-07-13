@@ -4,6 +4,7 @@ namespace ZapsterStudios\TeamPay\Models;
 
 use TeamPay;
 use Validator;
+use Carbon\Carbon;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -123,5 +124,18 @@ class Team extends Model
         return $unique->fails()
             ? self::generateSlug($original.'-'.$id, $original, $current, $id + 1)
             : $slug;
+    }
+
+    /**
+     * Whatever or not the team is suspended.
+     *
+     * @return bool
+     */
+    public function suspended()
+    {
+        return $this->suspended_at && (
+            ! $this->suspended_to
+            || $this->suspended_to->toDateTimeString() >= Carbon::now()->toDateTimeString()
+        );
     }
 }

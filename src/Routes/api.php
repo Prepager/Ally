@@ -101,6 +101,9 @@ Route::group([
             Route::get('/dashboard/users', 'DashboardController@users')->name('dashboard.users.index');
             Route::get('/dashboard/users/{user}', 'DashboardController@user')->name('dashboard.users.show');
             Route::post('/dashboard/users/search', 'DashboardController@searchUsers')->name('dashboard.users.search');
+            Route::post('/dashboard/users/{user}/suspend', 'DashboardController@suspendUser')->name('dashboard.users.suspend');
+            Route::post('/dashboard/users/{user}/unsuspend', 'DashboardController@unsuspendUser')->name('dashboard.users.unsuspend');
+            
 
             // Impersonate
             Route::post('/dashboard/users/impersonate/{user}', 'DashboardController@impersonate')->name('dashboard.users.impersonate');
@@ -110,6 +113,8 @@ Route::group([
             Route::get('/dashboard/teams', 'DashboardController@teams')->name('dashboard.teams.index');
             Route::get('/dashboard/teams/{team}', 'DashboardController@team')->name('dashboard.teams.show');
             Route::post('/dashboard/teams/search', 'DashboardController@searchTeams')->name('dashboard.teams.search');
+            Route::post('/dashboard/teams/{team}/suspend', 'DashboardController@suspendTeam')->name('dashboard.teams.suspend');
+            Route::post('/dashboard/teams/{team}/unsuspend', 'DashboardController@unsuspendTeam')->name('dashboard.teams.unsuspend');
         });
     });
 });

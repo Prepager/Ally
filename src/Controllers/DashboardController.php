@@ -4,6 +4,7 @@ namespace ZapsterStudios\TeamPay\Controllers;
 
 use App\Team;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -53,6 +54,34 @@ class DashboardController extends Controller
             ->orWhere('email', 'LIKE', '%'.$search.'%')
             ->paginate(30)
         );
+    }
+
+    /**
+     * Suspend user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function suspendUser(Request $request, User $user)
+    {
+        $user->suspended_at = Carbon::now();
+        $user->suspended_to = $request->input('suspended_to');
+        $user->suspended_reason = $request->input('suspended_reason');
+
+        return response()->json(tap($user)->save());
+    }
+
+    /**
+     * Unsuspend user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unsuspendUser(Request $request, User $user)
+    {
+        $user->suspended_at = null;
+        $user->suspended_to = null;
+        $user->suspended_reason = null;
+
+        return response()->json(tap($user)->save());
     }
 
     /**
@@ -110,5 +139,33 @@ class DashboardController extends Controller
             ->orWhere('slug', 'LIKE', '%'.$search.'%')
             ->paginate(30)
         );
+    }
+
+    /**
+     * Suspend team.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function suspendTeam(Request $request, Team $team)
+    {
+        $team->suspended_at = Carbon::now();
+        $team->suspended_to = $request->input('suspended_to');
+        $team->suspended_reason = $request->input('suspended_reason');
+
+        return response()->json(tap($team)->save());
+    }
+
+    /**
+     * Unsuspend team.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unsuspendTeam(Request $request, Team $team)
+    {
+        $team->suspended_at = null;
+        $team->suspended_to = null;
+        $team->suspended_reason = null;
+
+        return response()->json(tap($team)->save());
     }
 }

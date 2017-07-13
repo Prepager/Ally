@@ -23,6 +23,9 @@ class CreateTeamsTable extends Migration
             $table->string('card_brand')->nullable();
             $table->string('card_last_four')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
+            $table->string('suspended_reason')->nullable();
+            $table->timestamp('suspended_at')->nullable();
+            $table->timestamp('suspended_to')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

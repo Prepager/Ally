@@ -4,6 +4,7 @@ namespace ZapsterStudios\TeamPay\Tests\Feature;
 
 use App\Team;
 use App\User;
+use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 use ZapsterStudios\TeamPay\Models\TeamMember;
@@ -157,5 +158,44 @@ class TeamTest extends TestCase
         $team1->assertJson(['slug' => 'example-community']);
         $team2->assertJson(['slug' => 'example-community-1']);
         $team3->assertJson(['slug' => 'example-community-2']);
+    }
+
+
+    /** @test */
+    public function suspendedTeamCanNotRetrieveData()
+    {
+        $user = factory(User::class)->create();
+        $team = $user->teams()->save(factory(Team::class)->create([
+            'suspended_at' => Carbon::now()->subDays(1),
+            'suspended_to' => Carbon::now()->addDays(1),
+            'suspended_reason' => 'Some test',
+        ]));
+
+        Passport::actingAs($user, ['view-teams']);
+        $response = $this->json('GET', route('teams.show', $team->slug));
+
+        $response->assertStatus(403);
+        $response->assertJson([
+            'suspended_at' => $team->suspended_at,
+            'suspended_to' => $team->suspended_to,
+            'suspended_reason' => $team->suspended_reason,
+        ]);
+    }
+
+
+    /** @test */
+    public function expiredSuspendedUserCanRetrieveData()
+    {
+        $user = factory(User::class)->create();
+        $team = $user->teams()->save(factory(Team::class)->create([
+            'suspended_at' => Carbon::now()->subDays(1),
+            'suspended_to' => Carbon::now()->subMinutes(5),
+            'suspended_reason' => 'Some test',
+        ]));
+
+        Passport::actingAs($user, ['view-teams']);
+        $response = $this->json('GET', route('teams.show', $team->slug));
+
+        $response->assertStatus(200);
     }
 }

@@ -3,6 +3,7 @@
 namespace ZapsterStudios\TeamPay\Models;
 
 use TeamPay;
+use Carbon\Carbon;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -125,5 +126,18 @@ class User extends Authenticatable
     public function groupCan(...$params)
     {
         return $this->groupPermission(...$params);
+    }
+
+    /**
+     * Whatever or not the user is suspended.
+     *
+     * @return bool
+     */
+    public function suspended()
+    {
+        return $this->suspended_at && (
+            ! $this->suspended_to
+            || $this->suspended_to->toDateTimeString() >= Carbon::now()->toDateTimeString()
+        );
     }
 }

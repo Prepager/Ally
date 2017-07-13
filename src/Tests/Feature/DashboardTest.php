@@ -5,6 +5,7 @@ namespace ZapsterStudios\TeamPay\Tests\Feature;
 use TeamPay;
 use App\Team;
 use App\User;
+use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
@@ -104,6 +105,50 @@ class DashboardTest extends TestCase
     }
 
     /** @test */
+    public function adminCanSuspendAndUnsuspendUser()
+    {
+        $user = factory(User::class)->create();
+        TeamPay::setAdmins([$user->email]);
+
+        $extra = factory(User::class)->create();
+        $suspendedTo = Carbon::now()->addDays(5)->toDateTimeString();
+
+        Passport::actingAs($user, ['manage-application']);
+        $response = $this->json('POST', route('dashboard.users.suspend', $extra->id), [
+            'suspended_to' => $suspendedTo,
+            'suspended_reason' => 'Some test',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'suspended_to' => $suspendedTo,
+            'suspended_reason' => 'Some test',
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $extra->id,
+            'suspended_to' => $suspendedTo,
+            'suspended_reason' => 'Some test',
+        ]);
+
+        $response = $this->json('POST', route('dashboard.users.unsuspend', $extra->id));
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'suspended_at' => NULL,
+            'suspended_to' => NULL,
+            'suspended_reason' => NULL,
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $extra->id,
+            'suspended_at' => NULL,
+            'suspended_to' => NULL,
+            'suspended_reason' => NULL,
+        ]);
+    }
+
+    /** @test */
     public function adminCanRetrieveTeams()
     {
         $user = factory(User::class)->create();
@@ -161,6 +206,50 @@ class DashboardTest extends TestCase
                     'slug' => $team->slug,
                 ],
             ],
+        ]);
+    }
+
+    /** @test */
+    public function adminCanSuspendAndUnsuspendTeam()
+    {
+        $user = factory(User::class)->create();
+        TeamPay::setAdmins([$user->email]);
+
+        $extra = factory(Team::class)->create();
+        $suspendedTo = Carbon::now()->addDays(5)->toDateTimeString();
+
+        Passport::actingAs($user, ['manage-application']);
+        $response = $this->json('POST', route('dashboard.teams.suspend', $extra->slug), [
+            'suspended_to' => $suspendedTo,
+            'suspended_reason' => 'Some test',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'suspended_to' => $suspendedTo,
+            'suspended_reason' => 'Some test',
+        ]);
+
+        $this->assertDatabaseHas('teams', [
+            'slug' => $extra->slug,
+            'suspended_to' => $suspendedTo,
+            'suspended_reason' => 'Some test',
+        ]);
+
+        $response = $this->json('POST', route('dashboard.teams.unsuspend', $extra->slug));
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'suspended_at' => NULL,
+            'suspended_to' => NULL,
+            'suspended_reason' => NULL,
+        ]);
+
+        $this->assertDatabaseHas('teams', [
+            'slug' => $extra->slug,
+            'suspended_at' => NULL,
+            'suspended_to' => NULL,
+            'suspended_reason' => NULL,
         ]);
     }
 }

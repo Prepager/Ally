@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('country');
+            $table->string('suspended_reason')->nullable();
+            $table->timestamp('suspended_at')->nullable();
+            $table->timestamp('suspended_to')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

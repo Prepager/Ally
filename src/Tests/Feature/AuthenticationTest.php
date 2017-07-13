@@ -4,6 +4,7 @@ namespace ZapsterStudios\TeamPay\Tests\Feature;
 
 use App\Team;
 use App\User;
+use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
@@ -181,5 +182,40 @@ class AuthenticationTest extends TestCase
         $responseRecent->assertStatus(200);
 
         // Check response data.
+    }
+
+    /** @test */
+    public function suspendedUserCanNotRetrieveData()
+    {
+        $user = factory(User::class)->create([
+            'suspended_at' => Carbon::now()->subDays(1),
+            'suspended_to' => Carbon::now()->addDays(1),
+            'suspended_reason' => 'Some test',
+        ]);
+
+        Passport::actingAs($user, ['view-teams']);
+        $response = $this->json('GET', route('teams.index'));
+
+        $response->assertStatus(403);
+        $response->assertJson([
+            'suspended_at' => $user->suspended_at,
+            'suspended_to' => $user->suspended_to,
+            'suspended_reason' => $user->suspended_reason,
+        ]);
+    }
+
+    /** @test */
+    public function expiredSuspendedUserCanRetrieveData()
+    {
+        $user = factory(User::class)->create([
+            'suspended_at' => Carbon::now()->subDays(1),
+            'suspended_to' => Carbon::now()->subMinutes(5),
+            'suspended_reason' => 'Some test',
+        ]);
+
+        Passport::actingAs($user, ['view-teams']);
+        $response = $this->json('GET', route('teams.index'));
+
+        $response->assertStatus(200);
     }
 }
