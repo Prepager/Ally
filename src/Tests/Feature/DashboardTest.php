@@ -135,16 +135,16 @@ class DashboardTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'suspended_at' => NULL,
-            'suspended_to' => NULL,
-            'suspended_reason' => NULL,
+            'suspended_at' => null,
+            'suspended_to' => null,
+            'suspended_reason' => null,
         ]);
 
         $this->assertDatabaseHas('users', [
             'id' => $extra->id,
-            'suspended_at' => NULL,
-            'suspended_to' => NULL,
-            'suspended_reason' => NULL,
+            'suspended_at' => null,
+            'suspended_to' => null,
+            'suspended_reason' => null,
         ]);
     }
 
@@ -240,16 +240,16 @@ class DashboardTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'suspended_at' => NULL,
-            'suspended_to' => NULL,
-            'suspended_reason' => NULL,
+            'suspended_at' => null,
+            'suspended_to' => null,
+            'suspended_reason' => null,
         ]);
 
         $this->assertDatabaseHas('teams', [
             'slug' => $extra->slug,
-            'suspended_at' => NULL,
-            'suspended_to' => NULL,
-            'suspended_reason' => NULL,
+            'suspended_at' => null,
+            'suspended_to' => null,
+            'suspended_reason' => null,
         ]);
     }
 }

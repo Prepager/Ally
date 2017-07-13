@@ -103,7 +103,6 @@ Route::group([
             Route::post('/dashboard/users/search', 'DashboardController@searchUsers')->name('dashboard.users.search');
             Route::post('/dashboard/users/{user}/suspend', 'DashboardController@suspendUser')->name('dashboard.users.suspend');
             Route::post('/dashboard/users/{user}/unsuspend', 'DashboardController@unsuspendUser')->name('dashboard.users.unsuspend');
-            
 
             // Impersonate
             Route::post('/dashboard/users/impersonate/{user}', 'DashboardController@impersonate')->name('dashboard.users.impersonate');
