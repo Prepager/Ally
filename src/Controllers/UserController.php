@@ -65,4 +65,22 @@ class UserController extends Controller
 
         return response()->json($user);
     }
+
+    /**
+     * Display an authenticated users notifications.
+     *
+     * @param  Request  $request
+     * @param  string  $method
+     * @return Response
+     */
+    public function notifications(Request $request, $method = 'recent')
+    {
+        abort_if(! $request->user()->tokenCan('view-notifications'), 403);
+
+        if ($method == 'recent') {
+            return response()->json($request->user()->notifications()->limit(6));
+        }
+
+        return response()->json($request->user()->notifications()->paginate(30));
+    }
 }

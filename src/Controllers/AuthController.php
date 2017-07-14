@@ -9,16 +9,6 @@ use Laravel\Passport\Client;
 class AuthController extends Controller
 {
     /**
-     * Retrieve authenticated user.
-     *
-     * @return Response
-     */
-    public function user()
-    {
-        return response()->json(auth()->user());
-    }
-
-    /**
      * Authenticate user and return token.
      *
      * @param  Request  $request
@@ -86,23 +76,5 @@ class AuthController extends Controller
         $response = app()->handle($request);
 
         return response()->json(json_decode($response->getContent()), $response->getStatusCode());
-    }
-
-    /**
-     * Display an authenticated users notifications.
-     *
-     * @param  Request  $request
-     * @param  string  $method
-     * @return Response
-     */
-    public function notifications(Request $request, $method = 'recent')
-    {
-        abort_if(! $request->user()->tokenCan('view-notifications'), 403);
-
-        if ($method == 'recent') {
-            return response()->json($request->user()->notifications()->limit(6));
-        }
-
-        return response()->json($request->user()->notifications()->paginate(30));
     }
 }

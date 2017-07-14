@@ -49,11 +49,11 @@ Route::group([
 
         // Auth
         Route::post('/logout', 'AuthController@logout')->name('logout');
-        Route::get('/notifications/{method?}', 'AuthController@notifications')->name('notifications');
 
         // User
         Route::get('/user', 'UserController@show')->name('user.show');
         Route::post('/user', 'UserController@update')->name('user.update');
+        Route::get('/user/notifications/{method?}', 'UserController@notifications')->name('user.notifications.index');
 
         // Teams
         Route::get($plural, 'TeamController@index')->name('teams.index');

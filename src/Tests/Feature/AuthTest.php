@@ -126,8 +126,8 @@ class AuthenticationTest extends TestCase
         $user = factory(User::class)->create();
 
         Passport::actingAs($user, ['view-notifications']);
-        $responseAll = $this->json('GET', route('notifications', 'all'));
-        $responseRecent = $this->json('GET', route('notifications', 'recent'));
+        $responseAll = $this->json('GET', route('user.notifications.index', 'all'));
+        $responseRecent = $this->json('GET', route('user.notifications.index', 'recent'));
 
         $responseAll->assertStatus(200);
         $responseRecent->assertStatus(200);
