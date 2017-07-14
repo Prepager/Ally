@@ -81,8 +81,8 @@ Route::group([
             });
 
             // Invoices
-            Route::get('/invoices', 'SubscriptionController@invoices')->name('invoices');
-            Route::get('/invoices/{id}', 'SubscriptionController@invoice')->name('invoice');
+            Route::get('/invoices', 'InvoiceController@index')->name('invoices.index');
+            Route::get('/invoices/{id}', 'InvoiceController@show')->name('invoices.show');
 
             // Members
             Route::get('/members', 'TeamMemberController@index')->name('teams.members.index');

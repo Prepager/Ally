@@ -92,49 +92,4 @@ class SubscriptionController extends Controller
 
         return response()->json($subscription);
     }
-
-    /**
-     * Return a teams invoices.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function invoices(Request $request, Team $team)
-    {
-        abort_unless($request->user()->tokenCan('view-invoices'), 401);
-        $this->authorize('update', $team);
-
-        $invoices = [];
-        if ($team->hasBraintreeId()) {
-            $invoices = $team->invoices(true)->map(function ($invoice) {
-                return [
-                    'id' => $invoice->id,
-                    'status' => $invoice->status,
-                    'total' => $invoice->total(),
-                    'created_at' => $invoice->date()->toDateTimeString(),
-                ];
-            });
-        }
-
-        return response()->json($invoices);
-    }
-
-    /**
-     * Return a specefic team invoice.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function invoice(Request $request, Team $team, $invoice)
-    {
-        abort_unless($request->user()->tokenCan('view-invoices'), 401);
-        $this->authorize('update', $team);
-
-        return $team->downloadInvoice($invoice, [
-            'vendor'  => config('app.name'),
-            'product' => 'Membership Subscription',
-        ]);
-    }
 }

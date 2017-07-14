@@ -145,10 +145,10 @@ class SubscriptionTest extends TestCase
         $team->newSubscription('default', 'valid-second-plan')->create('fake-valid-nonce');
 
         Passport::actingAs($user, ['view-invoices', 'manage-teams']);
-        $response = $this->json('GET', route('invoices', $team->slug));
+        $response = $this->json('GET', route('invoices.index', $team->slug));
 
         $this->assertCount(2, $response->getData());
-        $response = $this->json('GET', route('invoice', [
+        $response = $this->json('GET', route('invoices.show', [
             $team->slug,
             $response->getData()[0]->id,
         ]));
