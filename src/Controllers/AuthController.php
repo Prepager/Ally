@@ -5,7 +5,6 @@ namespace ZapsterStudios\TeamPay\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
-use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 
 class AuthController extends Controller
 {
@@ -65,29 +64,6 @@ class AuthController extends Controller
             $token->revoke();
             $token->delete();
         }
-    }
-
-    /**
-     * Register and Authenticate user.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function register(Request $request)
-    {
-        $this->validate($request, User::$rules);
-
-        $user = User::create(array_merge($request->except([
-            '_method',
-            'password',
-            'password_confirmation',
-        ]), [
-            'password' => bcrypt($request->password),
-        ]));
-
-        event(new UserCreated($user));
-
-        return response()->json($user);
     }
 
     /**

@@ -29,7 +29,9 @@ Route::group([
         // Auth
         Route::post('/login', 'AuthController@login')->name('login');
         Route::post('/login/refresh', 'AuthController@refresh')->name('refresh');
-        Route::post('/register', 'AuthController@register')->name('register');
+
+        // User
+        Route::post('/register', 'UserController@store')->name('user.store');
 
         // Announcements
         Route::get('/announcements/{method?}', 'AnnouncementController@index')->name('announcements.index');
@@ -46,9 +48,12 @@ Route::group([
         Route::get('/app/token', 'AppController@token')->name('app.token');
 
         // Auth
-        Route::get('/user', 'AuthController@user')->name('user');
         Route::post('/logout', 'AuthController@logout')->name('logout');
         Route::get('/notifications/{method?}', 'AuthController@notifications')->name('notifications');
+
+        // User
+        Route::get('/user', 'UserController@show')->name('user.show');
+        Route::post('/user', 'UserController@update')->name('user.update');
 
         // Teams
         Route::get($plural, 'TeamController@index')->name('teams.index');

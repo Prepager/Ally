@@ -6,9 +6,7 @@ use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 
 class AuthenticationTest extends TestCase
 {
@@ -92,61 +90,6 @@ class AuthenticationTest extends TestCase
         ]);
 
         $response->assertStatus(400);
-    }
-
-    /** @test */
-    public function guestCanRegisterWithValidInformation()
-    {
-        Event::fake();
-
-        $response = $this->json('POST', route('register'), [
-            'name' => 'Andreas',
-            'email' => 'andreas@example.com',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
-            'country' => 'DK',
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJson([
-            'name' => 'Andreas',
-            'email' => 'andreas@example.com',
-        ]);
-
-        $this->assertDatabaseHas('users', [
-            'name' => 'Andreas',
-            'email' => 'andreas@example.com',
-        ]);
-
-        Event::assertDispatched(UserCreated::class, function ($e) {
-            return $e->user->email == 'andreas@example.com';
-        });
-    }
-
-    /** @test */
-    public function guestCanNotRegisterWithExistingEmail()
-    {
-        $user = factory(User::class)->create();
-
-        $response = $this->json('POST', route('register'), [
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
-            'country' => $user->country,
-        ]);
-
-        $response->assertStatus(422);
-    }
-
-    /** @test */
-    public function guestCanNotRegisterWithInsufficientInformation()
-    {
-        $response = $this->json('POST', route('register'), [
-            'name' => 'Andreas',
-        ]);
-
-        $response->assertStatus(422);
     }
 
     /** @test */

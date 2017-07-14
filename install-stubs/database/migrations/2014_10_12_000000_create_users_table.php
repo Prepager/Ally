@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->integer('team_id')->default(0);
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('email_verified')->default(0);
+            $table->string('email_token')->nullable();
             $table->string('password');
             $table->string('country');
             $table->string('suspended_reason')->nullable();

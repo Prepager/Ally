@@ -24,7 +24,7 @@ class User extends TeamPayUser
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'country', 'email_verified', 'email_token',
     ];
 
     /**
