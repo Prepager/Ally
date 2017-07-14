@@ -9,8 +9,8 @@ use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
 use ZapsterStudios\TeamPay\Events\Teams\TeamSuspended;
+use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
 
 class DashboardTest extends TestCase
 {
