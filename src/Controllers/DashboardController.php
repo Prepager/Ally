@@ -6,9 +6,8 @@ use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
 use ZapsterStudios\TeamPay\Events\Teams\TeamSuspended;
-
+use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
 
 class DashboardController extends Controller
 {

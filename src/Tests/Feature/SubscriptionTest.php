@@ -106,7 +106,6 @@ class SubscriptionTest extends TestCase
         $response->assertStatus(200);
         $this->assertTrue($team->subscription()->cancelled());
 
-
         Event::assertDispatched(SubscriptionCancelled::class, function ($e) use ($team) {
             return $e->team->slug == $team->slug;
         });
