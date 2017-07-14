@@ -7,7 +7,10 @@ use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
+use ZapsterStudios\TeamPay\Events\Teams\TeamSuspended;
 
 class DashboardTest extends TestCase
 {
@@ -107,6 +110,8 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanSuspendAndUnsuspendUser()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
         TeamPay::setAdmins([$user->email]);
 
@@ -130,6 +135,10 @@ class DashboardTest extends TestCase
             'suspended_to' => $suspendedTo,
             'suspended_reason' => 'Some test',
         ]);
+
+        Event::assertDispatched(UserSuspended::class, function ($e) {
+            return $e->user->suspended_reason == 'Some test';
+        });
 
         $response = $this->json('POST', route('dashboard.users.unsuspend', $extra->id));
 
@@ -212,6 +221,8 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanSuspendAndUnsuspendTeam()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
         TeamPay::setAdmins([$user->email]);
 
@@ -235,6 +246,10 @@ class DashboardTest extends TestCase
             'suspended_to' => $suspendedTo,
             'suspended_reason' => 'Some test',
         ]);
+
+        Event::assertDispatched(TeamSuspended::class, function ($e) {
+            return $e->team->suspended_reason == 'Some test';
+        });
 
         $response = $this->json('POST', route('dashboard.teams.unsuspend', $extra->slug));
 

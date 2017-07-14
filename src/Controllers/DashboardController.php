@@ -6,6 +6,9 @@ use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
+use ZapsterStudios\TeamPay\Events\Teams\TeamSuspended;
+
 
 class DashboardController extends Controller
 {
@@ -66,6 +69,8 @@ class DashboardController extends Controller
         $user->suspended_at = Carbon::now();
         $user->suspended_to = $request->input('suspended_to');
         $user->suspended_reason = $request->input('suspended_reason');
+
+        event(new UserSuspended($user));
 
         return response()->json(tap($user)->save());
     }
@@ -151,6 +156,8 @@ class DashboardController extends Controller
         $team->suspended_at = Carbon::now();
         $team->suspended_to = $request->input('suspended_to');
         $team->suspended_reason = $request->input('suspended_reason');
+
+        event(new TeamSuspended($team));
 
         return response()->json(tap($team)->save());
     }

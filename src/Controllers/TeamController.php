@@ -6,6 +6,7 @@ use App\Team;
 use Illuminate\Http\Request;
 use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
 use ZapsterStudios\TeamPay\Events\Teams\TeamDeleated;
+use ZapsterStudios\TeamPay\Events\Teams\TeamRestored;
 
 class TeamController extends Controller
 {
@@ -125,6 +126,8 @@ class TeamController extends Controller
         if ($team->trashed()) {
             $team->restore();
         }
+
+        event(new TeamRestored($team));
 
         return response()->json($team);
     }

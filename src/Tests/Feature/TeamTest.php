@@ -6,8 +6,12 @@ use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 use ZapsterStudios\TeamPay\Models\TeamMember;
+use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
+use ZapsterStudios\TeamPay\Events\Teams\TeamDeleated;
+use ZapsterStudios\TeamPay\Events\Teams\TeamRestored;
 
 class TeamTest extends TestCase
 {
@@ -70,6 +74,8 @@ class TeamTest extends TestCase
     /** @test */
     public function userCanCreateNewTeam()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
 
         Passport::actingAs($user, ['manage-teams']);
@@ -86,6 +92,10 @@ class TeamTest extends TestCase
         $this->assertDatabaseHas('teams', [
             'name' => 'Example',
         ]);
+
+        Event::assertDispatched(TeamCreated::class, function ($e) {
+            return $e->team->name == 'Example';
+        });
     }
 
     /** @test */
@@ -115,6 +125,8 @@ class TeamTest extends TestCase
     /** @test */
     public function userCanDeleteTeam()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create(['user_id' => $user->id]);
 
@@ -125,11 +137,17 @@ class TeamTest extends TestCase
         $this->assertSoftDeleted('teams', [
             'slug' => $team->slug,
         ]);
+
+        Event::assertDispatched(TeamDeleated::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
     }
 
     /** @test */
     public function userCanRestoreTeam()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create(['user_id' => $user->id]);
 
@@ -143,6 +161,10 @@ class TeamTest extends TestCase
             'slug' => $team->slug,
             'deleted_at' => null,
         ]);
+
+        Event::assertDispatched(TeamRestored::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
     }
 
     /** @test */

@@ -6,7 +6,9 @@ use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 
 class AuthenticationTest extends TestCase
 {
@@ -95,6 +97,8 @@ class AuthenticationTest extends TestCase
     /** @test */
     public function guestCanRegisterWithValidInformation()
     {
+        Event::fake();
+
         $response = $this->json('POST', route('register'), [
             'name' => 'Andreas',
             'email' => 'andreas@example.com',
@@ -113,6 +117,10 @@ class AuthenticationTest extends TestCase
             'name' => 'Andreas',
             'email' => 'andreas@example.com',
         ]);
+
+        Event::assertDispatched(UserCreated::class, function ($e) {
+            return $e->user->email == 'andreas@example.com';
+        });
     }
 
     /** @test */

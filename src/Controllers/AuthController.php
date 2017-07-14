@@ -5,6 +5,7 @@ namespace ZapsterStudios\TeamPay\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
+use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 
 class AuthController extends Controller
 {
@@ -83,6 +84,8 @@ class AuthController extends Controller
         ]), [
             'password' => bcrypt($request->password),
         ]));
+
+        event(new UserCreated($user));
 
         return response()->json($user);
     }

@@ -5,8 +5,10 @@ namespace ZapsterStudios\TeamPay\Tests\Feature;
 use TeamPay;
 use App\User;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 use ZapsterStudios\TeamPay\Models\Announcement;
+use ZapsterStudios\TeamPay\Events\Announcements\AnnouncementCreated;
 
 class AnnouncementTest extends TestCase
 {
@@ -57,6 +59,8 @@ class AnnouncementTest extends TestCase
     /** @test */
     public function adminCanCreateAnnouncement()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
         TeamPay::setAdmins([$user->email]);
 
@@ -74,6 +78,10 @@ class AnnouncementTest extends TestCase
         $this->assertDatabaseHas('announcements', [
             'message' => 'Some message here',
         ]);
+
+        Event::assertDispatched(AnnouncementCreated::class, function ($e) {
+            return $e->announcement->message == 'Some message here';
+        });
     }
 
     /** @test */
@@ -114,7 +122,7 @@ class AnnouncementTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertDatabaseMissing('announcements', [
-            'id' => $announcement->id,
+            'id' => $announcement->id
         ]);
     }
 }

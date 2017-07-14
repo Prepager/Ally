@@ -5,7 +5,9 @@ namespace ZapsterStudios\TeamPay\Tests\Feature;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberKicked;
 
 class TeamMemberTest extends TestCase
 {
@@ -91,6 +93,8 @@ class TeamMemberTest extends TestCase
     /** @test */
     public function ownerCanDeleteMember()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
 
@@ -101,5 +105,10 @@ class TeamMemberTest extends TestCase
         $response = $this->json('DELETE', route('teams.members.destroy', [$team->slug, $member->id]));
 
         $response->assertStatus(200);
+
+        Event::assertDispatched(TeamMemberKicked::class, function ($e) use ($team, $extra) {
+            return $e->team->slug == $team->slug
+                && $e->user->id == $extra->id;
+        });
     }
 }

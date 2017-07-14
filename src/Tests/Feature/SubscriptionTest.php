@@ -7,8 +7,13 @@ use App\Team;
 use App\User;
 use Braintree_Configuration;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 use ZapsterStudios\TeamPay\Models\TeamMember;
+use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionCreated;
+use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionResumed;
+use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionSwapped;
+use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionCancelled;
 
 class SubscriptionTest extends TestCase
 {
@@ -77,6 +82,8 @@ class SubscriptionTest extends TestCase
     /** @test */
     public function ownerCanSubscribeCancelResumeAndSwapWithValidPlan()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
 
@@ -89,17 +96,30 @@ class SubscriptionTest extends TestCase
         $response->assertStatus(200);
         $this->assertTrue($team->subscribed('default', 'valid-first-plan'));
 
+        Event::assertDispatched(SubscriptionCreated::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
+
         $response = $this->json('POST', route('subscription.cancel', $team->slug));
         $team = $team->fresh();
 
         $response->assertStatus(200);
         $this->assertTrue($team->subscription()->cancelled());
 
+
+        Event::assertDispatched(SubscriptionCancelled::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
+
         $response = $this->json('POST', route('subscription.resume', $team->slug));
         $team = $team->fresh();
 
         $response->assertStatus(200);
         $this->assertFalse($team->subscription()->cancelled());
+
+        Event::assertDispatched(SubscriptionResumed::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
 
         $response = $this->json('POST', route('subscription', $team->slug), [
             'plan' => 'valid-second-plan',
@@ -109,6 +129,11 @@ class SubscriptionTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertTrue($team->subscribed('default', 'valid-second-plan'));
+
+        Event::assertDispatched(SubscriptionSwapped::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug
+                && $e->subscription->braintree_plan == 'valid-second-plan';
+        });
     }
 
     /** @test */
