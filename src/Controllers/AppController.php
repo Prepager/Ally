@@ -36,6 +36,8 @@ class AppController extends Controller
             return [
                 $route->getName() => $route->uri(),
             ];
+        })->sortBy(function ($route, $key) {
+            return $key;
         })->all();
 
         return response()->json($routes);
