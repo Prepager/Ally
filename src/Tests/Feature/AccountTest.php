@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 
-class UserTest extends TestCase
+class AccountTest extends TestCase
 {
     /** @test */
     public function guestCanRegisterWithValidInformation()
     {
         Event::fake();
 
-        $response = $this->json('POST', route('user.store'), [
+        $response = $this->json('POST', route('account.store'), [
             'name' => 'Andreas',
             'email' => 'andreas@example.com',
             'password' => 'secret',
@@ -44,7 +44,7 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->json('POST', route('user.store'), [
+        $response = $this->json('POST', route('account.store'), [
             'name' => $user->name,
             'email' => $user->email,
             'password' => 'secret',
@@ -58,7 +58,7 @@ class UserTest extends TestCase
     /** @test */
     public function guestCanNotRegisterWithInsufficientInformation()
     {
-        $response = $this->json('POST', route('user.store'), [
+        $response = $this->json('POST', route('account.store'), [
             'name' => 'Andreas',
         ]);
 
@@ -68,7 +68,7 @@ class UserTest extends TestCase
     /** @test */
     public function guestCanNotRetrieveUserInformation()
     {
-        $response = $this->json('GET', route('user.show'));
+        $response = $this->json('GET', route('account.show'));
 
         $response->assertStatus(401);
     }
@@ -79,7 +79,7 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
 
         Passport::actingAs($user, []);
-        $response = $this->json('GET', route('user.show'));
+        $response = $this->json('GET', route('account.show'));
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -94,7 +94,7 @@ class UserTest extends TestCase
         $extra = factory(User::class)->create();
 
         Passport::actingAs($user, []);
-        $response = $this->json('POST', route('user.update'), [
+        $response = $this->json('POST', route('account.update'), [
             'email' => $extra->email,
         ]);
 
@@ -110,7 +110,7 @@ class UserTest extends TestCase
         ]);
 
         Passport::actingAs($user, []);
-        $response = $this->json('POST', route('user.update'), [
+        $response = $this->json('POST', route('account.update'), [
             'email' => 'newmail@example.com',
         ]);
 
@@ -120,5 +120,20 @@ class UserTest extends TestCase
             'email' => 'newmail@example.com',
             'email_verified' => 0,
         ]);
+    }
+
+    /** @test */
+    public function userCanRetrieveNotifications()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user, ['view-notifications']);
+        $responseAll = $this->json('GET', route('account.notifications.index', 'all'));
+        $responseRecent = $this->json('GET', route('account.notifications.index', 'recent'));
+
+        $responseAll->assertStatus(200);
+        $responseRecent->assertStatus(200);
+
+        // Check response data.
     }
 }

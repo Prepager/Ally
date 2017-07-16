@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 use ZapsterStudios\TeamPay\Events\Users\UserUpdated;
 
-class UserController extends Controller
+class AccountController extends Controller
 {
     /**
      * Retrieve the authenticated user.

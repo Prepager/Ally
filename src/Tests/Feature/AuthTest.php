@@ -121,21 +121,6 @@ class AuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function userCanRetrieveNotifications()
-    {
-        $user = factory(User::class)->create();
-
-        Passport::actingAs($user, ['view-notifications']);
-        $responseAll = $this->json('GET', route('user.notifications.index', 'all'));
-        $responseRecent = $this->json('GET', route('user.notifications.index', 'recent'));
-
-        $responseAll->assertStatus(200);
-        $responseRecent->assertStatus(200);
-
-        // Check response data.
-    }
-
-    /** @test */
     public function suspendedUserCanNotRetrieveData()
     {
         $user = factory(User::class)->create([

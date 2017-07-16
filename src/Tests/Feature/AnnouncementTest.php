@@ -26,6 +26,8 @@ class AnnouncementTest extends TestCase
     /** @test */
     public function guestCanRetrieveAllAnnouncements()
     {
+        factory(Announcement::class, 2)->create();
+
         $response = $this->json('GET', route('announcements.index', 'all'));
 
         $response->assertStatus(200);

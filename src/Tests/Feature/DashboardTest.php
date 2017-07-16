@@ -58,7 +58,7 @@ class DashboardTest extends TestCase
         $response = $this->json('GET', route('dashboard.users.index'));
 
         $response->assertStatus(200);
-        $this->assertEquals(11, $response->getData()->total);
+        $this->assertEquals(User::count(), $response->getData()->total);
     }
 
     /** @test */
