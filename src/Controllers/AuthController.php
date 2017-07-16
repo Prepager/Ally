@@ -54,6 +54,8 @@ class AuthController extends Controller
             $token->revoke();
             $token->delete();
         }
+
+        return response()->json('Token revoked.');
     }
 
     /**

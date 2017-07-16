@@ -110,8 +110,8 @@ Route::group([
             Route::post('/dashboard/users/{user}/unsuspend', 'DashboardController@unsuspendUser')->name('dashboard.users.unsuspend');
 
             // Impersonate
-            Route::post('/dashboard/users/impersonate/{user}', 'DashboardController@impersonate')->name('dashboard.users.impersonate');
-            Route::delete('/dashboard/users/impersonate', 'DashboardController@stopImpersonation')->name('dashboard.users.impersonate.stop');
+            Route::post('/dashboard/users/impersonate/{user}', 'ImpersonationController@store')->name('dashboard.users.impersonation.store');
+            Route::delete('/dashboard/users/impersonate', 'ImpersonationController@destroy')->name('dashboard.users.impersonation.destroy');
 
             // Teams
             Route::get('/dashboard/teams', 'DashboardController@teams')->name('dashboard.teams.index');

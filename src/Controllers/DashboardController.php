@@ -89,26 +89,6 @@ class DashboardController extends Controller
     }
 
     /**
-     * Impersonate a user.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function impersonate(User $user)
-    {
-        //
-    }
-
-    /**
-     * Stop impersonating a user.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function stopImpersonation()
-    {
-        //
-    }
-
-    /**
      * Display a listing of teams.
      *
      * @return \Illuminate\Http\Response

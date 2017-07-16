@@ -14,6 +14,12 @@ class DatabaseDebugger
         }
 
         $data = $response->getData();
+        if (is_string($data)) {
+            $data = [
+                'message' => $data,
+            ];
+        }
+
         if (is_array($data)) {
             $data['queries'] = \TeamPay::$queryLog;
         } else {

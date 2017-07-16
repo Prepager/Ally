@@ -33,7 +33,7 @@ class User extends TeamPayUser
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email_token',
     ];
 
     /**
