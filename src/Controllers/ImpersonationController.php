@@ -3,7 +3,6 @@
 namespace ZapsterStudios\TeamPay\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 
 class ImpersonationController extends Controller
 {
