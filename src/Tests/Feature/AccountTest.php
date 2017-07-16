@@ -10,7 +10,6 @@ use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 
 class AccountTest extends TestCase
 {
-
     /** @test */
     public function guestCanNotRegisterWithExistingEmail()
     {
@@ -65,7 +64,7 @@ class AccountTest extends TestCase
             'email' => 'andreas@example.com',
             'team' => [
                 'name' => 'Some Team',
-            ]
+            ],
         ]);
 
         $this->assertDatabaseHas('users', [

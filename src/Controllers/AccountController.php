@@ -56,6 +56,7 @@ class AccountController extends Controller
         event(new TeamCreated($team));
 
         $user->team = $team;
+
         return response()->json($user);
     }
 
