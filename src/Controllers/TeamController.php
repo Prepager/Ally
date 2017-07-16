@@ -38,11 +38,7 @@ class TeamController extends Controller
         $this->validate($request, Team::$rules);
 
         $team = $request->user()->ownedTeams()->create($request->all());
-        $team->teamMembers()->forceCreate([
-            'team_id' => $team->id,
-            'user_id' => $request->user()->id,
-            'group' => 'owner',
-        ]);
+        $request->user()->teams()->attach($team);
 
         event(new TeamCreated($team));
 
