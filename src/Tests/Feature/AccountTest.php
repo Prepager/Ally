@@ -10,34 +10,6 @@ use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 
 class AccountTest extends TestCase
 {
-    /** @test */
-    public function guestCanRegisterWithValidInformation()
-    {
-        Event::fake();
-
-        $response = $this->json('POST', route('account.store'), [
-            'name' => 'Andreas',
-            'email' => 'andreas@example.com',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
-            'country' => 'DK',
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJson([
-            'name' => 'Andreas',
-            'email' => 'andreas@example.com',
-        ]);
-
-        $this->assertDatabaseHas('users', [
-            'name' => 'Andreas',
-            'email' => 'andreas@example.com',
-        ]);
-
-        Event::assertDispatched(UserCreated::class, function ($e) {
-            return $e->user->email == 'andreas@example.com';
-        });
-    }
 
     /** @test */
     public function guestCanNotRegisterWithExistingEmail()
@@ -71,6 +43,43 @@ class AccountTest extends TestCase
         $response = $this->json('GET', route('account.show'));
 
         $response->assertStatus(401);
+    }
+
+    /** @test */
+    public function guestCanRegisterWithValidInformation()
+    {
+        Event::fake();
+
+        $response = $this->json('POST', route('account.store'), [
+            'name' => 'Andreas',
+            'email' => 'andreas@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+            'country' => 'DK',
+            'team' => 'Some Team',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'name' => 'Andreas',
+            'email' => 'andreas@example.com',
+            'team' => [
+                'name' => 'Some Team',
+            ]
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Andreas',
+            'email' => 'andreas@example.com',
+        ]);
+
+        $this->assertDatabaseHas('teams', [
+            'name' => 'Some Team',
+        ]);
+
+        Event::assertDispatched(UserCreated::class, function ($e) {
+            return $e->user->email == 'andreas@example.com';
+        });
     }
 
     /** @test */

@@ -37,8 +37,12 @@ class TeamController extends Controller
         $this->authorize('create', Team::class);
         $this->validate($request, Team::$rules);
 
-        $team = $request->user()->ownedTeams()->create($request->all());
-        $request->user()->teams()->attach($team);
+        $user = $request->user();
+        $team = $user->ownedTeams()->create($request->all());
+        $user->teams()->attach($team);
+
+        $user->team_id = $team->id;
+        $user->save();
 
         event(new TeamCreated($team));
 
@@ -83,11 +87,17 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function destroy(Request $request, Team $team)
     {
         $this->authorize('delete', $team);
 
         $team->delete();
+
+        $user = $request->user();
+        if ($user->team_id === $team->id) {
+            $user->team_id = $user->firstTeam();
+            $user->save();
+        }
 
         event(new TeamDeleated($team));
     }

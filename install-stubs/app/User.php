@@ -35,16 +35,4 @@ class User extends TeamPayUser
     protected $hidden = [
         'password', 'remember_token', 'email_token',
     ];
-
-    /**
-     * The model validation rules.
-     *
-     * @var array
-     */
-    public static $rules = [
-        'name' => 'required|min:2',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|confirmed',
-        'country' => 'required',
-    ];
 }

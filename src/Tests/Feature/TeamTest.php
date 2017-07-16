@@ -130,12 +130,19 @@ class TeamTest extends TestCase
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create(['user_id' => $user->id]);
 
+        $user->team_id = $team->id;
+
         Passport::actingAs($user, ['manage-teams']);
         $response = $this->json('DELETE', route('teams.destroy', $team->slug));
 
         $response->assertStatus(200);
         $this->assertSoftDeleted('teams', [
             'slug' => $team->slug,
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'team_id' => 0,
         ]);
 
         Event::assertDispatched(TeamDeleated::class, function ($e) use ($team) {

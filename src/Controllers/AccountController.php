@@ -2,8 +2,10 @@
 
 namespace ZapsterStudios\TeamPay\Controllers;
 
+use App\Team;
 use App\User;
 use Illuminate\Http\Request;
+use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
 use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 use ZapsterStudios\TeamPay\Events\Users\UserUpdated;
 
@@ -27,7 +29,13 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, User::$rules);
+        $this->validate($request, [
+            'name' => 'required|min:2',
+            'team' => Team::$rules['name'],
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
+            'country' => 'required',
+        ]);
 
         $user = User::create(array_merge([
             'password' => bcrypt($request->password),
@@ -36,6 +44,18 @@ class AccountController extends Controller
 
         event(new UserCreated($user));
 
+        $team = $user->ownedTeams()->create([
+            'name' => $request->team,
+            'slug' => Team::generateSlug(str_slug($request->team)),
+        ]);
+
+        $user->teams()->attach($team);
+        $user->team_id = $team->id;
+        $user->save();
+
+        event(new TeamCreated($team));
+
+        $user->team = $team;
         return response()->json($user);
     }
 

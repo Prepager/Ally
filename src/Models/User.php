@@ -37,6 +37,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the users first team id or 0.
+     */
+    public function firstTeam()
+    {
+        $team = $this->teams()->first();
+
+        return $team ? $team->id : 0;
+    }
+
+    /**
      * Check if user is on team.
      *
      * @param  \App\Team  $team
