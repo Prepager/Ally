@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
-class AuthenticationTest extends TestCase
+class AuthTest extends TestCase
 {
     /** @test */
     public function userCanLoginWithValidCredentials()
