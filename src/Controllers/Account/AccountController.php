@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\TeamPay\Controllers\Account;
 
 use App\Team;
 use App\User;
@@ -34,7 +34,7 @@ class AccountController extends Controller
             'name' => 'required|min:2',
             'team' => Team::$rules['name'],
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required|min:6|confirmed',
             'country' => 'required',
         ]);
 

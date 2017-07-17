@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature;
+namespace ZapsterStudios\TeamPay\Tests\Feature\Team;
 
 use App\Team;
 use App\User;

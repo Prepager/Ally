@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature;
+namespace ZapsterStudios\TeamPay\Tests\Feature\Account;
 
 use App\User;
 use Laravel\Passport\Passport;

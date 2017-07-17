@@ -39,6 +39,7 @@ class TeamPayServiceProvider extends ServiceProvider
         Passport::tokensCan([
             // User
             'view-notifications' => 'Read Notifications',
+            'manage-account' => 'Manage Account',
 
             // Teams
             'view-teams' => 'View Teams',

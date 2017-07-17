@@ -27,7 +27,7 @@ Route::group([
         Route::get('/app/routes', 'AppController@routes')->name('app.routes');
 
         // Auth
-        Route::post('/login/refresh', 'AuthController@refresh')->name('refresh');
+        Route::post('/login/refresh', 'Auth\AuthController@refresh')->name('refresh');
 
         // Announcements
         Route::get('/announcements/{method?}', 'AnnouncementController@index')->name('announcements.index');
@@ -35,14 +35,17 @@ Route::group([
     });
 
     // Group: Guest
-    Route::group(['middleware' => 'guest'], function () {
+    Route::group(['middleware' => 'unauthenticated'], function () {
 
         // Auth
-        Route::post('/login', 'AuthController@login')->name('login');
-        //Route::post('/login/password', '');
+        Route::post('/login', 'Auth\AuthController@login')->name('login');
 
-        // User
-        Route::post('/register', 'AccountController@store')->name('account.store');
+        // Password-Reset
+        Route::post('/login/reset', 'Auth\PasswordResetController@store')->name('login.reset.store');
+        Route::put('/login/reset/{reset}', 'Auth\PasswordResetController@update')->name('login.reset.update');
+
+        // Account
+        Route::post('/register', 'Account\AccountController@store')->name('account.store');
     });
 
     // Group: Authenticated
@@ -55,12 +58,13 @@ Route::group([
         Route::get('/app/token', 'AppController@token')->name('app.token');
 
         // Auth
-        Route::post('/logout', 'AuthController@logout')->name('logout');
+        Route::post('/logout', 'Auth\AuthController@logout')->name('logout');
 
-        // User
-        Route::get('/account', 'AccountController@show')->name('account.show');
-        Route::post('/account', 'AccountController@update')->name('account.update');
-        Route::get('/account/notifications/{method?}', 'AccountController@notifications')->name('account.notifications.index');
+        // Account
+        Route::get('/account', 'Account\AccountController@show')->name('account.show');
+        Route::post('/account', 'Account\AccountController@update')->name('account.update');
+        Route::get('/account/notifications/{method?}', 'Account\AccountController@notifications')->name('account.notifications.index');
+        Route::put('/account/password', 'Account\PasswordController@update')->name('account.password.update');
 
         // Teams
         Route::get($plural, 'Team\TeamController@index')->name('teams.index');

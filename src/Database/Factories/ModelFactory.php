@@ -26,3 +26,11 @@ $factory->define(ZapsterStudios\TeamPay\Models\Announcement::class, function (Fa
         'visit' => '#',
     ];
 });
+
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(ZapsterStudios\TeamPay\Models\PasswordReset::class, function (Faker\Generator $faker) {
+    return [
+        'email' => factory(App\User::class)->create()->email,
+        'token' => str_random(60),
+    ];
+});

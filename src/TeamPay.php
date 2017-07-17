@@ -10,6 +10,7 @@ class TeamPay
     use Configuration\TeamConfiguration;
     use Configuration\UserConfiguration;
     use Configuration\PlanConfiguration;
+    use Configuration\LinkConfiguration;
     /*
      * Use data repositories.
      */
@@ -30,5 +31,6 @@ class TeamPay
     public static function setup()
     {
         static::teamSetup();
+        static::linkSetup();
     }
 }
