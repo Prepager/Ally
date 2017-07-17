@@ -5,7 +5,6 @@ namespace ZapsterStudios\TeamPay\Tests\Feature\Subscription;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class InvoiceTest extends TestCase

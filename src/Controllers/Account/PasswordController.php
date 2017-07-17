@@ -30,7 +30,7 @@ class PasswordController extends Controller
         }
 
         return response()->json(tap($user)->update([
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
         ]), 200);
     }
 }
