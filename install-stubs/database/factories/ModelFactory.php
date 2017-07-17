@@ -24,6 +24,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->state(App\User::class, 'verified', function (Faker\Generator $faker) {
+    return [
+        'email_verified' => 1,
+        'email_token' => null,
+    ];
+});
+
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Team::class, function (Faker\Generator $faker) {
     $company = $faker->company;

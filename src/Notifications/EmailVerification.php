@@ -6,7 +6,7 @@ use TeamPay;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PasswordReset extends Notification
+class EmailVerification extends Notification
 {
     /**
      * Create a new notification instance.
@@ -39,10 +39,10 @@ class PasswordReset extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Password Reset')
+            ->subject('Email Verification')
             ->greeting('Hi, '.$this->user->name.'!')
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', str_replace('{token}', $this->token, TeamPay::$linkPasswordReset))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line('You are receiving this email because you recently registered on **'.config('app.name').'**. To continue using your account you must verify your account by clicking on the button below.')
+            ->action('Verify Account', str_replace('{token}', $this->token, TeamPay::$linkAccountVerification))
+            ->line('If you did not create an account please contact our support.');
     }
 }

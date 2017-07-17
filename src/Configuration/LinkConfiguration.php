@@ -12,6 +12,13 @@ trait LinkConfiguration
     public static $linkPasswordReset = '/login/reset/{token}';
 
     /**
+     * The account verification url.
+     *
+     * @var string
+     */
+    public static $linkAccountVerification = '/account/verify/{token}';
+
+    /**
      * Create default links.
      *
      * @returns void
@@ -19,5 +26,6 @@ trait LinkConfiguration
     public static function linkSetup()
     {
         static::$linkPasswordReset = env('APP_URL').static::$linkPasswordReset;
+        static::$linkAccountVerification = env('APP_URL').static::$linkAccountVerification;
     }
 }

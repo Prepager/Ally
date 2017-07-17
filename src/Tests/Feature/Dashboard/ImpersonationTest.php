@@ -24,7 +24,7 @@ class ImpersonationTest extends TestCase
     /** @test */
     public function adminCanNotImpersonateInvalidUser()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         Passport::actingAs($user, ['manage-application']);
@@ -36,7 +36,7 @@ class ImpersonationTest extends TestCase
     /** @test */
     public function adminCanImpersonateValidUser()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
@@ -58,7 +58,7 @@ class ImpersonationTest extends TestCase
     /** @test */
     public function adminCanStopImpersonatingUser()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();

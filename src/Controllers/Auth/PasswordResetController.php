@@ -29,7 +29,7 @@ class PasswordResetController extends Controller
             'token' => str_random(16),
         ]);
 
-        $user->notify(new PasswordResetMail($user, $reset));
+        $user->notify(new PasswordResetMail($user, $reset->token));
 
         return response()->json('Password reset email sent.');
     }

@@ -6,7 +6,9 @@ use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
+use Illuminate\Support\Facades\Notification;
 use ZapsterStudios\TeamPay\Events\Users\UserCreated;
+use ZapsterStudios\TeamPay\Notifications\EmailVerification;
 
 class AccountTest extends TestCase
 {
@@ -48,6 +50,7 @@ class AccountTest extends TestCase
     public function guestCanRegisterWithValidInformation()
     {
         Event::fake();
+        Notification::fake();
 
         $response = $this->json('POST', route('account.store'), [
             'name' => 'Andreas',
@@ -79,6 +82,47 @@ class AccountTest extends TestCase
         Event::assertDispatched(UserCreated::class, function ($e) {
             return $e->user->email == 'andreas@example.com';
         });
+
+        $user = User::findOrFail(json_decode($response->getContent())->id);
+        Notification::assertSentTo($user, EmailVerification::class,
+            function ($notification, $channels) use ($user) {
+                return $notification->user->name === $user->name &&
+                    $notification->token === $user->email_token;
+            }
+        );
+    }
+
+    /** @test */
+    public function guestCanNotVerifyAccountWithInvalidToken()
+    {
+        $response = $this->json('POST', route('account.verify', 'invalid-token'));
+
+        $response->assertStatus(404);
+    }
+
+    /** @test */
+    public function guestCanVerifyAccount()
+    {
+        $token = str_random(16);
+        $user = factory(User::class)->create([
+            'email_verified' => 0,
+            'email_token' => $token,
+        ]);
+
+        $this->assertFalse($user->isVerified());
+
+        $response = $this->json('POST', route('account.verify', $token));
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'email_verified' => 1,
+            'email_token' => null,
+        ]);
+
+        $user = $user->fresh();
+        $this->assertTrue($user->isVerified());
     }
 
     /** @test */

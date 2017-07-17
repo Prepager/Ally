@@ -19,12 +19,15 @@ Route::group([
     'namespace' => 'ZapsterStudios\TeamPay\Controllers',
 ], function () {
 
-    // Group: Unauthenticated
+    // Group: Public
     Route::group([], function () {
 
         // App
         Route::get('/app', 'AppController@index')->name('app');
         Route::get('/app/routes', 'AppController@routes')->name('app.routes');
+
+        // Account
+        Route::post('/account/verify/{token}', 'Account\AccountController@verify')->name('account.verify');
 
         // Auth
         Route::post('/login/refresh', 'Auth\AuthController@refresh')->name('refresh');
@@ -34,7 +37,7 @@ Route::group([
         Route::get('/announcements/{announcement}', 'AnnouncementController@show')->name('announcements.show');
     });
 
-    // Group: Guest
+    // Group: Unauthenticated
     Route::group(['middleware' => 'unauthenticated'], function () {
 
         // Auth

@@ -63,7 +63,7 @@ class AnnouncementTest extends TestCase
     {
         Event::fake();
 
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         Passport::actingAs($user, ['manage-application']);
@@ -89,7 +89,7 @@ class AnnouncementTest extends TestCase
     /** @test */
     public function adminCanUpdateAnnouncement()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $announcement = factory(Announcement::class)->create();
@@ -113,7 +113,7 @@ class AnnouncementTest extends TestCase
     /** @test */
     public function adminCanDeleteAnnouncement()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $announcement = factory(Announcement::class)->create();

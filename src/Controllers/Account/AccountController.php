@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
 use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 use ZapsterStudios\TeamPay\Events\Users\UserUpdated;
+use ZapsterStudios\TeamPay\Notifications\EmailVerification;
 
 class AccountController extends Controller
 {
@@ -44,6 +45,8 @@ class AccountController extends Controller
         ], $request->only('name', 'email', 'country')));
 
         event(new UserCreated($user));
+
+        $user->notify(new EmailVerification($user, $user->email_token));
 
         $team = $user->ownedTeams()->create([
             'name' => $request->team,
@@ -86,6 +89,24 @@ class AccountController extends Controller
         event(new UserUpdated($user));
 
         return response()->json($user);
+    }
+
+    /**
+     * Verify account email.
+     *
+     * @param  string  $token
+     * @return Response
+     */
+    public function verify($token)
+    {
+        $user = User::where('email_token', $token)->firstOrFail();
+
+        $user->update([
+            'email_verified' => 1,
+            'email_token' => null,
+        ]);
+
+        return response()->json('Account verified.');
     }
 
     /**

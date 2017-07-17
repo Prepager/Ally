@@ -36,7 +36,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanAccessDashboard()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         Passport::actingAs($user, ['manage-application']);
@@ -49,7 +49,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanRetrieveUsers()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         factory(User::class, 10)->create();
@@ -64,7 +64,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanRetrieveUser()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
@@ -87,7 +87,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanSearchForUser()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
@@ -112,7 +112,7 @@ class DashboardTest extends TestCase
     {
         Event::fake();
 
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
@@ -160,7 +160,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanRetrieveTeams()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         factory(Team::class, 10)->create();
@@ -175,7 +175,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanRetrieveTeam()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
@@ -198,7 +198,7 @@ class DashboardTest extends TestCase
     /** @test */
     public function adminCanSearchForTeam()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $team = factory(Team::class)->create();
@@ -223,7 +223,7 @@ class DashboardTest extends TestCase
     {
         Event::fake();
 
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
         $extra = factory(Team::class)->create();

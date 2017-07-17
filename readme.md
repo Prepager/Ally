@@ -47,12 +47,20 @@ Passport
 php artisan passport:install
 ```
 
-Tests
+## Tests
+
+Normal Tests
 ```
-Braintree: valid-first-plan | Valid First Plan | $5 | 1 Month
-Braintree: valid-second-plan | Valid Second Plan | $10 | 1 Month
+vendor/bin/phpunit TeamPay --exclude-group Subscription
+```
+
+Subscription Tests
+```
+Braintree plans:
+valid-first-plan | Valid First Plan | $5 | 1 Month
+valid-second-plan | Valid Second Plan | $10 | 1 Month
 ```
 
 ```
-vendor/bin/phpunit TeamPay
+vendor/bin/phpunit TeamPay --group Subscription
 ```

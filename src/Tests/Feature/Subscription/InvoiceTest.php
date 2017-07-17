@@ -9,7 +9,10 @@ use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class InvoiceTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Subscription
+     */
     public function ownerCanRetrieveInvoices()
     {
         $user = factory(User::class)->create();

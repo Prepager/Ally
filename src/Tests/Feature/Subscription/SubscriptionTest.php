@@ -26,7 +26,10 @@ class SubscriptionTest extends TestCase
         TeamPay::addPlan('valid-second-plan', 'Valid Second Plan', 10);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Subscription
+     */
     public function guestCanNotSubscribe()
     {
         $team = factory(Team::class)->create();
@@ -36,7 +39,7 @@ class SubscriptionTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /** @test @group subscription */
     public function memberCanNotSubscribe()
     {
         $user = factory(User::class)->create();
@@ -52,7 +55,10 @@ class SubscriptionTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Subscription
+     */
     public function ownerCanNotSubscribeWithoutData()
     {
         $user = factory(User::class)->create();
@@ -64,7 +70,10 @@ class SubscriptionTest extends TestCase
         $response->assertStatus(422);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Subscription
+     */
     public function ownerCanNotSubscribeWithInvalidPlan()
     {
         $user = factory(User::class)->create();
@@ -79,7 +88,10 @@ class SubscriptionTest extends TestCase
         $response->assertStatus(422);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Subscription
+     */
     public function ownerCanSubscribeCancelResumeAndSwapWithValidPlan()
     {
         Event::fake();
@@ -135,7 +147,10 @@ class SubscriptionTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Subscription
+     */
     public function ownerCanRetrieveInvoices()
     {
         $user = factory(User::class)->create();

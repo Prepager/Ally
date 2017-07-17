@@ -13,6 +13,15 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified' => 'boolean',
+    ];
+
+    /**
      * Get the users active team.
      */
     public function team()
@@ -85,7 +94,7 @@ class User extends Authenticatable
      */
     public function isVerified()
     {
-        return true; // Missing check here.
+        return $this->email_verified;
     }
 
     /**
