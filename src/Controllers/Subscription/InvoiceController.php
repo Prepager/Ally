@@ -1,9 +1,10 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\TeamPay\Controllers\Subscription;
 
 use App\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class InvoiceController extends Controller
 {

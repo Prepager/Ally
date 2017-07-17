@@ -1,9 +1,10 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\TeamPay\Controllers\Team;
 
 use App\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Models\TeamMember;
 
 class TeamInvitationController extends Controller

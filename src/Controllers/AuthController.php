@@ -5,6 +5,7 @@ namespace ZapsterStudios\TeamPay\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
+use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\TeamPay\Controllers\Dashboard;
 
 use App\User;
+use App\Http\Controllers\Controller;
 
 class ImpersonationController extends Controller
 {

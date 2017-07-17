@@ -1,11 +1,12 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\TeamPay\Controllers\Dashboard;
 
 use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Events\Teams\TeamSuspended;
 use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
 

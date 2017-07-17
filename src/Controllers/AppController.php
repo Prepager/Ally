@@ -6,6 +6,7 @@ use TeamPay;
 use Braintree\ClientToken;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use App\Http\Controllers\Controller;
 
 class AppController extends Controller
 {

@@ -5,6 +5,7 @@ namespace ZapsterStudios\TeamPay\Controllers;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
 use ZapsterStudios\TeamPay\Events\Users\UserCreated;
 use ZapsterStudios\TeamPay\Events\Users\UserUpdated;

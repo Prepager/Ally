@@ -1,10 +1,11 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\TeamPay\Controllers\Team;
 
 use TeamPay;
 use App\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Models\TeamMember;
 use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberKicked;
 

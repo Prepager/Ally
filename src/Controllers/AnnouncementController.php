@@ -3,6 +3,7 @@
 namespace ZapsterStudios\TeamPay\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Models\Announcement;
 use ZapsterStudios\TeamPay\Events\Announcements\AnnouncementCreated;
 

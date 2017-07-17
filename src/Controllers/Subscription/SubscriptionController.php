@@ -1,10 +1,11 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\TeamPay\Controllers\Subscription;
 
 use TeamPay;
 use App\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionCreated;
 use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionResumed;
 use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionSwapped;
