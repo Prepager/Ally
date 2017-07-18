@@ -22,7 +22,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the users active team.
+     * Get the users team invitations.
      */
     public function invitations()
     {
