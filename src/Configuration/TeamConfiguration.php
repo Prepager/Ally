@@ -63,4 +63,14 @@ trait TeamConfiguration
             return $group->id === $id;
         });
     }
+
+    /**
+     * Return a in group validation
+     *
+     * @returns string
+     */
+    public static function inGroup()
+    {
+        return 'in:'.static::groups()->implode('id', ',');
+    }
 }

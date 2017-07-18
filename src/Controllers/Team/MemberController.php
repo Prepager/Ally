@@ -46,15 +46,11 @@ class MemberController extends Controller
      */
     public function update(Request $request, Team $team, TeamMember $member)
     {
-        $request->request->add([
-            'user_id' => $member->id,
+        $this->authorize('update', $team);
+        $this->validate($request, [
+            'group' => 'required|'.TeamPay::inGroup(),
         ]);
 
-        $rules = TeamMember::$rules;
-        $rules['group'] = $rules['group'].'|in:'.TeamPay::groups()->implode('id', ',');
-
-        $this->authorize('update', $team);
-        $this->validate($request, $rules);
         abort_if($member->team_id != $team->id, 404);
 
         return response()->json(tap($member)->update([

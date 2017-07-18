@@ -69,6 +69,14 @@ class Team extends Model
     }
 
     /**
+     * Get all the team member invitations.
+     */
+    public function invitations()
+    {
+        return $this->belongsTo('ZapsterStudios\TeamPay\Models\TeamInvitation', 'id', 'team_id');
+    }
+
+    /**
      * Get all the team member fields.
      */
     public function teamMembers()

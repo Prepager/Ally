@@ -19,6 +19,15 @@ $factory->define(ZapsterStudios\TeamPay\Models\TeamMember::class, function (Fake
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(ZapsterStudios\TeamPay\Models\TeamInvitation::class, function (Faker\Generator $faker) {
+    return [
+        'team_id' => factory(App\Team::class)->create()->id,
+        'email' => factory(App\User::class)->create()->email,
+        'group' => 'member',
+    ];
+});
+
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(ZapsterStudios\TeamPay\Models\Announcement::class, function (Faker\Generator $faker) {
     return [

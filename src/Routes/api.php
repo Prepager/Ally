@@ -103,6 +103,13 @@ Route::group([
             Route::get('/members/{member}', 'Team\MemberController@show')->name('teams.members.show');
             Route::put('/members/{member}', 'Team\MemberController@update')->name('teams.members.update');
             Route::delete('/members/{member}', 'Team\MemberController@destroy')->name('teams.members.destroy');
+
+            // Invitations
+            Route::get('/invitations', 'Team\InvitationController@index')->name('teams.invitations.index');
+            Route::post('/invitations', 'Team\InvitationController@store')->name('teams.invitations.store');
+            Route::get('/invitations/{invitation}', 'Team\InvitationController@show')->name('teams.invitations.show');
+            Route::put('/invitations/{invitation}', 'Team\InvitationController@update')->name('teams.invitations.update');
+            Route::delete('/invitations/{invitation}', 'Team\InvitationController@destroy')->name('teams.invitations.destroy');
         });
 
         // Group: Administrator

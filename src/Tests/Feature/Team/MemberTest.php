@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberKicked;
 
-class TeamMemberTest extends TestCase
+class MemberTest extends TestCase
 {
     /** @test */
     public function guestCanNotRetrieveMembers()

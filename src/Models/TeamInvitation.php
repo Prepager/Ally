@@ -4,7 +4,7 @@ namespace ZapsterStudios\TeamPay\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TeamMember extends Model
+class TeamInvitation extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class TeamMember extends Model
      * @var array
      */
     protected $fillable = [
-        'group',
+        'email', 'group',
     ];
 
     /**
@@ -21,13 +21,5 @@ class TeamMember extends Model
     public function team()
     {
         return $this->belongsTo('App\Team');
-    }
-
-    /**
-     * Get the user.
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User');
     }
 }
