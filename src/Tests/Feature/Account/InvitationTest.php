@@ -4,7 +4,6 @@ namespace ZapsterStudios\TeamPay\Tests\Feature\Account;
 
 use App\User;
 use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
 use ZapsterStudios\TeamPay\Models\TeamInvitation;
 

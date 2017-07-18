@@ -2,9 +2,7 @@
 
 namespace ZapsterStudios\TeamPay\Controllers\Account;
 
-use TeamPay;
 use App\Team;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Models\TeamMember;
