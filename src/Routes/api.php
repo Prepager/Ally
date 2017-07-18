@@ -99,40 +99,40 @@ Route::group([
             Route::get('/invoices/{id}', 'Subscription\InvoiceController@show')->name('invoices.show');
 
             // Members
-            Route::get('/members', 'Team\TeamMemberController@index')->name('teams.members.index');
-            Route::get('/members/{member}', 'Team\TeamMemberController@show')->name('teams.members.show');
-            Route::put('/members/{member}', 'Team\TeamMemberController@update')->name('teams.members.update');
-            Route::delete('/members/{member}', 'Team\TeamMemberController@destroy')->name('teams.members.destroy');
+            Route::get('/members', 'Team\MemberController@index')->name('teams.members.index');
+            Route::get('/members/{member}', 'Team\MemberController@show')->name('teams.members.show');
+            Route::put('/members/{member}', 'Team\MemberController@update')->name('teams.members.update');
+            Route::delete('/members/{member}', 'Team\MemberController@destroy')->name('teams.members.destroy');
         });
 
         // Group: Administrator
         Route::group(['middleware' => 'administrator'], function () {
 
             // Dashboard
-            Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard.index');
+            Route::get('/dashboard', 'Dashboard\AnalyticsController@index')->name('dashboard.index');
 
             // Announcements
             Route::post('/announcements', 'AnnouncementController@store')->name('announcements.store');
             Route::put('/announcements/{announcement}', 'AnnouncementController@update')->name('announcements.update');
             Route::delete('/announcements/{announcement}', 'AnnouncementController@destroy')->name('announcements.destroy');
 
-            // Users
-            Route::get('/dashboard/users', 'Dashboard\DashboardController@users')->name('dashboard.users.index');
-            Route::get('/dashboard/users/{user}', 'Dashboard\DashboardController@user')->name('dashboard.users.show');
-            Route::post('/dashboard/users/search', 'Dashboard\DashboardController@searchUsers')->name('dashboard.users.search');
-            Route::post('/dashboard/users/{user}/suspend', 'Dashboard\DashboardController@suspendUser')->name('dashboard.users.suspend');
-            Route::post('/dashboard/users/{user}/unsuspend', 'Dashboard\DashboardController@unsuspendUser')->name('dashboard.users.unsuspend');
-
             // Impersonate
             Route::post('/dashboard/users/impersonate/{user}', 'Dashboard\ImpersonationController@store')->name('dashboard.users.impersonation.store');
             Route::delete('/dashboard/users/impersonate', 'Dashboard\ImpersonationController@destroy')->name('dashboard.users.impersonation.destroy');
 
+            // Users
+            Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('dashboard.users.index');
+            Route::get('/dashboard/users/{user}', 'Dashboard\UserController@show')->name('dashboard.users.show');
+            Route::post('/dashboard/users/search', 'Dashboard\UserController@search')->name('dashboard.users.search');
+            Route::post('/dashboard/users/{user}/suspend', 'Dashboard\UserSuspensionController@store')->name('dashboard.users.suspension.store');
+            Route::delete('/dashboard/users/{user}/unsuspend', 'Dashboard\UserSuspensionController@destroy')->name('dashboard.users.suspension.destroy');
+
             // Teams
-            Route::get('/dashboard/teams', 'Dashboard\DashboardController@teams')->name('dashboard.teams.index');
-            Route::get('/dashboard/teams/{team}', 'Dashboard\DashboardController@team')->name('dashboard.teams.show');
-            Route::post('/dashboard/teams/search', 'Dashboard\DashboardController@searchTeams')->name('dashboard.teams.search');
-            Route::post('/dashboard/teams/{team}/suspend', 'Dashboard\DashboardController@suspendTeam')->name('dashboard.teams.suspend');
-            Route::post('/dashboard/teams/{team}/unsuspend', 'Dashboard\DashboardController@unsuspendTeam')->name('dashboard.teams.unsuspend');
+            Route::get('/dashboard/teams', 'Dashboard\TeamController@index')->name('dashboard.teams.index');
+            Route::get('/dashboard/teams/{team}', 'Dashboard\TeamController@show')->name('dashboard.teams.show');
+            Route::post('/dashboard/teams/search', 'Dashboard\TeamController@search')->name('dashboard.teams.search');
+            Route::post('/dashboard/teams/{team}/suspend', 'Dashboard\TeamSuspensionController@store')->name('dashboard.teams.suspension.store');
+            Route::delete('/dashboard/teams/{team}/unsuspend', 'Dashboard\TeamSuspensionController@destroy')->name('dashboard.teams.suspension.destroy');
         });
     });
 });
