@@ -17,16 +17,6 @@ class Announcement extends Model
     ];
 
     /**
-     * The model validation rules.
-     *
-     * @var array
-     */
-    public static $rules = [
-        'message' => 'required',
-        'visit' => 'required',
-    ];
-
-    /**
      * The "booting" method of the model.
      *
      * @return void

@@ -15,6 +15,19 @@ class Team extends Model
     use Billable, SoftDeletes;
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'suspended_at',
+        'suspended_to',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

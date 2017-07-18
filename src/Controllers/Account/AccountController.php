@@ -33,7 +33,7 @@ class AccountController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|min:2',
-            'team' => Team::$rules['name'],
+            'team' => 'required|min:2|unique:teams,name',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             'country' => 'required',

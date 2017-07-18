@@ -36,7 +36,10 @@ class TeamController extends Controller
         ]);
 
         $this->authorize('create', Team::class);
-        $this->validate($request, Team::$rules);
+        $this->validate($request, [
+            'name' => 'required|min:2|unique:teams,name',
+            'slug' => 'required|alpha_dash|unique:teams,slug',
+        ]);
 
         $user = $request->user();
         $team = $user->ownedTeams()->create($request->all());
@@ -77,7 +80,10 @@ class TeamController extends Controller
         ]);
 
         $this->authorize('update', $team);
-        $this->validate($request, Team::$rules);
+        $this->validate($request, [
+            'name' => 'required|min:2|unique:teams,name',
+            'slug' => 'sometimes|required|alpha_dash|unique:teams,slug',
+        ]);
 
         return tap($team)->update($request->all());
     }

@@ -31,7 +31,10 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, Announcement::$rules);
+        $this->validate($request, [
+            'message' => 'required',
+            'visit' => 'required',
+        ]);
 
         $announcement = Announcement::create(
             $request->intersect(['user_id', 'message', 'visit'])
