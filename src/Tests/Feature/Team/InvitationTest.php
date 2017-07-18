@@ -8,8 +8,10 @@ use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
 use ZapsterStudios\TeamPay\Tests\TestCase;
+use Illuminate\Support\Facades\Notification;
 use ZapsterStudios\TeamPay\Models\TeamInvitation;
 use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberInvited;
+use ZapsterStudios\TeamPay\Notifications\TeamInvitation as TeamInvitationMail;
 
 class InvitationTest extends TestCase
 {
@@ -96,14 +98,19 @@ class InvitationTest extends TestCase
     }
 
     /** @test */
-    public function ownerCanCreateInvitation()
+    public function ownerCanCreateInvitationForGuest()
     {
         Event::fake();
+        Notification::fake();
 
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create([
             'user_id' => $user->id,
         ]));
+
+        $extra = new User([
+            'email' => 'some-valid-email@example.com',
+        ]);
 
         Passport::actingAs($user, ['manage-teams']);
         $response = $this->json('POST', route('teams.invitations.store', [$team->slug]), [
@@ -127,7 +134,57 @@ class InvitationTest extends TestCase
                 && $e->email == 'some-valid-email@example.com';
         });
 
-        // Notification...
+        Notification::assertSentTo($extra, TeamInvitationMail::class,
+            function ($notification, $channels) use ($team, $extra) {
+                return $notification->team->slug === $team->slug &&
+                    $notification->user->email === $extra->email &&
+                    $notification->exists === false;
+            }
+        );
+    }
+
+    /** @test */
+    public function ownerCanCreateInvitationForUser()
+    {
+        Event::fake();
+        Notification::fake();
+
+        $user = factory(User::class)->create();
+        $team = $user->teams()->save(factory(Team::class)->create([
+            'user_id' => $user->id,
+        ]));
+
+        $extra = factory(User::class)->create();
+
+        Passport::actingAs($user, ['manage-teams']);
+        $response = $this->json('POST', route('teams.invitations.store', [$team->slug]), [
+            'email' => $extra->email,
+            'group' => 'member',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'email' => $extra->email,
+            'group' => 'member',
+        ]);
+
+        $this->assertDatabaseHas('team_invitations', [
+            'email' => $extra->email,
+            'group' => 'member',
+        ]);
+
+        Event::assertDispatched(TeamMemberInvited::class, function ($e) use ($team, $extra) {
+            return $e->team->slug == $team->slug
+                && $e->email == $extra->email;
+        });
+
+        Notification::assertSentTo($extra, TeamInvitationMail::class,
+            function ($notification, $channels) use ($team, $extra) {
+                return $notification->team->slug === $team->slug &&
+                    $notification->user->email === $extra->email &&
+                    $notification->exists === true;
+            }
+        );
     }
 
     /** @test */

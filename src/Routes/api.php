@@ -69,6 +69,11 @@ Route::group([
         Route::get('/account/notifications/{method?}', 'Account\AccountController@notifications')->name('account.notifications.index');
         Route::put('/account/password', 'Account\PasswordController@update')->name('account.password.update');
 
+        // Invitations
+        Route::get('/account/invitations', 'Account\InvitationController@index')->name('account.invitations.index');
+        Route::put('/account/invitations/{invitation}', 'Account\InvitationController@update')->name('account.invitations.update');
+        Route::delete('/account/invitations/{invitation}', 'Account\InvitationController@destroy')->name('account.invitations.destroy');
+
         // Teams
         Route::get($plural, 'Team\TeamController@index')->name('teams.index');
         Route::post($plural, 'Team\TeamController@store')->name('teams.store');

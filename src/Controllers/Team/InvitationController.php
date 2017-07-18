@@ -4,10 +4,12 @@ namespace ZapsterStudios\TeamPay\Controllers\Team;
 
 use TeamPay;
 use App\Team;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use ZapsterStudios\TeamPay\Models\TeamInvitation;
 use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberInvited;
+use ZapsterStudios\TeamPay\Notifications\TeamInvitation as TeamInvitationMail;
 
 class InvitationController extends Controller
 {
@@ -45,7 +47,11 @@ class InvitationController extends Controller
 
         event(new TeamMemberInvited($team, $request->email));
 
-        // Email here
+        $user = User::where('email', $request->email)->first() ?? new User([
+            'email' => $request->email,
+        ]);
+
+        $user->notify(new TeamInvitationMail($team, $user, $user->exists));
 
         return response()->json($invitation);
     }

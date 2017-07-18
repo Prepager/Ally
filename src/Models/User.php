@@ -24,6 +24,14 @@ class User extends Authenticatable
     /**
      * Get the users active team.
      */
+    public function invitations()
+    {
+        return $this->hasMany('ZapsterStudios\TeamPay\Models\TeamInvitation', 'email', 'email');
+    }
+
+    /**
+     * Get the users active team.
+     */
     public function team()
     {
         return $this->hasOne('App\Team', 'id', 'team_id');
