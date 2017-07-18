@@ -65,7 +65,7 @@ trait TeamConfiguration
     }
 
     /**
-     * Return a in group validation
+     * Return a in group validation.
      *
      * @returns string
      */

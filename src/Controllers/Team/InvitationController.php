@@ -74,7 +74,7 @@ class InvitationController extends Controller
     {
         $this->authorize('update', $team);
         $this->validate($request, [
-            'group' => 'required|'.TeamPay::inGroup()
+            'group' => 'required|'.TeamPay::inGroup(),
         ]);
 
         return response()->json(tap($invitation)->update([
