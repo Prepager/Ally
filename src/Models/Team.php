@@ -82,6 +82,23 @@ class Team extends Model
     }
 
     /**
+     * Get the potential member count.
+     */
+    public function potentialMemberCount()
+    {
+        return $this->members()->count() + $this->invitations()->count();
+    }
+
+    /**
+     * Weather or not the plan max member limit have been reached.
+     */
+    public function maxMemberCountReached()
+    {
+        return $this->plan()->members !== 0 &&
+            $this->potentialMemberCount() >= $this->plan()->members;
+    }
+
+    /**
      * Get all the team member invitations.
      */
     public function invitations()

@@ -39,6 +39,10 @@ class InvitationController extends Controller
             'group' => 'required|'.TeamPay::inGroup(),
         ]);
 
+        if ($team->maxMemberCountReached()) {
+            return response()->json('Max member count reached', 402);
+        }
+
         $invitation = TeamInvitation::forceCreate([
             'team_id' => $team->id,
             'email' => $request->email,

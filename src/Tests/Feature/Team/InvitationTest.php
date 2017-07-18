@@ -116,6 +116,32 @@ class InvitationTest extends TestCase
      * @test
      * @group Team
      */
+    public function ownerCanNotCreateInvitationForTooManyUsers()
+    {
+        $plans = TeamPay::$plans;
+        TeamPay::$plans = [];
+        TeamPay::addPlan('free-plan', 'Free Plan')->maxMembers(1);
+
+        $user = factory(User::class)->create();
+        $team = $user->teams()->save(factory(Team::class)->create([
+            'user_id' => $user->id,
+        ]));
+
+        Passport::actingAs($user, ['manage-teams']);
+        $response = $this->json('POST', route('teams.invitations.store', [$team->slug]), [
+            'email' => 'some-valid-email@example.com',
+            'group' => 'member',
+        ]);
+
+        $response->assertStatus(402);
+
+        TeamPay::$plans = $plans;
+    }
+
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanCreateInvitationForGuest()
     {
         Event::fake();
