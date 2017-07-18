@@ -50,7 +50,7 @@ class InvitationTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             ['email' => $invitations->get(0)->email],
-            ['email' => $invitations->get(1)->email]
+            ['email' => $invitations->get(1)->email],
         ]);
 
         $this->assertCount(2, $response->getData());
