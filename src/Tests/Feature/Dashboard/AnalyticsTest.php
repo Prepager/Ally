@@ -9,7 +9,10 @@ use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class AnalyticsTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function guestCanNotAccessDashboard()
     {
         $response = $this->json('GET', route('dashboard.index'));
@@ -17,7 +20,10 @@ class AnalyticsTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function nonAdminCanNotAccessDashboard()
     {
         $user = factory(User::class)->create();
@@ -28,7 +34,10 @@ class AnalyticsTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanAccessDashboard()
     {
         $user = factory(User::class)->states('verified')->create();

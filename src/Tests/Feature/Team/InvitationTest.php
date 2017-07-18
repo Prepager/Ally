@@ -15,7 +15,10 @@ use ZapsterStudios\TeamPay\Notifications\TeamInvitation as TeamInvitationMail;
 
 class InvitationTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function guestCanNotRetrieveInvitations()
     {
         $team = factory(Team::class)->create();
@@ -24,7 +27,10 @@ class InvitationTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function nonMemberCanNotRetrieveInvitations()
     {
         $user = factory(User::class)->create();
@@ -36,7 +42,10 @@ class InvitationTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function memberCanRetrieveInvitations()
     {
         $user = factory(User::class)->create();
@@ -58,7 +67,10 @@ class InvitationTest extends TestCase
         $this->assertCount(2, $response->getData());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function memberCanRetrieveInvitation()
     {
         $user = factory(User::class)->create();
@@ -77,7 +89,10 @@ class InvitationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanNotCreateInvitationWithInvalidGroup()
     {
         $user = factory(User::class)->create();
@@ -97,7 +112,10 @@ class InvitationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanCreateInvitationForGuest()
     {
         Event::fake();
@@ -143,7 +161,10 @@ class InvitationTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanCreateInvitationForUser()
     {
         Event::fake();
@@ -187,7 +208,10 @@ class InvitationTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanNotUpdateInvitationWithInvalidGroup()
     {
         $user = factory(User::class)->create();
@@ -210,7 +234,10 @@ class InvitationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanUpdateInvitation()
     {
         TeamPay::addGroup('extra', 'Extra Team');
@@ -241,7 +268,10 @@ class InvitationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanDeleteInvitation()
     {
         $user = factory(User::class)->create();

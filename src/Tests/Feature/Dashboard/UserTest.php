@@ -13,7 +13,10 @@ use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
 
 class UserTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanRetrieveUsers()
     {
         $user = factory(User::class)->states('verified')->create();
@@ -28,7 +31,10 @@ class UserTest extends TestCase
         $this->assertEquals(User::count(), $response->getData()->total);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanRetrieveUser()
     {
         $user = factory(User::class)->states('verified')->create();
@@ -51,7 +57,10 @@ class UserTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanSearchForUser()
     {
         $user = factory(User::class)->states('verified')->create();
@@ -74,7 +83,10 @@ class UserTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanSuspendAndUnsuspendUser()
     {
         Event::fake();

@@ -10,7 +10,10 @@ use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanLoginWithValidCredentials()
     {
         $user = factory(User::class)->create();
@@ -27,7 +30,10 @@ class AuthTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanNotLoginWithInvalidCredentials()
     {
         $response = $this->json('POST', route('login'), [
@@ -38,7 +44,10 @@ class AuthTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanRefreshTokenWithValidToken()
     {
         $user = factory(User::class)->create();
@@ -62,7 +71,10 @@ class AuthTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanLogout()
     {
         $user = factory(User::class)->create();
@@ -82,7 +94,10 @@ class AuthTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanNotRefreshTokenWithInvalidToken()
     {
         $response = $this->json('POST', route('refresh'), [
@@ -92,7 +107,10 @@ class AuthTest extends TestCase
         $response->assertStatus(400);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanChangeActiveTeam()
     {
         $user = factory(User::class)->create();
@@ -108,7 +126,10 @@ class AuthTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanNotChangeActiveTeamToUnownedTeam()
     {
         $user = factory(User::class)->create();
@@ -120,7 +141,10 @@ class AuthTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function suspendedUserCanNotRetrieveData()
     {
         $user = factory(User::class)->create([
@@ -140,7 +164,10 @@ class AuthTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function expiredSuspendedUserCanRetrieveData()
     {
         $user = factory(User::class)->create([

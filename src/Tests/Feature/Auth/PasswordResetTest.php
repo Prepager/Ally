@@ -11,7 +11,10 @@ use ZapsterStudios\TeamPay\Notifications\PasswordReset as PasswordResetMail;
 
 class PasswordResetTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function userCanNotRequestReset()
     {
         $user = factory(User::class)->create();
@@ -22,7 +25,10 @@ class PasswordResetTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function guestCanNotRequestResetWithInvalidEmail()
     {
         $response = $this->json('POST', route('login.reset.store'), [
@@ -32,7 +38,10 @@ class PasswordResetTest extends TestCase
         $response->assertStatus(404);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function guestCanRequestResetWithValidEmail()
     {
         Notification::fake();
@@ -58,7 +67,10 @@ class PasswordResetTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function guestCanNotResetWithInvalidToken()
     {
         $request = factory(PasswordReset::class)->create();
@@ -71,7 +83,10 @@ class PasswordResetTest extends TestCase
         $response->assertStatus(404);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Auth
+     */
     public function guestCanResetWithValidToken()
     {
         $user = factory(User::class)->create();

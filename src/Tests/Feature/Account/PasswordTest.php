@@ -8,7 +8,10 @@ use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class PasswordTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanNotUpdatePassword()
     {
         $response = $this->json('PUT', route('account.password.update'));
@@ -16,7 +19,10 @@ class PasswordTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanNotUpdatePasswordWithInvalidPassword()
     {
         $user = factory(User::class)->create();
@@ -31,7 +37,10 @@ class PasswordTest extends TestCase
         $response->assertStatus(422);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanUpdatePasswordWithValidPassword()
     {
         $user = factory(User::class)->create();

@@ -9,7 +9,10 @@ use ZapsterStudios\TeamPay\Models\TeamInvitation;
 
 class InvitationTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanNotRetrieveInvitiations()
     {
         $response = $this->json('GET', route('account.invitations.index'));
@@ -17,7 +20,10 @@ class InvitationTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanRetrieveInvitiations()
     {
         $user = factory(User::class)->create();
@@ -42,7 +48,10 @@ class InvitationTest extends TestCase
         $this->assertCount(10, json_decode($response->getContent()));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanAcceptInvitiation()
     {
         $user = factory(User::class)->create();
@@ -71,7 +80,10 @@ class InvitationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanDeclineInvitiation()
     {
         $user = factory(User::class)->create();

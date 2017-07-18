@@ -9,7 +9,10 @@ use ZapsterStudios\TeamPay\Tests\TestCase;
 
 class ImpersonationTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function nonAdminCanImpersonateValidUser()
     {
         $user = factory(User::class)->create();
@@ -21,7 +24,10 @@ class ImpersonationTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanNotImpersonateInvalidUser()
     {
         $user = factory(User::class)->states('verified')->create();
@@ -33,7 +39,10 @@ class ImpersonationTest extends TestCase
         $response->assertStatus(404);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanImpersonateValidUser()
     {
         $user = factory(User::class)->states('verified')->create();
@@ -55,7 +64,10 @@ class ImpersonationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanStopImpersonatingUser()
     {
         $user = factory(User::class)->states('verified')->create();

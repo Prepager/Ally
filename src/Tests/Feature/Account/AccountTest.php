@@ -12,7 +12,10 @@ use ZapsterStudios\TeamPay\Notifications\EmailVerification;
 
 class AccountTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanNotRegisterWithExistingEmail()
     {
         $user = factory(User::class)->create();
@@ -28,7 +31,10 @@ class AccountTest extends TestCase
         $response->assertStatus(422);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanNotRegisterWithInsufficientInformation()
     {
         $response = $this->json('POST', route('account.store'), [
@@ -38,7 +44,10 @@ class AccountTest extends TestCase
         $response->assertStatus(422);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanNotRetrieveUserInformation()
     {
         $response = $this->json('GET', route('account.show'));
@@ -46,7 +55,10 @@ class AccountTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanRegisterWithValidInformation()
     {
         Event::fake();
@@ -92,7 +104,10 @@ class AccountTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanNotVerifyAccountWithInvalidToken()
     {
         $response = $this->json('POST', route('account.verify', 'invalid-token'));
@@ -100,7 +115,10 @@ class AccountTest extends TestCase
         $response->assertStatus(404);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function guestCanVerifyAccount()
     {
         $token = str_random(16);
@@ -125,7 +143,10 @@ class AccountTest extends TestCase
         $this->assertTrue($user->isVerified());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanRetrieveUserInformation()
     {
         $user = factory(User::class)->create();
@@ -139,7 +160,10 @@ class AccountTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanNotUpdateUserInformationWithExistinEmail()
     {
         $user = factory(User::class)->create();
@@ -153,7 +177,10 @@ class AccountTest extends TestCase
         $response->assertStatus(422);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanUpdateUserInformationWithValidInformation()
     {
         $user = factory(User::class)->create([
@@ -174,7 +201,10 @@ class AccountTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Account
+     */
     public function userCanRetrieveNotifications()
     {
         $user = factory(User::class)->create();

@@ -20,7 +20,10 @@ class TeamTest extends TestCase
         'created_at', 'updated_at',
     ];
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function guestCanNotRetrieveTeams()
     {
         $response = $this->json('GET', route('teams.index'));
@@ -28,7 +31,10 @@ class TeamTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function userCanRetrieveTeams()
     {
         $user = factory(User::class)->create();
@@ -39,7 +45,10 @@ class TeamTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function userCanViewOwnTeam()
     {
         $user = factory(User::class)->create();
@@ -53,7 +62,10 @@ class TeamTest extends TestCase
         $response->assertJsonStructure($this->teamStructure);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function memberCanViewTeam()
     {
         $user = factory(User::class)->create();
@@ -71,7 +83,10 @@ class TeamTest extends TestCase
         $response->assertJsonStructure($this->teamStructure);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function userCanCreateNewTeam()
     {
         Event::fake();
@@ -98,7 +113,10 @@ class TeamTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function userCanUpdateExistingTeam()
     {
         $user = factory(User::class)->create();
@@ -122,7 +140,10 @@ class TeamTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function userCanDeleteTeam()
     {
         Event::fake();
@@ -150,7 +171,10 @@ class TeamTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function userCanRestoreTeam()
     {
         Event::fake();
@@ -174,7 +198,10 @@ class TeamTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function canGenerateUniqueSlug()
     {
         $user = factory(User::class)->create();
@@ -189,7 +216,10 @@ class TeamTest extends TestCase
         $team3->assertJson(['slug' => 'example-community-2']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function suspendedTeamCanNotRetrieveData()
     {
         $user = factory(User::class)->create();
@@ -210,7 +240,10 @@ class TeamTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function expiredSuspendedUserCanRetrieveData()
     {
         $user = factory(User::class)->create();

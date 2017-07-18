@@ -11,7 +11,10 @@ use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberKicked;
 
 class MemberTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function guestCanNotRetrieveMembers()
     {
         $team = factory(Team::class)->create();
@@ -20,7 +23,10 @@ class MemberTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function nonMemberCanNotRetrieveMembers()
     {
         $user = factory(User::class)->create();
@@ -32,7 +38,10 @@ class MemberTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function memberCanRetrieveMembers()
     {
         $user = factory(User::class)->create();
@@ -51,7 +60,10 @@ class MemberTest extends TestCase
         $this->assertCount(2, $response->getData());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanUpdateMemberGroup()
     {
         $user = factory(User::class)->create();
@@ -73,7 +85,10 @@ class MemberTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanNotUpdateMemberWithInvalidGroup()
     {
         $user = factory(User::class)->create();
@@ -90,7 +105,10 @@ class MemberTest extends TestCase
         $response->assertStatus(422);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanDeleteMember()
     {
         Event::fake();
