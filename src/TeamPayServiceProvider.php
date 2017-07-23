@@ -31,7 +31,7 @@ class TeamPayServiceProvider extends Providers\ExtendedServiceProvider
      */
     public function register()
     {
-        $this->registerAlias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay', function() {
+        $this->registerAlias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay', function () {
             TeamPay::setup();
         });
 
