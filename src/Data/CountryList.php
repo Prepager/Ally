@@ -4,7 +4,8 @@ namespace ZapsterStudios\TeamPay\Data;
 
 trait CountryList
 {
-    public static function getCountryKeyString() {
+    public static function getCountryKeyString()
+    {
         return collect(self::getCountryList())->keys()->implode(',');
     }
 
