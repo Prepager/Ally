@@ -32,7 +32,7 @@ class MemberTest extends TestCase
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create();
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.members.index', $team->slug));
 
         $response->assertStatus(403);
@@ -48,7 +48,7 @@ class MemberTest extends TestCase
         $team = $user->teams()->save(factory(Team::class)->create());
         $extra = $team->members()->save(factory(User::class)->create());
 
-        Passport::actingAs($extra, ['view-teams']);
+        Passport::actingAs($extra, ['teams.show']);
         $response = $this->json('GET', route('teams.members.index', $team->slug));
 
         $response->assertStatus(200);
@@ -72,7 +72,7 @@ class MemberTest extends TestCase
         $extra = $team->members()->save(factory(User::class)->create());
         $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.update']);
         $response = $this->json('PUT', route('teams.members.update', [$team->slug, $member->id]), [
             'group' => 'member',
         ]);
@@ -97,7 +97,7 @@ class MemberTest extends TestCase
         $extra = $team->members()->save(factory(User::class)->create());
         $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.update']);
         $response = $this->json('PUT', route('teams.members.update', [$team->slug, $member->id]), [
             'group' => 'invalid-group',
         ]);
@@ -119,7 +119,7 @@ class MemberTest extends TestCase
         $extra = $team->members()->save(factory(User::class)->create());
         $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.delete']);
         $response = $this->json('DELETE', route('teams.members.destroy', [$team->slug, $member->id]));
 
         $response->assertStatus(200);

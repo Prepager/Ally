@@ -33,7 +33,8 @@ class InvitationController extends Controller
      */
     public function store(Request $request, Team $team)
     {
-        $this->authorize('update', $team);
+        $this->authorize('create', TeamInvitation::class);
+
         $this->validate($request, [
             'email' => 'required|email',
             'group' => 'required|'.TeamPay::inGroup(),
@@ -68,7 +69,7 @@ class InvitationController extends Controller
      */
     public function show(Team $team, TeamInvitation $invitation)
     {
-        $this->authorize('view', $team);
+        $this->authorize('view', $invitation);
 
         return response()->json($invitation);
     }
@@ -82,7 +83,7 @@ class InvitationController extends Controller
      */
     public function update(Request $request, Team $team, TeamInvitation $invitation)
     {
-        $this->authorize('update', $team);
+        $this->authorize('update', $invitation);
         $this->validate($request, [
             'group' => 'required|'.TeamPay::inGroup(),
         ]);
@@ -100,7 +101,7 @@ class InvitationController extends Controller
      */
     public function destroy(Team $team, TeamInvitation $invitation)
     {
-        $this->authorize('update', $team);
+        $this->authorize('delete', $invitation);
 
         $invitation->delete();
 

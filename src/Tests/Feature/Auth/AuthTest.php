@@ -116,7 +116,7 @@ class AuthTest extends TestCase
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create());
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('POST', route('teams.change', $team->slug));
 
         $response->assertStatus(200);
@@ -176,7 +176,7 @@ class AuthTest extends TestCase
             'suspended_reason' => 'Some test',
         ]);
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.index'));
 
         $response->assertStatus(200);

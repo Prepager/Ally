@@ -37,20 +37,31 @@ class TeamPayServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
 
         Passport::tokensCan([
-            // User
-            'view-notifications' => 'Read Notifications',
-            'manage-account' => 'Manage Account',
+            'user.admin' => 'Manage application.',
 
-            // Teams
-            'view-teams' => 'View Teams',
-            'manage-teams' => 'Manage Teams and its Members',
+            'user.show' => 'Read user information including name and email.',
+            'user.update' => 'Update user information excluding password.',
+            'user.password' => 'Update user password.',
 
-            // Subscriptions
-            'view-invoices' => 'View Invoices',
-            'manage-subscriptions' => 'Manage Subscriptions',
+            'notifications.show' => 'Read user notifications.',
+            'notifications.update' => 'Mark notifications as read and unread.',
+            'notifications.delete' => 'Delete user notification.',
 
-            // Administrators
-            'manage-application' => 'Manage Application',
+            'invitations.show' => 'Read team invitiations',
+            'invitations.update' => 'Accept or decline team invitations.',
+
+            'teams.show' => 'Read owned teams, member teams and invitations.',
+            'teams.create' => 'Create new user owned teams.',
+            'teams.update' => 'Update user owned teams.',
+            'teams.delete' => 'Delete user owned teams.',
+            'teams.restore' => 'Restore deleated user owned teams.',
+
+            'teams.billing' => 'Show, create and update user owned team billing.',
+            'teams.invoices' => 'Show user owned team invoices.',
+
+            'teams.members.create' => 'Invite new members to a user owned team.',
+            'teams.members.update' => 'Update member and invitation roles on a user owned team.',
+            'teams.members.delete' => 'Kick members and delete invitations from a user owned team.',
         ]);
     }
 

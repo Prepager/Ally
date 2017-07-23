@@ -21,7 +21,7 @@ class Administrator
             return response()->json('Unauthenticated.', 401);
         }
 
-        if (! $user->isAdmin() || ! $user->tokenCan('manage-application')) {
+        if (! $user->isAdmin() || ! $user->tokenCan('user.admin')) {
             return response()->json('Insufficient permissions.', 403);
         }
 

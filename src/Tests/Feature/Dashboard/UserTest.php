@@ -24,7 +24,7 @@ class UserTest extends TestCase
 
         factory(User::class, 10)->create();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('GET', route('dashboard.users.index'));
 
         $response->assertStatus(200);
@@ -43,7 +43,7 @@ class UserTest extends TestCase
         $extra = factory(User::class)->create();
         $team = $extra->teams()->save(factory(Team::class)->create());
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('GET', route('dashboard.users.show', $extra->id));
 
         $response->assertStatus(200);
@@ -68,7 +68,7 @@ class UserTest extends TestCase
 
         $extra = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('dashboard.users.search'), [
             'search' => $extra->email,
         ]);
@@ -97,7 +97,7 @@ class UserTest extends TestCase
         $extra = factory(User::class)->create();
         $suspendedTo = Carbon::now()->addDays(5)->toDateTimeString();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('dashboard.users.suspension.store', $extra->id), [
             'suspended_to' => $suspendedTo,
             'suspended_reason' => 'Some test',

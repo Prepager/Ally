@@ -17,8 +17,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request, Team $team)
     {
-        abort_unless($request->user()->tokenCan('view-invoices'), 401);
-        $this->authorize('update', $team);
+        $this->authorize('invoices', $team);
 
         $invoices = [];
         if ($team->hasBraintreeId()) {
@@ -44,8 +43,7 @@ class InvoiceController extends Controller
      */
     public function show(Request $request, Team $team, $invoice)
     {
-        abort_unless($request->user()->tokenCan('view-invoices'), 401);
-        $this->authorize('update', $team);
+        $this->authorize('invoices', $team);
 
         return $team->downloadInvoice($invoice, [
             'vendor'  => config('app.name'),

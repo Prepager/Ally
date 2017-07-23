@@ -27,7 +27,7 @@ class PasswordTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-account']);
+        Passport::actingAs($user, ['user.password']);
         $response = $this->json('PUT', route('account.password.update'), [
             'current' => 'not-my-password',
             'password' => 'new-secret',
@@ -46,7 +46,7 @@ class PasswordTest extends TestCase
         $user = factory(User::class)->create();
         $password = $user->password;
 
-        Passport::actingAs($user, ['manage-account']);
+        Passport::actingAs($user, ['user.password']);
         $response = $this->json('PUT', route('account.password.update'), [
             'current' => 'secret',
             'password' => 'new-secret',

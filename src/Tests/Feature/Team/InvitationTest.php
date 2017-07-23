@@ -36,7 +36,7 @@ class InvitationTest extends TestCase
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create();
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.invitations.index', $team->slug));
 
         $response->assertStatus(403);
@@ -55,7 +55,7 @@ class InvitationTest extends TestCase
             'team_id' => $team->id,
         ]);
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.invitations.index', $team->slug));
 
         $response->assertStatus(200);
@@ -80,7 +80,7 @@ class InvitationTest extends TestCase
             'team_id' => $team->id,
         ]);
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.invitations.show', [$team->slug, $invitation->id]));
 
         $response->assertStatus(200);
@@ -100,7 +100,7 @@ class InvitationTest extends TestCase
             'user_id' => $user->id,
         ]));
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.create']);
         $response = $this->json('POST', route('teams.invitations.store', [$team->slug]), [
             'email' => 'some-valid-email@example.com',
             'group' => 'invalid-group',
@@ -127,7 +127,7 @@ class InvitationTest extends TestCase
             'user_id' => $user->id,
         ]));
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.create']);
         $response = $this->json('POST', route('teams.invitations.store', [$team->slug]), [
             'email' => 'some-valid-email@example.com',
             'group' => 'member',
@@ -156,7 +156,7 @@ class InvitationTest extends TestCase
             'email' => 'some-valid-email@example.com',
         ]);
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.create']);
         $response = $this->json('POST', route('teams.invitations.store', [$team->slug]), [
             'email' => 'some-valid-email@example.com',
             'group' => 'member',
@@ -203,7 +203,7 @@ class InvitationTest extends TestCase
 
         $extra = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.create']);
         $response = $this->json('POST', route('teams.invitations.store', [$team->slug]), [
             'email' => $extra->email,
             'group' => 'member',
@@ -249,7 +249,7 @@ class InvitationTest extends TestCase
             'team_id' => $team->id,
         ]);
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.update']);
         $response = $this->json('PUT', route('teams.invitations.update', [$team->slug, $invitation->id]), [
             'group' => 'invalid-group',
         ]);
@@ -277,7 +277,7 @@ class InvitationTest extends TestCase
             'team_id' => $team->id,
         ]);
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.update']);
         $response = $this->json('PUT', route('teams.invitations.update', [$team->slug, $invitation->id]), [
             'group' => 'extra',
         ]);
@@ -309,7 +309,7 @@ class InvitationTest extends TestCase
             'team_id' => $team->id,
         ]);
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.members.delete']);
         $response = $this->json('DELETE', route('teams.invitations.destroy', [$team->slug, $invitation->id]));
 
         $response->assertStatus(200);

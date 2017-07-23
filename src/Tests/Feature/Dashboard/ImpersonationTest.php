@@ -18,7 +18,7 @@ class ImpersonationTest extends TestCase
         $user = factory(User::class)->create();
         $extra = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('dashboard.users.impersonation.store', $extra->id));
 
         $response->assertStatus(403);
@@ -33,7 +33,7 @@ class ImpersonationTest extends TestCase
         $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('dashboard.users.impersonation.store', 'not-an-id'));
 
         $response->assertStatus(404);
@@ -50,7 +50,7 @@ class ImpersonationTest extends TestCase
 
         $extra = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('dashboard.users.impersonation.store', $extra->id));
 
         $response->assertStatus(200);

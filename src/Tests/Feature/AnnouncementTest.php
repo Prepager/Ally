@@ -66,7 +66,7 @@ class AnnouncementTest extends TestCase
         $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('announcements.store'), [
             'message' => 'Some message here',
             'visit' => '#',
@@ -94,7 +94,7 @@ class AnnouncementTest extends TestCase
 
         $announcement = factory(Announcement::class)->create();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('PUT', route('announcements.update', $announcement->id), [
             'message' => 'Some other message here',
         ]);
@@ -118,7 +118,7 @@ class AnnouncementTest extends TestCase
 
         $announcement = factory(Announcement::class)->create();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('DELETE', route('announcements.destroy', $announcement->id));
 
         $response->assertStatus(200);

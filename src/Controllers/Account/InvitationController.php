@@ -17,6 +17,8 @@ class InvitationController extends Controller
      */
     public function index()
     {
+        $this->authorize('userView', TeamInvitation::class);
+
         return response()->json(auth()->user()->invitations()->with('team')->get());
     }
 
@@ -29,8 +31,9 @@ class InvitationController extends Controller
      */
     public function update(Request $request, TeamInvitation $invitation)
     {
-        $team = $invitation->team()->firstOrFail();
+        $this->authorize('accept', $invitation);
 
+        $team = $invitation->team()->firstOrFail();
         TeamMember::forceCreate([
             'team_id' => $team->id,
             'user_id' => $request->user()->id,
@@ -50,6 +53,8 @@ class InvitationController extends Controller
      */
     public function destroy(TeamInvitation $invitation)
     {
+        $this->authorize('decline', $invitation);
+
         $invitation->delete();
 
         return response()->json('Invitation declined');

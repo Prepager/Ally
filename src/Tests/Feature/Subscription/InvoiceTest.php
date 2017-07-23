@@ -21,7 +21,7 @@ class InvoiceTest extends TestCase
         $team->newSubscription('default', 'valid-first-plan')->create('fake-valid-nonce');
         $team->newSubscription('default', 'valid-second-plan')->create('fake-valid-nonce');
 
-        Passport::actingAs($user, ['view-invoices', 'manage-teams']);
+        Passport::actingAs($user, ['teams.invoices']);
         $response = $this->json('GET', route('invoices.index', $team->slug));
 
         $this->assertCount(2, $response->getData());

@@ -32,7 +32,7 @@ class InvitationTest extends TestCase
             'email' => $user->email,
         ]);
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['invitations.show']);
         $response = $this->json('GET', route('account.invitations.index'));
 
         $response->assertStatus(200);
@@ -60,7 +60,7 @@ class InvitationTest extends TestCase
             'email' => $user->email,
         ]);
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['invitations.update']);
         $response = $this->json('PUT', route('account.invitations.update', $invitation->id));
 
         $response->assertStatus(200);
@@ -92,7 +92,7 @@ class InvitationTest extends TestCase
             'email' => $user->email,
         ]);
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['invitations.update']);
         $response = $this->json('DELETE', route('account.invitations.destroy', $invitation->id));
 
         $response->assertStatus(200);

@@ -3,6 +3,7 @@
 namespace ZapsterStudios\TeamPay\Controllers\Team;
 
 use TeamPay;
+use App\User;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,6 +20,7 @@ class MemberController extends Controller
     public function index(Team $team)
     {
         $this->authorize('view', $team);
+        $this->authorize('view', TeamMember::class);
 
         return response()->json($team->members()->get());
     }
@@ -31,8 +33,7 @@ class MemberController extends Controller
      */
     public function show(Team $team, TeamMember $member)
     {
-        $this->authorize('view', $team);
-        abort_if($member->team_id != $team->id, 404);
+        $this->authorize('view', $member);
 
         return response()->json($member); // Include user
     }
@@ -46,12 +47,10 @@ class MemberController extends Controller
      */
     public function update(Request $request, Team $team, TeamMember $member)
     {
-        $this->authorize('update', $team);
+        $this->authorize('update', $member);
         $this->validate($request, [
             'group' => 'required|'.TeamPay::inGroup(),
         ]);
-
-        abort_if($member->team_id != $team->id, 404);
 
         return response()->json(tap($member)->update([
             'group' => $request->group,
@@ -66,8 +65,7 @@ class MemberController extends Controller
      */
     public function destroy(Team $team, TeamMember $member)
     {
-        $this->authorize('update', $team);
-        abort_if($member->team_id != $team->id, 404);
+        $this->authorize('delete', $member);
 
         $member->delete();
 

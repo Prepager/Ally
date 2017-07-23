@@ -64,7 +64,7 @@ class SubscriptionTest extends TestCase
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
 
-        Passport::actingAs($user, ['manage-teams', 'manage-subscriptions']);
+        Passport::actingAs($user, ['teams.billing']);
         $response = $this->json('POST', route('subscription', $team->slug));
 
         $response->assertStatus(422);
@@ -79,7 +79,7 @@ class SubscriptionTest extends TestCase
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
 
-        Passport::actingAs($user, ['manage-teams', 'manage-subscriptions']);
+        Passport::actingAs($user, ['teams.billing']);
         $response = $this->json('POST', route('subscription', $team->slug), [
             'plan' => 'invalid-plan-id',
             'nonce' => 'fake-valid-nonce',
@@ -99,7 +99,7 @@ class SubscriptionTest extends TestCase
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
 
-        Passport::actingAs($user, ['manage-teams', 'manage-subscriptions']);
+        Passport::actingAs($user, ['teams.billing']);
         $response = $this->json('POST', route('subscription', $team->slug), [
             'plan' => 'valid-first-plan',
             'nonce' => 'fake-valid-nonce',
@@ -145,29 +145,5 @@ class SubscriptionTest extends TestCase
             return $e->team->slug == $team->slug
                 && $e->subscription->braintree_plan == 'valid-second-plan';
         });
-    }
-
-    /**
-     * @test
-     * @group Subscription
-     */
-    public function ownerCanRetrieveInvoices()
-    {
-        $user = factory(User::class)->create();
-        $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
-
-        $team->newSubscription('default', 'valid-first-plan')->create('fake-valid-nonce');
-        $team->newSubscription('default', 'valid-second-plan')->create('fake-valid-nonce');
-
-        Passport::actingAs($user, ['view-invoices', 'manage-teams']);
-        $response = $this->json('GET', route('invoices.index', $team->slug));
-
-        $this->assertCount(2, $response->getData());
-        $response = $this->json('GET', route('invoices.show', [
-            $team->slug,
-            $response->getData()[0]->id,
-        ]));
-
-        $this->assertSame($response->headers->get('content-type'), 'application/pdf');
     }
 }

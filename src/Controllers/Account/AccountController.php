@@ -20,6 +20,8 @@ class AccountController extends Controller
      */
     public function show()
     {
+        $this->authorize('view', User::class);
+
         return response()->json(auth()->user());
     }
 
@@ -71,13 +73,14 @@ class AccountController extends Controller
      */
     public function update(Request $request)
     {
-        $user = auth()->user();
+        $this->authorize('update', User::class);
         $this->validate($request, [
             'name' => 'sometimes|required|min:2',
-            'email' => 'sometimes|required|email|unique:users,email,'.$user->email,
+            'email' => 'sometimes|required|email|unique:users,email,'.$request->user()->email,
             'country' => 'sometimes|required',
         ]);
 
+        $user = $request->user();
         $inputs = $request->intersect('name', 'email', 'country');
         if ($request->email && $user->email !== $request->email) {
             $inputs['email_verified'] = 0;
@@ -107,23 +110,5 @@ class AccountController extends Controller
         ]);
 
         return response()->json('Account verified.');
-    }
-
-    /**
-     * Display an authenticated users notifications.
-     *
-     * @param  Request  $request
-     * @param  string  $method
-     * @return Response
-     */
-    public function notifications(Request $request, $method = 'recent')
-    {
-        abort_if(! $request->user()->tokenCan('view-notifications'), 403);
-
-        if ($method == 'recent') {
-            return response()->json($request->user()->notifications()->limit(6));
-        }
-
-        return response()->json($request->user()->notifications()->paginate(30));
     }
 }

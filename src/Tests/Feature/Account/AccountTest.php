@@ -151,7 +151,7 @@ class AccountTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, []);
+        Passport::actingAs($user, ['user.show']);
         $response = $this->json('GET', route('account.show'));
 
         $response->assertStatus(200);
@@ -169,7 +169,7 @@ class AccountTest extends TestCase
         $user = factory(User::class)->create();
         $extra = factory(User::class)->create();
 
-        Passport::actingAs($user, []);
+        Passport::actingAs($user, ['user.update']);
         $response = $this->json('POST', route('account.update'), [
             'email' => $extra->email,
         ]);
@@ -188,7 +188,7 @@ class AccountTest extends TestCase
             'email_verified' => 1,
         ]);
 
-        Passport::actingAs($user, []);
+        Passport::actingAs($user, ['user.update']);
         $response = $this->json('POST', route('account.update'), [
             'email' => 'newmail@example.com',
         ]);
@@ -209,7 +209,7 @@ class AccountTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['view-notifications']);
+        Passport::actingAs($user, ['notifications.show']);
         $responseAll = $this->json('GET', route('account.notifications.index', 'all'));
         $responseRecent = $this->json('GET', route('account.notifications.index', 'recent'));
 

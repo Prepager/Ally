@@ -39,7 +39,7 @@ class TeamTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.index'));
 
         $response->assertStatus(200);
@@ -54,7 +54,7 @@ class TeamTest extends TestCase
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create());
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.show', $team->slug));
 
         $response->assertStatus(200);
@@ -75,7 +75,7 @@ class TeamTest extends TestCase
             'team_id' => $team->id,
         ]));
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.show', $team->slug));
 
         $response->assertStatus(200);
@@ -93,7 +93,7 @@ class TeamTest extends TestCase
 
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.create']);
         $response = $this->json('POST', route('teams.store'), [
             'name' => 'Example',
         ]);
@@ -122,7 +122,7 @@ class TeamTest extends TestCase
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create(['user_id' => $user->id]);
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.update']);
         $response = $this->json('PUT', route('teams.update', $team->slug), [
             'name' => 'Foobar',
         ]);
@@ -153,7 +153,7 @@ class TeamTest extends TestCase
 
         $user->team_id = $team->id;
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.delete']);
         $response = $this->json('DELETE', route('teams.destroy', $team->slug));
 
         $response->assertStatus(200);
@@ -184,7 +184,7 @@ class TeamTest extends TestCase
 
         $team->delete();
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.restore']);
         $response = $this->json('POST', route('teams.restore', $team->slug));
 
         $response->assertStatus(200);
@@ -206,7 +206,7 @@ class TeamTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-teams']);
+        Passport::actingAs($user, ['teams.create']);
         $team1 = $this->json('POST', route('teams.store'), ['name' => 'Example Community']);
         $team2 = $this->json('POST', route('teams.store'), ['name' => 'Example-Community']);
         $team3 = $this->json('POST', route('teams.store'), ['name' => 'Example_Community']);
@@ -229,7 +229,7 @@ class TeamTest extends TestCase
             'suspended_reason' => 'Some test',
         ]));
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.show', $team->slug));
 
         $response->assertStatus(403);
@@ -253,7 +253,7 @@ class TeamTest extends TestCase
             'suspended_reason' => 'Some test',
         ]));
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.show', $team->slug));
 
         $response->assertStatus(200);

@@ -28,7 +28,7 @@ class AnalyticsTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('GET', route('dashboard.index'));
 
         $response->assertStatus(403);
@@ -43,7 +43,7 @@ class AnalyticsTest extends TestCase
         $user = factory(User::class)->states('verified')->create();
         TeamPay::setAdmins([$user->email]);
 
-        Passport::actingAs($user, ['manage-application']);
+        Passport::actingAs($user, ['user.admin']);
         $response = $this->json('GET', route('dashboard.index'));
 
         $response->assertStatus(200);

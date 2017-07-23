@@ -22,8 +22,7 @@ class SubscriptionController extends Controller
      */
     public function subscription(Request $request, Team $team)
     {
-        abort_unless($request->user()->tokenCan('manage-subscriptions'), 401);
-        $this->authorize('update', $team);
+        $this->authorize('billing', $team);
         $this->validate($request, [
             'plan' => 'required|in:'.TeamPay::plans()->implode('id', ','),
             'nonce' => 'required',
@@ -67,8 +66,7 @@ class SubscriptionController extends Controller
      */
     public function cancel(Request $request, Team $team)
     {
-        abort_unless($request->user()->tokenCan('manage-subscriptions'), 401);
-        $this->authorize('update', $team);
+        $this->authorize('billing', $team);
 
         $subscription = $team->subscription()->cancel();
         event(new SubscriptionCancelled($team));
@@ -85,8 +83,7 @@ class SubscriptionController extends Controller
      */
     public function resume(Request $request, Team $team)
     {
-        abort_unless($request->user()->tokenCan('manage-subscriptions'), 401);
-        $this->authorize('update', $team);
+        $this->authorize('billing', $team);
 
         $subscription = $team->subscription()->resume();
         event(new SubscriptionResumed($team));

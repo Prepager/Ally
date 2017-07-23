@@ -31,11 +31,12 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Team::class);
+
         $request->request->add([
             'slug' => Team::generateSlug(str_slug($request->name)),
         ]);
 
-        $this->authorize('create', Team::class);
         $this->validate($request, [
             'name' => 'required|min:2|unique:teams,name',
             'slug' => 'required|alpha_dash|unique:teams,slug',
@@ -75,11 +76,12 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
+        $this->authorize('update', $team);
+
         $request->request->add([
             'slug' => Team::generateSlug(str_slug($request->name), null, $team->slug),
         ]);
 
-        $this->authorize('update', $team);
         $this->validate($request, [
             'name' => 'required|min:2|unique:teams,name',
             'slug' => 'sometimes|required|alpha_dash|unique:teams,slug',
@@ -134,7 +136,7 @@ class TeamController extends Controller
     public function restore($team)
     {
         $team = Team::where('slug', $team)->withTrashed()->firstOrFail();
-        $this->authorize('update', $team);
+        $this->authorize('restore', $team);
 
         if ($team->trashed()) {
             $team->restore();

@@ -66,8 +66,12 @@ Route::group([
         // Account
         Route::get('/account', 'Account\AccountController@show')->name('account.show');
         Route::post('/account', 'Account\AccountController@update')->name('account.update');
-        Route::get('/account/notifications/{method?}', 'Account\AccountController@notifications')->name('account.notifications.index');
         Route::put('/account/password', 'Account\PasswordController@update')->name('account.password.update');
+
+        // Notifications
+        Route::get('/account/notifications/{method?}', 'Account\NotificationController@index')->name('account.notifications.index');
+        Route::post('/account/notifications/{notification}', 'Account\NotificationController@update')->name('account.notifications.update');
+        Route::delete('/account/notifications/{notification}', 'Account\NotificationController@destroy')->name('account.notifications.destroy');
 
         // Invitations
         Route::get('/account/invitations', 'Account\InvitationController@index')->name('account.invitations.index');

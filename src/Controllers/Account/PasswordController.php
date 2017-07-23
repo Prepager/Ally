@@ -3,6 +3,7 @@
 namespace ZapsterStudios\TeamPay\Controllers\Account;
 
 use Hash;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,6 +16,8 @@ class PasswordController extends Controller
      */
     public function update(Request $request)
     {
+        $this->authorize('password', User::class);
+
         $user = $request->user();
         $this->validate($request, [
             'current' => 'required',
