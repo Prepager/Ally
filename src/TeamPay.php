@@ -17,13 +17,6 @@ class TeamPay
     use Data\ResponseList;
 
     /**
-     * The sql query log.
-     *
-     * @var array
-     */
-    public static $queryLog = [];
-
-    /**
      * Setup configuration.
      *
      * @returns void

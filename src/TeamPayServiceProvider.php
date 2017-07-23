@@ -5,10 +5,9 @@ namespace ZapsterStudios\TeamPay;
 use TeamPay;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
-use Illuminate\Support\ServiceProvider;
 use Braintree_Configuration as Braintree;
 
-class TeamPayServiceProvider extends ServiceProvider
+class TeamPayServiceProvider extends Providers\ExtendedServiceProvider
 {
     /**
      * Boot the package service provider.
@@ -19,11 +18,26 @@ class TeamPayServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
-
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/Database/Factories');
+        $this->loadFactoriesFrom(__DIR__.'/Database/Factories');
 
         $this->bootPassport();
         $this->bootBraintree();
+    }
+
+    /**
+     * Register the package service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerAlias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay', function() {
+            TeamPay::setup();
+        });
+
+        $this->registerCommands([
+            //
+        ]);
     }
 
     /**
@@ -76,51 +90,5 @@ class TeamPayServiceProvider extends ServiceProvider
         Braintree::merchantId(config('services.braintree.merchant_id'));
         Braintree::publicKey(config('services.braintree.public_key'));
         Braintree::privateKey(config('services.braintree.private_key'));
-    }
-
-    /**
-     * Register the package service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        if (! class_exists('TeamPay')) {
-            class_alias('ZapsterStudios\TeamPay\TeamPay', 'TeamPay');
-            TeamPay::setup();
-        }
-
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                //
-            ]);
-        }
-
-        $this->recordQueries();
-    }
-
-    /**
-     * Record database queries.
-     *
-     * @return void
-     */
-    public function recordQueries()
-    {
-        if (! env('DB_LOGGER')) {
-            return;
-        }
-
-        \DB::listen(function ($query) {
-            foreach ($query->bindings as $index => $binding) {
-                if ($binding instanceof \DateTime) {
-                    $query->bindings[$index] = $binding->format('\'Y-m-d H:i:s\'');
-                }
-            }
-
-            array_push(\TeamPay::$queryLog, [
-                vsprintf(str_replace(['%', '?'], ['%%', '%s'], $query->sql), $query->bindings),
-                $query->time,
-            ]);
-        });
     }
 }
