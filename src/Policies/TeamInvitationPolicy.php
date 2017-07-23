@@ -4,8 +4,8 @@ namespace ZapsterStudios\TeamPay\Policies;
 
 use App\Team;
 use App\User;
-use ZapsterStudios\TeamPay\Models\TeamInvitation;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use ZapsterStudios\TeamPay\Models\TeamInvitation;
 
 class TeamInvitationPolicy
 {
