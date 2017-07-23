@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\TeamPay\Controllers\Account;
 
+use TeamPay;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class AccountController extends Controller
             'team' => 'required|min:2|unique:teams,name',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
-            'country' => 'required',
+            'country' => 'required|in:'.TeamPay::getCountryKeyString(),
         ]);
 
         $user = User::create(array_merge([
@@ -77,7 +78,7 @@ class AccountController extends Controller
         $this->validate($request, [
             'name' => 'sometimes|required|min:2',
             'email' => 'sometimes|required|email|unique:users,email,'.$request->user()->email,
-            'country' => 'sometimes|required',
+            'country' => 'sometimes|required|in:'.TeamPay::getCountryKeyString(),
         ]);
 
         $user = $request->user();

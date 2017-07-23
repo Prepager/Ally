@@ -6,7 +6,7 @@ trait ResponseList
 {
     public static function getResponseMessage($code = 500)
     {
-        return self::getResponseMessages()[$code] ?? 'Unknown error';
+        return self::getResponseMessages()[$code] ?? 'Internal Server Error';
     }
 
     public static function getResponseMessages()

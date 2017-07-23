@@ -14,6 +14,7 @@ class TeamPay
     /*
      * Use data repositories.
      */
+    use Data\CountryList;
     use Data\ResponseList;
 
     /**
