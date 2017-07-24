@@ -8,7 +8,6 @@ class Ally
     use Configuration\UserConfiguration;
     use Configuration\PlanConfiguration;
     use Configuration\LinkConfiguration;
-
     use Data\CountryList;
     use Data\ResponseList;
 

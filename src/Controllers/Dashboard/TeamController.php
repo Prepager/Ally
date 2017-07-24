@@ -21,7 +21,7 @@ class TeamController extends Controller
     /**
      * Display a single team.
      *
-     * @param  integer  $id
+     * @param  int  $id
      * @return Response
      */
     public function show($id)

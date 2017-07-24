@@ -21,7 +21,7 @@ class UserController extends Controller
     /**
      * Display a single user.
      *
-     * @param  integer  $id
+     * @param  int  $id
      * @return \Response
      */
     public function show($id)
