@@ -2,7 +2,7 @@
 
 namespace ZapsterStudios\ally;
 
-class ally
+class Ally
 {
     /*
      * Use configuration files.

@@ -4,8 +4,8 @@ namespace ZapsterStudios\Ally\Policies;
 
 use App\Team;
 use App\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use ZapsterStudios\Ally\Models\TeamInvitation;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TeamInvitationPolicy
 {

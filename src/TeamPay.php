@@ -2,7 +2,7 @@
 
 namespace ZapsterStudios\Ally;
 
-class Ally
+class TeamPay
 {
     /*
      * Use configuration files.
