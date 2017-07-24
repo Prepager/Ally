@@ -8,4 +8,4 @@ before_script:
   - travis_retry composer update --no-interaction --prefer-source
 
 script:
-  - phpunit Ally
+  - phpunit
