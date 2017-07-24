@@ -2,8 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests\Feature;
 
-use App\User;
-use Laravel\Passport\Passport;
 use ZapsterStudios\Ally\Tests\TestCase;
 
 class AppDataTest extends TestCase
