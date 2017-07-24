@@ -57,9 +57,6 @@ Route::group([
         // Variables
         $plural = str_plural(Ally::$teamName);
 
-        // App
-        Route::get('/app/token', 'AppController@token')->name('app.token');
-
         // Auth
         Route::post('/logout', 'Auth\AuthController@logout')->name('logout');
 
@@ -94,6 +91,7 @@ Route::group([
 
             // Subscription
             Route::post('/subscription', 'Subscription\SubscriptionController@subscription')->name('subscription');
+            Route::post('/subscription/token', 'Subscription\TokenController@store')->name('subscription.token');
 
             // Group: Subscribed
             Route::group(['middleware' => 'subscribed'], function () {

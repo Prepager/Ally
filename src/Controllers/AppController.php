@@ -3,8 +3,6 @@
 namespace ZapsterStudios\Ally\Controllers;
 
 use Ally;
-use Braintree\ClientToken;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use App\Http\Controllers\Controller;
 
@@ -42,22 +40,5 @@ class AppController extends Controller
         })->all();
 
         return response()->json($routes);
-    }
-
-    /**
-     * Return a new billing provider token.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function token(Request $request)
-    {
-        $team = $request->user()->team;
-
-        return response()->json([
-            'token' => ClientToken::generate([
-                'customerId' => ($team ? $team->braintree_id : ''),
-            ]),
-        ]);
     }
 }
