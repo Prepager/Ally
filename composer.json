@@ -1,5 +1,5 @@
 {
-    "name": "zapsterstudios/teampay",
+    "name": "zapsterstudios/ally",
     "description": "An attempt at building a team billing API for Laravel. Inspired by Laravel Spark.",
     "authors": [
         {
@@ -14,13 +14,13 @@
     },
     "autoload": {
         "psr-4": {
-            "ZapsterStudios\\TeamPay\\": "src/"
+            "ZapsterStudios\\Ally\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "ZapsterStudios\\TeamPay\\TeamPayServiceProvider"
+                "ZapsterStudios\\Ally\\AllyServiceProvider"
             ]
         }
     }

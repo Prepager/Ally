@@ -1,8 +1,8 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Models;
+namespace ZapsterStudios\Ally\Models;
 
-use TeamPay;
+use Ally;
 use Validator;
 use Carbon\Carbon;
 use Laravel\Cashier\Billable;
@@ -103,7 +103,7 @@ class Team extends Model
      */
     public function invitations()
     {
-        return $this->belongsTo('ZapsterStudios\TeamPay\Models\TeamInvitation', 'id', 'team_id');
+        return $this->belongsTo('ZapsterStudios\Ally\Models\TeamInvitation', 'id', 'team_id');
     }
 
     /**
@@ -111,7 +111,7 @@ class Team extends Model
      */
     public function teamMembers()
     {
-        return $this->hasMany('ZapsterStudios\TeamPay\Models\TeamMember', 'team_id', 'id');
+        return $this->hasMany('ZapsterStudios\Ally\Models\TeamMember', 'team_id', 'id');
     }
 
     /**
@@ -120,10 +120,10 @@ class Team extends Model
     public function plan()
     {
         if ($this->subscribed()) {
-            return TeamPay::plan($this->subscription()->braintree_plan);
+            return Ally::plan($this->subscription()->braintree_plan);
         }
 
-        return TeamPay::freePlan();
+        return Ally::freePlan();
     }
 
     /**

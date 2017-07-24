@@ -1,14 +1,14 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Account;
+namespace ZapsterStudios\Ally\Tests\Feature\Account;
 
 use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
-use ZapsterStudios\TeamPay\Events\Users\UserCreated;
-use ZapsterStudios\TeamPay\Notifications\EmailVerification;
+use ZapsterStudios\Ally\Events\Users\UserCreated;
+use ZapsterStudios\Ally\Notifications\EmailVerification;
 
 class AccountTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature;
+namespace ZapsterStudios\Ally\Tests\Feature;
 
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 
 class AppDataTest extends TestCase
 {

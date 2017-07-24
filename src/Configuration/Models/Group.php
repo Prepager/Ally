@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Configuration\Models;
+namespace ZapsterStudios\Ally\Configuration\Models;
 
 class Group
 {

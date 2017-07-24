@@ -2,9 +2,9 @@
 
 namespace App;
 
-use ZapsterStudios\TeamPay\Models\User as TeamPayUser;
+use ZapsterStudios\Ally\Models\User as AllyUser;
 
-class User extends TeamPayUser
+class User extends AllyUser
 {
     //
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Team;
+namespace ZapsterStudios\Ally\Tests\Feature\Team;
 
-use TeamPay;
+use Ally;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
-use ZapsterStudios\TeamPay\Models\TeamInvitation;
-use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberInvited;
-use ZapsterStudios\TeamPay\Notifications\TeamInvitation as TeamInvitationMail;
+use ZapsterStudios\Ally\Models\TeamInvitation;
+use ZapsterStudios\Ally\Events\Teams\Members\TeamMemberInvited;
+use ZapsterStudios\Ally\Notifications\TeamInvitation as TeamInvitationMail;
 
 class InvitationTest extends TestCase
 {
@@ -118,9 +118,9 @@ class InvitationTest extends TestCase
      */
     public function ownerCanNotCreateInvitationForTooManyUsers()
     {
-        $plans = TeamPay::$plans;
-        TeamPay::$plans = [];
-        TeamPay::addPlan('free-plan', 'Free Plan')->maxMembers(1);
+        $plans = Ally::$plans;
+        Ally::$plans = [];
+        Ally::addPlan('free-plan', 'Free Plan')->maxMembers(1);
 
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create([
@@ -135,7 +135,7 @@ class InvitationTest extends TestCase
 
         $response->assertStatus(402);
 
-        TeamPay::$plans = $plans;
+        Ally::$plans = $plans;
     }
 
     /**
@@ -266,7 +266,7 @@ class InvitationTest extends TestCase
      */
     public function ownerCanUpdateInvitation()
     {
-        TeamPay::addGroup('extra', 'Extra Team');
+        Ally::addGroup('extra', 'Extra Team');
 
         $user = factory(User::class)->create();
         $team = $user->teams()->save(factory(Team::class)->create([

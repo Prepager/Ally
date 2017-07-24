@@ -1,14 +1,14 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature;
+namespace ZapsterStudios\Ally\Tests\Feature;
 
-use TeamPay;
+use Ally;
 use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Models\Announcement;
-use ZapsterStudios\TeamPay\Events\Announcements\AnnouncementCreated;
+use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Models\Announcement;
+use ZapsterStudios\Ally\Events\Announcements\AnnouncementCreated;
 
 class AnnouncementTest extends TestCase
 {
@@ -64,7 +64,7 @@ class AnnouncementTest extends TestCase
         Event::fake();
 
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('announcements.store'), [
@@ -90,7 +90,7 @@ class AnnouncementTest extends TestCase
     public function adminCanUpdateAnnouncement()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         $announcement = factory(Announcement::class)->create();
 
@@ -114,7 +114,7 @@ class AnnouncementTest extends TestCase
     public function adminCanDeleteAnnouncement()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         $announcement = factory(Announcement::class)->create();
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace ZapsterStudios\Ally;
+namespace ZapsterStudios\ally;
 
-use Ally;
+use ally;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Braintree_Configuration as Braintree;
 
-class AllyServiceProvider extends Providers\ExtendedServiceProvider
+class allyServiceProvider extends Providers\ExtendedServiceProvider
 {
     /**
      * Boot the package service provider.
@@ -31,8 +31,8 @@ class AllyServiceProvider extends Providers\ExtendedServiceProvider
      */
     public function register()
     {
-        $this->registerAlias('ZapsterStudios\Ally\Ally', 'Ally', function () {
-            Ally::setup();
+        $this->registerAlias('ZapsterStudios\ally\ally', 'ally', function () {
+            ally::setup();
         });
 
         $this->registerCommands([

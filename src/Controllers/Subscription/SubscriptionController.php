@@ -1,15 +1,15 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Subscription;
+namespace ZapsterStudios\Ally\Controllers\Subscription;
 
-use TeamPay;
+use Ally;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionCreated;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionResumed;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionSwapped;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionCancelled;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCreated;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionResumed;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionSwapped;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCancelled;
 
 class SubscriptionController extends Controller
 {
@@ -24,13 +24,13 @@ class SubscriptionController extends Controller
     {
         $this->authorize('billing', $team);
         $this->validate($request, [
-            'plan' => 'required|in:'.TeamPay::plans()->implode('id', ','),
+            'plan' => 'required|in:'.Ally::plans()->implode('id', ','),
             'nonce' => 'required',
         ]);
 
-        $plan = TeamPay::activePlans()->where('id', $request->plan)->first();
+        $plan = Ally::activePlans()->where('id', $request->plan)->first();
 
-        if ($plan->id === TeamPay::freePlan()->id) {
+        if ($plan->id === Ally::freePlan()->id) {
             $team->subscription()->cancel();
 
             event(new SubscriptionCancelled($team));

@@ -1,8 +1,8 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Models;
+namespace ZapsterStudios\Ally\Models;
 
-use TeamPay;
+use Ally;
 use Carbon\Carbon;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -56,7 +56,7 @@ class User extends Authenticatable
      */
     public function invitations()
     {
-        return $this->hasMany('ZapsterStudios\TeamPay\Models\TeamInvitation', 'email', 'email');
+        return $this->hasMany('ZapsterStudios\Ally\Models\TeamInvitation', 'email', 'email');
     }
 
     /**
@@ -122,7 +122,7 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return $this->isVerified() && TeamPay::isAdmin($this->email);
+        return $this->isVerified() && Ally::isAdmin($this->email);
     }
 
     /**
@@ -159,7 +159,7 @@ class User extends Authenticatable
             return [];
         }
 
-        return collect(TeamPay::group($member->group)->permissions)
+        return collect(Ally::group($member->group)->permissions)
             ->merge($member->overwrites);
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\Ally\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use ZapsterStudios\TeamPay\Models\Announcement;
-use ZapsterStudios\TeamPay\Events\Announcements\AnnouncementCreated;
+use ZapsterStudios\Ally\Models\Announcement;
+use ZapsterStudios\Ally\Events\Announcements\AnnouncementCreated;
 
 class AnnouncementController extends Controller
 {

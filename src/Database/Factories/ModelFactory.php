@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(ZapsterStudios\TeamPay\Models\TeamMember::class, function (Faker\Generator $faker) {
+$factory->define(ZapsterStudios\Ally\Models\TeamMember::class, function (Faker\Generator $faker) {
     return [
         'user_id' => factory(App\User::class)->create()->id,
         'team_id' => factory(App\Team::class)->create()->id,
@@ -20,7 +20,7 @@ $factory->define(ZapsterStudios\TeamPay\Models\TeamMember::class, function (Fake
 });
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(ZapsterStudios\TeamPay\Models\TeamInvitation::class, function (Faker\Generator $faker) {
+$factory->define(ZapsterStudios\Ally\Models\TeamInvitation::class, function (Faker\Generator $faker) {
     return [
         'team_id' => factory(App\Team::class)->create()->id,
         'email' => factory(App\User::class)->create()->email,
@@ -29,7 +29,7 @@ $factory->define(ZapsterStudios\TeamPay\Models\TeamInvitation::class, function (
 });
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(ZapsterStudios\TeamPay\Models\Announcement::class, function (Faker\Generator $faker) {
+$factory->define(ZapsterStudios\Ally\Models\Announcement::class, function (Faker\Generator $faker) {
     return [
         'message' => $faker->sentence(),
         'visit' => '#',
@@ -37,7 +37,7 @@ $factory->define(ZapsterStudios\TeamPay\Models\Announcement::class, function (Fa
 });
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(ZapsterStudios\TeamPay\Models\PasswordReset::class, function (Faker\Generator $faker) {
+$factory->define(ZapsterStudios\Ally\Models\PasswordReset::class, function (Faker\Generator $faker) {
     return [
         'email' => factory(App\User::class)->create()->email,
         'token' => str_random(60),

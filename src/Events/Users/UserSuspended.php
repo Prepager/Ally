@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Events\Users;
+namespace ZapsterStudios\Ally\Events\Users;
 
 use App\User;
 use Illuminate\Queue\SerializesModels;

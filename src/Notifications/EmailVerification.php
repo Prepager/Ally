@@ -1,8 +1,8 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Notifications;
+namespace ZapsterStudios\Ally\Notifications;
 
-use TeamPay;
+use Ally;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -42,7 +42,7 @@ class EmailVerification extends Notification
             ->subject('Email Verification')
             ->greeting('Hi, '.$this->user->name.'!')
             ->line('You are receiving this email because you recently registered on **'.config('app.name').'**. To continue using your account you must verify your account by clicking on the button below.')
-            ->action('Verify Account', str_replace('{token}', $this->token, TeamPay::$linkAccountVerification))
+            ->action('Verify Account', str_replace('{token}', $this->token, Ally::$linkAccountVerification))
             ->line('If you did not create an account please contact our support.');
     }
 }

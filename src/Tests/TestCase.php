@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests;
+namespace ZapsterStudios\Ally\Tests;
 
 use Tests\CreatesApplication;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

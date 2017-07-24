@@ -1,8 +1,8 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Notifications;
+namespace ZapsterStudios\Ally\Notifications;
 
-use TeamPay;
+use Ally;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -42,7 +42,7 @@ class PasswordReset extends Notification
             ->subject('Password Reset')
             ->greeting('Hi, '.$this->user->name.'!')
             ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', str_replace('{token}', $this->token, TeamPay::$linkPasswordReset))
+            ->action('Reset Password', str_replace('{token}', $this->token, Ally::$linkPasswordReset))
             ->line('If you did not request a password reset, no further action is required.');
     }
 }

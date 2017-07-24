@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use TeamPay;
+use Ally;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson() && ! $e instanceof ValidationException) {
             $response = parent::render($request, $e);
-            $message = TeamPay::getResponseMessage($response->getStatusCode());
+            $message = Ally::getResponseMessage($response->getStatusCode());
 
             $data = ['message' => $message];
             if (config('app.debug')) {

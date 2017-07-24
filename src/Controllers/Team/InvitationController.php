@@ -1,15 +1,15 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Team;
+namespace ZapsterStudios\Ally\Controllers\Team;
 
-use TeamPay;
+use Ally;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use ZapsterStudios\TeamPay\Models\TeamInvitation;
-use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberInvited;
-use ZapsterStudios\TeamPay\Notifications\TeamInvitation as TeamInvitationMail;
+use ZapsterStudios\Ally\Models\TeamInvitation;
+use ZapsterStudios\Ally\Events\Teams\Members\TeamMemberInvited;
+use ZapsterStudios\Ally\Notifications\TeamInvitation as TeamInvitationMail;
 
 class InvitationController extends Controller
 {
@@ -37,7 +37,7 @@ class InvitationController extends Controller
 
         $this->validate($request, [
             'email' => 'required|email',
-            'group' => 'required|'.TeamPay::inGroup(),
+            'group' => 'required|'.Ally::inGroup(),
         ]);
 
         if ($team->maxMemberCountReached()) {
@@ -85,7 +85,7 @@ class InvitationController extends Controller
     {
         $this->authorize('update', $invitation);
         $this->validate($request, [
-            'group' => 'required|'.TeamPay::inGroup(),
+            'group' => 'required|'.Ally::inGroup(),
         ]);
 
         return response()->json(tap($invitation)->update([

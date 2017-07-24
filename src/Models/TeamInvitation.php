@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Models;
+namespace ZapsterStudios\Ally\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Data;
+namespace ZapsterStudios\Ally\Data;
 
 trait ResponseList
 {

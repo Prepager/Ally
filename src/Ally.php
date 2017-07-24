@@ -1,8 +1,8 @@
 <?php
 
-namespace ZapsterStudios\Ally;
+namespace ZapsterStudios\ally;
 
-class Ally
+class ally
 {
     /*
      * Use configuration files.

@@ -1,13 +1,13 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Auth;
+namespace ZapsterStudios\Ally\Tests\Feature\Auth;
 
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
-use ZapsterStudios\TeamPay\Models\PasswordReset;
-use ZapsterStudios\TeamPay\Notifications\PasswordReset as PasswordResetMail;
+use ZapsterStudios\Ally\Models\PasswordReset;
+use ZapsterStudios\Ally\Notifications\PasswordReset as PasswordResetMail;
 
 class PasswordResetTest extends TestCase
 {

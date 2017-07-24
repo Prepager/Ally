@@ -1,11 +1,11 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Account;
+namespace ZapsterStudios\Ally\Tests\Feature\Account;
 
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Models\TeamInvitation;
+use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Models\TeamInvitation;
 
 class InvitationTest extends TestCase
 {

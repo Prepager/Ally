@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Middleware;
+namespace ZapsterStudios\Ally\Middleware;
 
 use Closure;
 use App\Team;

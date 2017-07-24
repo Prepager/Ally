@@ -1,17 +1,17 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Team;
+namespace ZapsterStudios\Ally\Tests\Feature\Team;
 
 use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Models\TeamMember;
-use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
-use ZapsterStudios\TeamPay\Events\Teams\TeamDeleated;
-use ZapsterStudios\TeamPay\Events\Teams\TeamRestored;
+use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Models\TeamMember;
+use ZapsterStudios\Ally\Events\Teams\TeamCreated;
+use ZapsterStudios\Ally\Events\Teams\TeamDeleated;
+use ZapsterStudios\Ally\Events\Teams\TeamRestored;
 
 class TeamTest extends TestCase
 {

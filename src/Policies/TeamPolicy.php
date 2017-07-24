@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Policies;
+namespace ZapsterStudios\Ally\Policies;
 
 use App\Team;
 use App\User;

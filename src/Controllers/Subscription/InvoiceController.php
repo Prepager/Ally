@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Subscription;
+namespace ZapsterStudios\Ally\Controllers\Subscription;
 
 use App\Team;
 use Illuminate\Http\Request;

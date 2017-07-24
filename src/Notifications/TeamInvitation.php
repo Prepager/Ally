@@ -1,8 +1,8 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Notifications;
+namespace ZapsterStudios\Ally\Notifications;
 
-use TeamPay;
+use Ally;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -54,13 +54,13 @@ class TeamInvitation extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(ucfirst(TeamPay::$teamName).' Invitation')
+            ->subject(ucfirst(Ally::$teamName).' Invitation')
             ->greeting($this->exists ? 'Hi, '.$this->user->name.'!' : 'Hi!')
-            ->line('You are receiving this email because the owner of **'.$this->team->name.'** invited you to become part of their '.TeamPay::$teamName.' on **'.config('app.name').'**.')
-            ->action('View Invitations', TeamPay::$linkInvitations)
+            ->line('You are receiving this email because the owner of **'.$this->team->name.'** invited you to become part of their '.Ally::$teamName.' on **'.config('app.name').'**.')
+            ->action('View Invitations', Ally::$linkInvitations)
             ->line($this->exists
                 ? 'Since you already have an account you can accept or decline the invite by clicking on the button above and logging in.'
-                : 'To accept the invite you must register a new account on **'.config('app.name').'**. If you are however not interested in joining the '.TeamPay::$teamName.' you can simply ignore this email.'
+                : 'To accept the invite you must register a new account on **'.config('app.name').'**. If you are however not interested in joining the '.Ally::$teamName.' you can simply ignore this email.'
             );
     }
 }

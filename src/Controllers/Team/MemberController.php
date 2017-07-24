@@ -1,14 +1,14 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Team;
+namespace ZapsterStudios\Ally\Controllers\Team;
 
-use TeamPay;
+use Ally;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use ZapsterStudios\TeamPay\Models\TeamMember;
-use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberKicked;
+use ZapsterStudios\Ally\Models\TeamMember;
+use ZapsterStudios\Ally\Events\Teams\Members\TeamMemberKicked;
 
 class MemberController extends Controller
 {
@@ -49,7 +49,7 @@ class MemberController extends Controller
     {
         $this->authorize('update', $member);
         $this->validate($request, [
-            'group' => 'required|'.TeamPay::inGroup(),
+            'group' => 'required|'.Ally::inGroup(),
         ]);
 
         return response()->json(tap($member)->update([

@@ -16,7 +16,7 @@ Route::group(['middleware' => 'api'], function () {
 // Group: API
 Route::group([
     'middleware' => 'api',
-    'namespace' => 'ZapsterStudios\TeamPay\Controllers',
+    'namespace' => 'ZapsterStudios\Ally\Controllers',
 ], function () {
 
     // Group: Public
@@ -55,7 +55,7 @@ Route::group([
     Route::group(['middleware' => 'auth:api'], function () {
 
         // Variables
-        $plural = str_plural(TeamPay::$teamName);
+        $plural = str_plural(Ally::$teamName);
 
         // App
         Route::get('/app/token', 'AppController@token')->name('app.token');

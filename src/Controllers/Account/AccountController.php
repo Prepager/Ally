@@ -1,16 +1,16 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Account;
+namespace ZapsterStudios\Ally\Controllers\Account;
 
-use TeamPay;
+use Ally;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
-use ZapsterStudios\TeamPay\Events\Users\UserCreated;
-use ZapsterStudios\TeamPay\Events\Users\UserUpdated;
-use ZapsterStudios\TeamPay\Notifications\EmailVerification;
+use ZapsterStudios\Ally\Events\Teams\TeamCreated;
+use ZapsterStudios\Ally\Events\Users\UserCreated;
+use ZapsterStudios\Ally\Events\Users\UserUpdated;
+use ZapsterStudios\Ally\Notifications\EmailVerification;
 
 class AccountController extends Controller
 {
@@ -39,7 +39,7 @@ class AccountController extends Controller
             'team' => 'required|min:2|unique:teams,name',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
-            'country' => 'required|in:'.TeamPay::getCountryKeyString(),
+            'country' => 'required|in:'.Ally::getCountryKeyString(),
         ]);
 
         $user = User::create(array_merge([
@@ -78,7 +78,7 @@ class AccountController extends Controller
         $this->validate($request, [
             'name' => 'sometimes|required|min:2',
             'email' => 'sometimes|required|email|unique:users,email,'.$request->user()->email,
-            'country' => 'sometimes|required|in:'.TeamPay::getCountryKeyString(),
+            'country' => 'sometimes|required|in:'.Ally::getCountryKeyString(),
         ]);
 
         $user = $request->user();

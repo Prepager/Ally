@@ -1,13 +1,13 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Team;
+namespace ZapsterStudios\Ally\Controllers\Team;
 
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use ZapsterStudios\TeamPay\Events\Teams\TeamCreated;
-use ZapsterStudios\TeamPay\Events\Teams\TeamDeleated;
-use ZapsterStudios\TeamPay\Events\Teams\TeamRestored;
+use ZapsterStudios\Ally\Events\Teams\TeamCreated;
+use ZapsterStudios\Ally\Events\Teams\TeamDeleated;
+use ZapsterStudios\Ally\Events\Teams\TeamRestored;
 
 class TeamController extends Controller
 {

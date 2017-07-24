@@ -1,11 +1,11 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Subscription;
+namespace ZapsterStudios\Ally\Tests\Feature\Subscription;
 
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 
 class InvoiceTest extends TestCase
 {

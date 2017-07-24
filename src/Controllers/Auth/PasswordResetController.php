@@ -1,12 +1,12 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Auth;
+namespace ZapsterStudios\Ally\Controllers\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use ZapsterStudios\TeamPay\Models\PasswordReset;
-use ZapsterStudios\TeamPay\Notifications\PasswordReset as PasswordResetMail;
+use ZapsterStudios\Ally\Models\PasswordReset;
+use ZapsterStudios\Ally\Notifications\PasswordReset as PasswordResetMail;
 
 class PasswordResetController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers\Account;
+namespace ZapsterStudios\Ally\Controllers\Account;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

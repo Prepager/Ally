@@ -12,13 +12,13 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\User' => 'ZapsterStudios\TeamPay\Policies\UserPolicy',
-        'App\Team' => 'ZapsterStudios\TeamPay\Policies\TeamPolicy',
+        'App\User' => 'ZapsterStudios\Ally\Policies\UserPolicy',
+        'App\Team' => 'ZapsterStudios\Ally\Policies\TeamPolicy',
 
-        'ZapsterStudios\TeamPay\Models\TeamMember' => 'ZapsterStudios\TeamPay\Policies\TeamMemberPolicy',
-        'ZapsterStudios\TeamPay\Models\TeamInvitation' => 'ZapsterStudios\TeamPay\Policies\TeamInvitationPolicy',
+        'ZapsterStudios\Ally\Models\TeamMember' => 'ZapsterStudios\Ally\Policies\TeamMemberPolicy',
+        'ZapsterStudios\Ally\Models\TeamInvitation' => 'ZapsterStudios\Ally\Policies\TeamInvitationPolicy',
 
-        'Illuminate\Notifications\Notification' => 'ZapsterStudios\TeamPay\Policies\NotificationPolicy',
+        'Illuminate\Notifications\Notification' => 'ZapsterStudios\Ally\Policies\NotificationPolicy',
     ];
 
     /**

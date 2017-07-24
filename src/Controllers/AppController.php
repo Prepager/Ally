@@ -1,8 +1,8 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Controllers;
+namespace ZapsterStudios\Ally\Controllers;
 
-use TeamPay;
+use Ally;
 use Braintree\ClientToken;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
@@ -18,8 +18,8 @@ class AppController extends Controller
     public function index()
     {
         return response()->json([
-            'plans' => TeamPay::plans(),
-            'groups' => TeamPay::groups(),
+            'plans' => Ally::plans(),
+            'groups' => Ally::groups(),
         ]);
     }
 

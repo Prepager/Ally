@@ -5,7 +5,7 @@
  * https://gist.github.com/adamwathan/dd46a8501097942a771925c02bac0111.
  */
 
-namespace ZapsterStudios\TeamPay\Tests;
+namespace ZapsterStudios\Ally\Tests;
 
 use Illuminate\Contracts\Console\Kernel;
 

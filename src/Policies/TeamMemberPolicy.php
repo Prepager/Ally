@@ -1,10 +1,10 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Policies;
+namespace ZapsterStudios\Ally\Policies;
 
 use App\Team;
 use App\User;
-use ZapsterStudios\TeamPay\Models\TeamMember;
+use ZapsterStudios\Ally\Models\TeamMember;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TeamMemberPolicy
@@ -15,7 +15,7 @@ class TeamMemberPolicy
      * Determine whether the user can view a team member.
      *
      * @param  \App\User  $user
-     * @param  \ZapsterStudios\TeamPay\Models\TeamMember  $team
+     * @param  \ZapsterStudios\Ally\Models\TeamMember  $team
      * @return mixed
      */
     public function view(User $user, TeamMember $member = null)
@@ -32,7 +32,7 @@ class TeamMemberPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Team  $team
-     * @param  \ZapsterStudios\TeamPay\Models\TeamMember  $member
+     * @param  \ZapsterStudios\Ally\Models\TeamMember  $member
      * @return mixed
      */
     public function update(User $user, TeamMember $member)
@@ -49,7 +49,7 @@ class TeamMemberPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Team  $team
-     * @param  \ZapsterStudios\TeamPay\Models\TeamMember  $member
+     * @param  \ZapsterStudios\Ally\Models\TeamMember  $member
      * @return mixed
      */
     public function delete(User $user, TeamMember $member)

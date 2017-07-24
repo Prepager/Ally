@@ -1,11 +1,11 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature;
+namespace ZapsterStudios\Ally\Tests\Feature;
 
-use TeamPay;
+use Ally;
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 
 class ImpersonationTest extends TestCase
 {
@@ -31,7 +31,7 @@ class ImpersonationTest extends TestCase
     public function adminCanNotImpersonateInvalidUser()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         Passport::actingAs($user, ['user.admin']);
         $response = $this->json('POST', route('dashboard.users.impersonation.store', 'not-an-id'));
@@ -46,7 +46,7 @@ class ImpersonationTest extends TestCase
     public function adminCanImpersonateValidUser()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
 
@@ -71,7 +71,7 @@ class ImpersonationTest extends TestCase
     public function adminCanStopImpersonatingUser()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
 

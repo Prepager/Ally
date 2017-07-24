@@ -1,4 +1,4 @@
-# Laravel TeamPay
+# Laravel Ally
 Under construction...
 
 ---
@@ -6,14 +6,14 @@ Under construction...
 ## Notes
 Clone
 ```
-git clone git@github.com:ZapsterStudios/TeamPay.git
+git clone git@github.com:ZapsterStudios/Ally.git
 ```
 
 Required
 ```json
 "require": {
     ...
-    "zapsterstudios/teampay": "*@dev"
+    "zapsterstudios/ally": "*@dev"
 }
 ```
 
@@ -22,7 +22,7 @@ Repositories
 "repositories": [
     {
         "type": "path",
-        "url": "./TeamPay"
+        "url": "./Ally"
     }
 ]
 ```
@@ -33,7 +33,7 @@ Providers
     ...
     Laravel\Cashier\CashierServiceProvider::class,
     Laravel\Passport\PassportServiceProvider::class,
-    ZapsterStudios\TeamPay\TeamPayServiceProvider::class,
+    ZapsterStudios\Ally\AllyServiceProvider::class,
 ]
 ```
 
@@ -51,7 +51,7 @@ php artisan passport:install
 
 Normal Tests
 ```
-vendor/bin/phpunit TeamPay --exclude-group Subscription
+vendor/bin/phpunit Ally --exclude-group Subscription
 ```
 
 Subscription Tests
@@ -62,5 +62,5 @@ valid-second-plan | Valid Second Plan | $10 | 1 Month
 ```
 
 ```
-vendor/bin/phpunit TeamPay --group Subscription
+vendor/bin/phpunit Ally --group Subscription
 ```

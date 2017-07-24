@@ -1,12 +1,12 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Auth;
+namespace ZapsterStudios\Ally\Tests\Feature\Auth;
 
 use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 
 class AuthTest extends TestCase
 {

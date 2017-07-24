@@ -1,19 +1,19 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Subscription;
+namespace ZapsterStudios\Ally\Tests\Feature\Subscription;
 
-use TeamPay;
+use Ally;
 use App\Team;
 use App\User;
 use Braintree_Configuration;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Models\TeamMember;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionCreated;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionResumed;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionSwapped;
-use ZapsterStudios\TeamPay\Events\Subscriptions\SubscriptionCancelled;
+use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Models\TeamMember;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCreated;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionResumed;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionSwapped;
+use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCancelled;
 
 class SubscriptionTest extends TestCase
 {
@@ -22,8 +22,8 @@ class SubscriptionTest extends TestCase
         parent::setUp();
 
         Braintree_Configuration::environment('sandbox');
-        TeamPay::addPlan('valid-first-plan', 'Valid First Plan', 5);
-        TeamPay::addPlan('valid-second-plan', 'Valid Second Plan', 10);
+        Ally::addPlan('valid-first-plan', 'Valid First Plan', 5);
+        Ally::addPlan('valid-second-plan', 'Valid Second Plan', 10);
     }
 
     /**

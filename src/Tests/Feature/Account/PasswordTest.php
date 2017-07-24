@@ -1,10 +1,10 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Account;
+namespace ZapsterStudios\Ally\Tests\Feature\Account;
 
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\TeamPay\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 
 class PasswordTest extends TestCase
 {

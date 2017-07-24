@@ -1,9 +1,9 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Events\Announcements;
+namespace ZapsterStudios\Ally\Events\Announcements;
 
 use Illuminate\Queue\SerializesModels;
-use ZapsterStudios\TeamPay\Models\Announcement;
+use ZapsterStudios\Ally\Models\Announcement;
 
 class AnnouncementCreated
 {

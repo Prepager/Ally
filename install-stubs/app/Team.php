@@ -2,9 +2,9 @@
 
 namespace App;
 
-use ZapsterStudios\TeamPay\Models\Team as TeamPayTeam;
+use ZapsterStudios\Ally\Models\Team as AllyTeam;
 
-class Team extends TeamPayTeam
+class Team extends AllyTeam
 {
     //
 }

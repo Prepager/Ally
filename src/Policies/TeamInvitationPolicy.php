@@ -1,11 +1,11 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Policies;
+namespace ZapsterStudios\Ally\Policies;
 
 use App\Team;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use ZapsterStudios\TeamPay\Models\TeamInvitation;
+use ZapsterStudios\Ally\Models\TeamInvitation;
 
 class TeamInvitationPolicy
 {
@@ -15,7 +15,7 @@ class TeamInvitationPolicy
      * Determine whether the user can view the invitation.
      *
      * @param  \App\User  $user
-     * @param  \ZapsterStudios\TeamPay\Models\TeamInvitation  $invitation
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
      * @return mixed
      */
     public function userView(User $user, TeamInvitation $invitation = null)
@@ -28,7 +28,7 @@ class TeamInvitationPolicy
      * Determine whether the user can accept the invitation.
      *
      * @param  \App\User  $user
-     * @param  \ZapsterStudios\TeamPay\Models\TeamInvitation  $invitation
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
      * @return mixed
      */
     public function accept(User $user, TeamInvitation $invitation)
@@ -41,7 +41,7 @@ class TeamInvitationPolicy
      * Determine whether the user can decline the invitation.
      *
      * @param  \App\User  $user
-     * @param  \ZapsterStudios\TeamPay\Models\TeamInvitation  $invitation
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
      * @return mixed
      */
     public function decline(User $user, TeamInvitation $invitation)
@@ -54,7 +54,7 @@ class TeamInvitationPolicy
      * Determine whether the user can view the invitation.
      *
      * @param  \App\User  $user
-     * @param  \ZapsterStudios\TeamPay\Models\TeamInvitation  $invitation
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
      * @return mixed
      */
     public function view(User $user, TeamInvitation $invitation = null)
@@ -85,7 +85,7 @@ class TeamInvitationPolicy
      * Determine whether the user can update the invitation.
      *
      * @param  \App\User  $user
-     * @param  \ZapsterStudios\TeamPay\Models\TeamInvitation  $invitation
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
      * @param  \App\Team  $team
      * @return mixed
      */
@@ -102,7 +102,7 @@ class TeamInvitationPolicy
      * Determine whether the user can delete the invitation.
      *
      * @param  \App\User  $user
-     * @param  \ZapsterStudios\TeamPay\Models\TeamInvitation  $invitation
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
      * @param  \App\Team  $team
      * @return mixed
      */

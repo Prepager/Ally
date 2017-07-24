@@ -1,13 +1,13 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature\Team;
+namespace ZapsterStudios\Ally\Tests\Feature\Team;
 
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Events\Teams\Members\TeamMemberKicked;
+use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Events\Teams\Members\TeamMemberKicked;
 
 class MemberTest extends TestCase
 {

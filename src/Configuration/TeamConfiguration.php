@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Configuration;
+namespace ZapsterStudios\Ally\Configuration;
 
 trait TeamConfiguration
 {

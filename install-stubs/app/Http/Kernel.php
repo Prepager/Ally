@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            \ZapsterStudios\TeamPay\Middleware\Suspended::class,
+            \ZapsterStudios\Ally\Middleware\Suspended::class,
         ],
     ];
 
@@ -58,8 +58,8 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
-        'subscribed' => \ZapsterStudios\TeamPay\Middleware\Subscribed::class,
-        'administrator' => \ZapsterStudios\TeamPay\Middleware\Administrator::class,
-        'unauthenticated' => \ZapsterStudios\TeamPay\Middleware\Unauthenticated::class,
+        'subscribed' => \ZapsterStudios\Ally\Middleware\Subscribed::class,
+        'administrator' => \ZapsterStudios\Ally\Middleware\Administrator::class,
+        'unauthenticated' => \ZapsterStudios\Ally\Middleware\Unauthenticated::class,
     ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Providers;
+namespace ZapsterStudios\Ally\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace ZapsterStudios\TeamPay\Tests\Feature;
+namespace ZapsterStudios\Ally\Tests\Feature;
 
-use TeamPay;
+use Ally;
 use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\TeamPay\Tests\TestCase;
-use ZapsterStudios\TeamPay\Events\Users\UserSuspended;
+use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Events\Users\UserSuspended;
 
 class UserTest extends TestCase
 {
@@ -20,7 +20,7 @@ class UserTest extends TestCase
     public function adminCanRetrieveUsers()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         factory(User::class, 10)->create();
 
@@ -38,7 +38,7 @@ class UserTest extends TestCase
     public function adminCanRetrieveUser()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
         $team = $extra->teams()->save(factory(Team::class)->create());
@@ -64,7 +64,7 @@ class UserTest extends TestCase
     public function adminCanSearchForUser()
     {
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
 
@@ -92,7 +92,7 @@ class UserTest extends TestCase
         Event::fake();
 
         $user = factory(User::class)->states('verified')->create();
-        TeamPay::setAdmins([$user->email]);
+        Ally::setAdmins([$user->email]);
 
         $extra = factory(User::class)->create();
         $suspendedTo = Carbon::now()->addDays(5)->toDateTimeString();
