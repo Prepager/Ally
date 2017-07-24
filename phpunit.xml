@@ -9,8 +9,8 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Ally Tests">
-            <directory>./Tests</directory>
+        <testsuite name="Ally Test Suite">
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
     <filter>

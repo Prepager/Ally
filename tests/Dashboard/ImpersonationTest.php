@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\Ally\Tests\Feature;
+namespace ZapsterStudios\Ally\Tests;
 
 use Ally;
 use App\User;

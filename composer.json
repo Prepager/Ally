@@ -13,7 +13,8 @@
     },
     "autoload": {
         "psr-4": {
-            "ZapsterStudios\\Ally\\": "src/"
+            "ZapsterStudios\\Ally\\": "src/",
+            "ZapsterStudios\\Ally\\Tests\\": "tests/"
         }
     },
     "extra": {

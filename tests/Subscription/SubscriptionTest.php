@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\Ally\Tests\Feature\Subscription;
+namespace ZapsterStudios\Ally\Tests\Subscription;
 
 use Ally;
 use App\Team;

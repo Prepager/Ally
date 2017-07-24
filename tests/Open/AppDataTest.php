@@ -1,12 +1,15 @@
 <?php
 
-namespace ZapsterStudios\Ally\Tests\Feature;
+namespace ZapsterStudios\Ally\Tests\Open;
 
 use ZapsterStudios\Ally\Tests\TestCase;
 
 class AppDataTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group Open
+     */
     public function guestCanRetrieveAppConfig()
     {
         $response = $this->json('GET', route('app'));

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\Ally\Tests\Feature\Auth;
+namespace ZapsterStudios\Ally\Tests\Auth;
 
 use App\User;
 use Laravel\Passport\Passport;

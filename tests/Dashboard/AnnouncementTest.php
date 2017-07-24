@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\Ally\Tests\Feature;
+namespace ZapsterStudios\Ally\Tests\Dashboard;
 
 use Ally;
 use App\User;
@@ -12,42 +12,10 @@ use ZapsterStudios\Ally\Events\Announcements\AnnouncementCreated;
 
 class AnnouncementTest extends TestCase
 {
-    /** @test */
-    public function guestCanRetrieveRecentAnnouncements()
-    {
-        factory(Announcement::class, 2)->create();
-
-        $response = $this->json('GET', route('announcements.index', 'recent'));
-
-        $response->assertStatus(200);
-        $this->assertCount(2, $response->getData());
-    }
-
-    /** @test */
-    public function guestCanRetrieveAllAnnouncements()
-    {
-        factory(Announcement::class, 2)->create();
-
-        $response = $this->json('GET', route('announcements.index', 'all'));
-
-        $response->assertStatus(200);
-        $this->assertEquals(2, $response->getData()->total);
-    }
-
-    /** @test */
-    public function guestCanRetrieveSingleAnnouncement()
-    {
-        $announcement = factory(Announcement::class)->create();
-
-        $response = $this->json('GET', route('announcements.show', $announcement->id));
-
-        $response->assertStatus(200);
-        $response->assertJson([
-            'message' => $announcement->message,
-        ]);
-    }
-
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function guestCanNotCreateAnnouncement()
     {
         $response = $this->json('POST', route('announcements.store'), [
@@ -58,7 +26,10 @@ class AnnouncementTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanCreateAnnouncement()
     {
         Event::fake();
@@ -86,7 +57,10 @@ class AnnouncementTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanUpdateAnnouncement()
     {
         $user = factory(User::class)->states('verified')->create();
@@ -110,7 +84,10 @@ class AnnouncementTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Dashboard
+     */
     public function adminCanDeleteAnnouncement()
     {
         $user = factory(User::class)->states('verified')->create();
