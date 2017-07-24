@@ -89,6 +89,7 @@ class Publisher
     {
         if ($this->moved) {
             $this->command->info('[✓] > '.$message);
+
             return;
         }
 
