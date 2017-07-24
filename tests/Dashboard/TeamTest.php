@@ -8,7 +8,6 @@ use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\Ally\Tests\TestCase;
 use ZapsterStudios\Ally\Events\Teams\TeamSuspended;
 
 class TeamTest extends TestCase
