@@ -5,7 +5,6 @@ namespace ZapsterStudios\Ally\Tests;
 use Ally;
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\Ally\Tests\TestCase;
 
 class AnalyticsTest extends TestCase
 {

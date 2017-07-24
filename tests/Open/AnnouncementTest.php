@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests\Open;
 
-use Illuminate\Support\Facades\Event;
 use ZapsterStudios\Ally\Tests\TestCase;
 use ZapsterStudios\Ally\Models\Announcement;
 
