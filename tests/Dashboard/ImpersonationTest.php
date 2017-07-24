@@ -1,10 +1,11 @@
 <?php
 
-namespace ZapsterStudios\Ally\Tests;
+namespace ZapsterStudios\Ally\Tests\Dashboard;
 
 use Ally;
 use App\User;
 use Laravel\Passport\Passport;
+use ZapsterStudios\Ally\Tests\TestCase;
 
 class ImpersonationTest extends TestCase
 {
