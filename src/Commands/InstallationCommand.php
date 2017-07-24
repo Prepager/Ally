@@ -30,6 +30,7 @@ class InstallationCommand extends Command
     {
         if (! $this->checkConnection()) {
             $this->error('Incorrect database credentials... SQL connection required for installation!');
+
             return;
         }
 
@@ -51,7 +52,7 @@ class InstallationCommand extends Command
             Publish\PublishRoutes::class,
         ]);
 
-        $publishers->each(function($publisher) {
+        $publishers->each(function ($publisher) {
             (new $publisher($this))->publish();
         });
 
@@ -71,8 +72,9 @@ class InstallationCommand extends Command
     {
         try {
             DB::select('SELECT 1');
+
             return true;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }
