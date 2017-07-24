@@ -13,7 +13,9 @@ class UserSuspensionController extends Controller
     /**
      * Suspend user.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  \App\User  $user
+     * @return Response
      */
     public function store(Request $request, User $user)
     {
@@ -29,7 +31,9 @@ class UserSuspensionController extends Controller
     /**
      * Unsuspend user.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  \App\User  $user
+     * @return Response
      */
     public function destroy(Request $request, User $user)
     {

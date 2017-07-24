@@ -11,9 +11,9 @@ class InvoiceController extends Controller
     /**
      * Return a teams invoices.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request, Team $team)
     {
@@ -37,9 +37,10 @@ class InvoiceController extends Controller
     /**
      * Return a specefic team invoice.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  string  $invoice
+     * @return Response
      */
     public function show(Request $request, Team $team, $invoice)
     {

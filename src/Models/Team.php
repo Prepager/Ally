@@ -74,6 +74,8 @@ class Team extends Model
 
     /**
      * Get all the team members.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function members()
     {
@@ -83,6 +85,8 @@ class Team extends Model
 
     /**
      * Get the potential member count.
+     *
+     * @return int
      */
     public function potentialMemberCount()
     {
@@ -91,6 +95,8 @@ class Team extends Model
 
     /**
      * Weather or not the plan max member limit have been reached.
+     *
+     * @return bool
      */
     public function maxMemberCountReached()
     {
@@ -100,6 +106,8 @@ class Team extends Model
 
     /**
      * Get all the team member invitations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function invitations()
     {
@@ -108,6 +116,8 @@ class Team extends Model
 
     /**
      * Get all the team member fields.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function teamMembers()
     {
@@ -116,6 +126,8 @@ class Team extends Model
 
     /**
      * Get the teams active plan.
+     *
+     * @return \ZapsterStudios\Ally\Configuration\Models\Plan
      */
     public function plan()
     {
@@ -128,6 +140,8 @@ class Team extends Model
 
     /**
      * Get the teams plan permissions.
+     *
+     * @return array
      */
     public function permissions()
     {
@@ -136,6 +150,9 @@ class Team extends Model
 
     /**
      * Get a specefic teams plan permission.
+     *
+     * @param  array  $permission
+     * @return array
      */
     public function permission($permission)
     {
@@ -144,6 +161,12 @@ class Team extends Model
 
     /**
      * Generate team slug.
+     *
+     * @param  string  $slug
+     * @param  string|null  $original
+     * @param  string|bool  $current
+     * @param  int  $id
+     * @return string
      */
     public static function generateSlug($slug, $original = null, $current = false, $id = 1)
     {

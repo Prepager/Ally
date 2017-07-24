@@ -16,7 +16,8 @@ class InvitationController extends Controller
     /**
      * Display a listing of the invited team members.
      *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Team  $team
+     * @return Response
      */
     public function index(Team $team)
     {
@@ -28,8 +29,9 @@ class InvitationController extends Controller
     /**
      * Store a newly created team member invite in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  \App\Team  $team
+     * @return Response
      */
     public function store(Request $request, Team $team)
     {
@@ -65,7 +67,8 @@ class InvitationController extends Controller
      * Display the specified team member invitation.
      *
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
+     * @return Response
      */
     public function show(Team $team, TeamInvitation $invitation)
     {
@@ -77,9 +80,10 @@ class InvitationController extends Controller
     /**
      * Update the specified team member invitation in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
+     * @return Response
      */
     public function update(Request $request, Team $team, TeamInvitation $invitation)
     {
@@ -97,7 +101,8 @@ class InvitationController extends Controller
      * Remove the specified member invitation from the team.
      *
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
+     * @return Response
      */
     public function destroy(Team $team, TeamInvitation $invitation)
     {

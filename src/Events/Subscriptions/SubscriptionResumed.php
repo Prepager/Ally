@@ -12,6 +12,7 @@ class SubscriptionResumed
     /**
      * Create a new event instance.
      *
+     * @param  \App\Team  $team
      * @return void
      */
     public function __construct(Team $team)

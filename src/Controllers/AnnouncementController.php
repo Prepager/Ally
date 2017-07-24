@@ -12,7 +12,8 @@ class AnnouncementController extends Controller
     /**
      * Display a listing of the announcements.
      *
-     * @return \Illuminate\Http\Response
+     * @param  string  $method
+     * @return Response
      */
     public function index($method = 'recent')
     {
@@ -26,8 +27,8 @@ class AnnouncementController extends Controller
     /**
      * Store a newly created announcement in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -48,8 +49,8 @@ class AnnouncementController extends Controller
     /**
      * Display the specified announcement.
      *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\Announcement  $announcement
+     * @return Response
      */
     public function show(Announcement $announcement)
     {
@@ -59,9 +60,9 @@ class AnnouncementController extends Controller
     /**
      * Update the specified announcement in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  \ZapsterStudios\Ally\Models\Announcement  $announcement
+     * @return Response
      */
     public function update(Request $request, Announcement $announcement)
     {
@@ -73,8 +74,8 @@ class AnnouncementController extends Controller
     /**
      * Remove the specified announcement from storage.
      *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\Announcement  $announcement
+     * @return Response
      */
     public function destroy(Announcement $announcement)
     {

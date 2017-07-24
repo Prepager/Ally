@@ -3,6 +3,7 @@
 namespace ZapsterStudios\Ally\Notifications;
 
 use Ally;
+use App\User;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -11,9 +12,11 @@ class PasswordReset extends Notification
     /**
      * Create a new notification instance.
      *
+     * @param  \App\User  $user
+     * @param  string  $token
      * @return void
      */
-    public function __construct($user, $token)
+    public function __construct(User $user, $token)
     {
         $this->user = $user;
         $this->token = $token;

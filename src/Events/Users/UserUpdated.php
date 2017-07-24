@@ -12,6 +12,7 @@ class UserUpdated
     /**
      * Create a new event instance.
      *
+     * @param  \App\User  $user
      * @return void
      */
     public function __construct(User $user)

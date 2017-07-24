@@ -12,6 +12,7 @@ class AnnouncementCreated
     /**
      * Create a new event instance.
      *
+     * @param  \ZapsterStudios\Ally\Models\Announcement  $announcement
      * @return void
      */
     public function __construct(Announcement $announcement)

@@ -4,11 +4,22 @@ namespace ZapsterStudios\Ally\Data;
 
 trait ResponseList
 {
+    /**
+     * Return response message for http error.
+     *
+     * @param  int  $code
+     * @return string
+     */
     public static function getResponseMessage($code = 500)
     {
         return self::getResponseMessages()[$code] ?? 'Internal Server Error';
     }
 
+    /**
+     * Return all response messages.
+     *
+     * @return array
+     */
     public static function getResponseMessages()
     {
         return [

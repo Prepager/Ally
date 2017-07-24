@@ -32,6 +32,8 @@ class Announcement extends Model
 
     /**
      * Get the announcement author.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function author()
     {

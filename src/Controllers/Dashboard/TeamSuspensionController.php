@@ -13,7 +13,9 @@ class TeamSuspensionController extends Controller
     /**
      * Suspend team.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  \App\Team  $team
+     * @return Response
      */
     public function store(Request $request, Team $team)
     {
@@ -29,7 +31,9 @@ class TeamSuspensionController extends Controller
     /**
      * Unsuspend team.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  \App\Team  $team
+     * @return Response
      */
     public function destroy(Request $request, Team $team)
     {

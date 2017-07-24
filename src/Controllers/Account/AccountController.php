@@ -70,6 +70,7 @@ class AccountController extends Controller
     /**
      * Update an existing user.
      *
+     * @param  Request  $request
      * @return Response
      */
     public function update(Request $request)

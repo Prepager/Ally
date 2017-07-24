@@ -31,7 +31,6 @@ class TeamMemberPolicy
      * Determine whether the user can update the teamMember.
      *
      * @param  \App\User  $user
-     * @param  \App\Team  $team
      * @param  \ZapsterStudios\Ally\Models\TeamMember  $member
      * @return mixed
      */
@@ -48,7 +47,6 @@ class TeamMemberPolicy
      * Determine whether the user can delete the teamMember.
      *
      * @param  \App\User  $user
-     * @param  \App\Team  $team
      * @param  \ZapsterStudios\Ally\Models\TeamMember  $member
      * @return mixed
      */

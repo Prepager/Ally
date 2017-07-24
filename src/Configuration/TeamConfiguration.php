@@ -21,7 +21,7 @@ trait TeamConfiguration
     /**
      * Create default groups.
      *
-     * @returns void
+     * @return void
      */
     public static function teamSetup()
     {
@@ -32,7 +32,10 @@ trait TeamConfiguration
     /**
      * Add a new team group.
      *
-     * @returns Group
+     * @param  string  $id
+     * @param  string  $name
+     * @param  array  $permissions
+     * @return \ZapsterStudios\Ally\Configuration\Models\Group
      */
     public static function addGroup($id, $name, $permissions = [])
     {
@@ -45,7 +48,7 @@ trait TeamConfiguration
     /**
      * Return all groups.
      *
-     * @returns collection
+     * @return Collection
      */
     public static function groups()
     {
@@ -55,7 +58,7 @@ trait TeamConfiguration
     /**
      * Return a single group.
      *
-     * @returns Group
+     * @return Group
      */
     public static function group($id)
     {
@@ -67,7 +70,7 @@ trait TeamConfiguration
     /**
      * Return a in group validation.
      *
-     * @returns string
+     * @return string
      */
     public static function inGroup()
     {

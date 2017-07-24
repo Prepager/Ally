@@ -3,6 +3,8 @@
 namespace ZapsterStudios\Ally\Notifications;
 
 use Ally;
+use App\Team;
+use App\User;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -11,9 +13,12 @@ class TeamInvitation extends Notification
     /**
      * Create a new notification instance.
      *
+     * @param  \App\Team  $team
+     * @param  \App\User  $user
+     * @param  bool  $exists
      * @return void
      */
-    public function __construct($team, $user, $exists)
+    public function __construct(Team $team, User $user, $exists)
     {
         $this->team = $team;
         $this->user = $user;

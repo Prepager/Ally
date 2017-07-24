@@ -28,7 +28,7 @@ trait LinkConfiguration
     /**
      * Create default links.
      *
-     * @returns void
+     * @return void
      */
     public static function linkSetup()
     {

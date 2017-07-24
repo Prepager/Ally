@@ -3,6 +3,7 @@
 namespace ZapsterStudios\Ally\Models;
 
 use Ally;
+use App\Team;
 use Carbon\Carbon;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -53,6 +54,8 @@ class User extends Authenticatable
 
     /**
      * Get the users team invitations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function invitations()
     {
@@ -61,6 +64,8 @@ class User extends Authenticatable
 
     /**
      * Get the users active team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function team()
     {
@@ -69,6 +74,8 @@ class User extends Authenticatable
 
     /**
      * Get all the users teams.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function teams()
     {
@@ -77,6 +84,8 @@ class User extends Authenticatable
 
     /**
      * Get all the users owned teams.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function ownedTeams()
     {
@@ -85,6 +94,8 @@ class User extends Authenticatable
 
     /**
      * Get the users first team id or 0.
+     *
+     * @return \App\Team|int
      */
     public function firstTeam()
     {
@@ -137,8 +148,11 @@ class User extends Authenticatable
 
     /**
      * Return a users team member on a team.
+     *
+     * @param  \App\Team  $team
+     * @return mixed
      */
-    public function teamMember($team)
+    public function teamMember(Team $team)
     {
         $member = $team->members->first(function ($user) {
             return $this->id === $user->id;
@@ -150,9 +164,10 @@ class User extends Authenticatable
     /**
      * Return all permissions for a users team.
      *
-     * @return array
+     * @param  \App\Team  $team
+     * @return Collection
      */
-    public function groupPermissions($team)
+    public function groupPermissions(Team $team)
     {
         $member = $this->teamMember($team);
         if (! $member) {
@@ -166,9 +181,11 @@ class User extends Authenticatable
     /**
      * Return a single permission for a users team.
      *
+     * @param  \App\Team  $team
+     * @param  string  $permission
      * @return bool
      */
-    public function groupPermission($team, $permission)
+    public function groupPermission(Team $team, $permission)
     {
         return $this->groupPermissions($team)->first(function ($perm) use ($permission) {
             return fnmatch($perm, $permission);
@@ -178,7 +195,8 @@ class User extends Authenticatable
     /**
      * Short alias of groupPermission.
      *
-     * @return array
+     * @param  mixed  ...$params
+     * @return bool
      */
     public function groupCan(...$params)
     {

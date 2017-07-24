@@ -14,7 +14,7 @@ trait UserConfiguration
     /**
      * Return all admins.
      *
-     * @returns array
+     * @return Collection
      */
     public static function admins()
     {
@@ -24,7 +24,8 @@ trait UserConfiguration
     /**
      * Set app admin emails.
      *
-     * @returns void
+     * @param  array  $newAdmins
+     * @return void
      */
     public static function setAdmins($newAdmins)
     {
@@ -34,7 +35,8 @@ trait UserConfiguration
     /**
      * Check if email is admin.
      *
-     * @returns bool
+     * @param  string  $email
+     * @return bool
      */
     public static function isAdmin($email)
     {

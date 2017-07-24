@@ -10,7 +10,6 @@ class ExtendedServiceProvider extends ServiceProvider
      * Load factories from directory.
      *
      * @param  string  $path
-     *
      * @return void
      */
     protected function loadFactoriesFrom($path)
@@ -23,8 +22,7 @@ class ExtendedServiceProvider extends ServiceProvider
      *
      * @param  string  $path
      * @param  string  $name
-     * @param  function $callback
-     *
+     * @param  callable $callback
      * @return void
      */
     protected function registerAlias($path, $name, $callback)
@@ -40,7 +38,6 @@ class ExtendedServiceProvider extends ServiceProvider
      * Register scheduled commands.
      *
      * @param  array  $commands
-     *
      * @return void
      */
     protected function registerCommands($commands)

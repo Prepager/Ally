@@ -28,7 +28,10 @@ class Group
     /**
      * Apply group details.
      *
-     * @returns void
+     * @param  string  $id
+     * @param  string  $name
+     * @param  array  $permissions
+     * @return void
      */
     public function __construct($id, $name, $permissions)
     {
@@ -40,7 +43,8 @@ class Group
     /**
      * Rename an existing group.
      *
-     * @returns Group
+     * @param  string  $name
+     * @return self
      */
     public function rename($name)
     {
@@ -51,6 +55,9 @@ class Group
 
     /**
      * Set the group permissions.
+     *
+     * @param  array  $permissions
+     * @return self
      */
     public function permissions($permissions)
     {

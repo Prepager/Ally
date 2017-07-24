@@ -4,11 +4,21 @@ namespace ZapsterStudios\Ally\Data;
 
 trait CountryList
 {
+    /**
+     * Return imploded list of country keys.
+     *
+     * @return string
+     */
     public static function getCountryKeyString()
     {
         return collect(self::getCountryList())->keys()->implode(',');
     }
 
+    /**
+     * Return full list of countries.
+     *
+     * @return array
+     */
     public static function getCountryList()
     {
         return [

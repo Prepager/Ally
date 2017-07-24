@@ -14,7 +14,8 @@ class TeamController extends Controller
     /**
      * Display a listing of the users teams.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -26,8 +27,8 @@ class TeamController extends Controller
     /**
      * Store a newly created team in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -58,7 +59,7 @@ class TeamController extends Controller
      * Display the specified team.
      *
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Team $team)
     {
@@ -70,9 +71,9 @@ class TeamController extends Controller
     /**
      * Update the specified team in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Team $team)
     {
@@ -93,8 +94,9 @@ class TeamController extends Controller
     /**
      * Remove the specified team from storage.
      *
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Request $request, Team $team)
     {
@@ -115,6 +117,7 @@ class TeamController extends Controller
      * Change a users active team.
      *
      * @param  Request  $request
+     * @param  \App\Team  $team
      * @return Response
      */
     public function change(Request $request, Team $team)
@@ -131,6 +134,7 @@ class TeamController extends Controller
     /**
      * Restore a deleated team.
      *
+     * @param  \App\Team  $team
      * @return Response
      */
     public function restore($team)

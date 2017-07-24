@@ -30,7 +30,7 @@ class NotificationController extends Controller
      * Set the read status of a notification.
      *
      * @param  Request  $request
-     * @param  Notification  $notification
+     * @param  \Illuminate\Notifications\Notification  $notification
      * @return Response
      */
     public function update(Request $request, Notification $notification)
@@ -44,7 +44,7 @@ class NotificationController extends Controller
      * Delete a user notification.
      *
      * @param  Request  $request
-     * @param  Notification  $notification
+     * @param  \Illuminate\Notifications\Notification  $notification
      * @return Response
      */
     public function destroy(Request $request, Notification $notification)

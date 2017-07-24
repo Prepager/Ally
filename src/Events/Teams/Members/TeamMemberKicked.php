@@ -13,6 +13,8 @@ class TeamMemberKicked
     /**
      * Create a new event instance.
      *
+     * @param  \App\Team  $team
+     * @param  \App\User  $user
      * @return void
      */
     public function __construct(Team $team, User $user)

@@ -17,6 +17,8 @@ class TeamMember extends Model
 
     /**
      * Get the team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function team()
     {
@@ -25,6 +27,8 @@ class TeamMember extends Model
 
     /**
      * Get the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

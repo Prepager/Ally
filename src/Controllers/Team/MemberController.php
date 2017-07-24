@@ -15,7 +15,8 @@ class MemberController extends Controller
     /**
      * Display a listing of the teams members.
      *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Team  $team
+     * @return Response
      */
     public function index(Team $team)
     {
@@ -29,7 +30,8 @@ class MemberController extends Controller
      * Display the specified team member.
      *
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamMember  $member
+     * @return Response
      */
     public function show(Team $team, TeamMember $member)
     {
@@ -41,9 +43,10 @@ class MemberController extends Controller
     /**
      * Update the specified team member in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamMember  $member
+     * @return Response
      */
     public function update(Request $request, Team $team, TeamMember $member)
     {
@@ -61,7 +64,8 @@ class MemberController extends Controller
      * Remove the specified member from the team.
      *
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamMember  $member
+     * @return Response
      */
     public function destroy(Team $team, TeamMember $member)
     {

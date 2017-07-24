@@ -55,6 +55,11 @@ class Plan
 
     /**
      * Apply plan details.
+     *
+     * @param  string  $id
+     * @param  string  $name
+     * @param  int  $price
+     * @return void
      */
     public function __construct($id, $name, $price)
     {
@@ -65,6 +70,8 @@ class Plan
 
     /**
      * Archive plan to prevent new subs.
+     *
+     * @return self
      */
     public function archive()
     {
@@ -75,6 +82,9 @@ class Plan
 
     /**
      * Set maximum amount of members.
+     *
+     * @param  int  $count
+     * @return self
      */
     public function maxMembers($count)
     {
@@ -85,6 +95,9 @@ class Plan
 
     /**
      * Set the plan features.
+     *
+     * @param  array  $features
+     * @return self
      */
     public function features($features)
     {
@@ -95,6 +108,9 @@ class Plan
 
     /**
      * Set the plan permissions.
+     *
+     * @param  array  $permissions
+     * @return self
      */
     public function permissions($permissions)
     {

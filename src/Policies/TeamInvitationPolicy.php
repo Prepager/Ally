@@ -70,7 +70,6 @@ class TeamInvitationPolicy
      * Determine whether the user can create invite new member.
      *
      * @param  \App\User  $user
-     * @param  \App\Team  $team
      * @return mixed
      */
     public function create(User $user)
@@ -86,7 +85,6 @@ class TeamInvitationPolicy
      *
      * @param  \App\User  $user
      * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
-     * @param  \App\Team  $team
      * @return mixed
      */
     public function update(User $user, TeamInvitation $invitation)
@@ -103,7 +101,6 @@ class TeamInvitationPolicy
      *
      * @param  \App\User  $user
      * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
-     * @param  \App\Team  $team
      * @return mixed
      */
     public function delete(User $user, TeamInvitation $invitation)

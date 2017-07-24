@@ -9,7 +9,7 @@ class AnalyticsController extends Controller
     /**
      * Display a listing of the dashboard details.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {

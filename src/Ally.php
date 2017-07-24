@@ -4,23 +4,18 @@ namespace ZapsterStudios\Ally;
 
 class Ally
 {
-    /*
-     * Use configuration files.
-     */
     use Configuration\TeamConfiguration;
     use Configuration\UserConfiguration;
     use Configuration\PlanConfiguration;
     use Configuration\LinkConfiguration;
-    /*
-     * Use data repositories.
-     */
+
     use Data\CountryList;
     use Data\ResponseList;
 
     /**
      * Setup configuration.
      *
-     * @returns void
+     * @return void
      */
     public static function setup()
     {

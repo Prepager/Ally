@@ -13,7 +13,7 @@ class InvitationController extends Controller
     /**
      * Display a listing of the team invitations.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -26,8 +26,8 @@ class InvitationController extends Controller
      * Accept a team invitation.
      *
      * @param  Request  $request
-     * @param  TeamInvitation  $invitation
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
+     * @return Response
      */
     public function update(Request $request, TeamInvitation $invitation)
     {
@@ -48,8 +48,8 @@ class InvitationController extends Controller
     /**
      * Decline a team invitaiton.
      *
-     * @param  TeamInvitation  $invitation
-     * @return \Illuminate\Http\Response
+     * @param  \ZapsterStudios\Ally\Models\TeamInvitation  $invitation
+     * @return Response
      */
     public function destroy(TeamInvitation $invitation)
     {

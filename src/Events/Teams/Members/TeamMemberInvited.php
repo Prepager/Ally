@@ -12,6 +12,8 @@ class TeamMemberInvited
     /**
      * Create a new event instance.
      *
+     * @param  \App\Team  $team
+     * @param  string  $email
      * @return void
      */
     public function __construct(Team $team, $email)

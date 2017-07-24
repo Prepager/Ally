@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * Display a listing of users.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -21,7 +21,8 @@ class UserController extends Controller
     /**
      * Display a single user.
      *
-     * @return \Illuminate\Http\Response
+     * @param  integer  $id
+     * @return \Response
      */
     public function show($id)
     {
@@ -31,7 +32,8 @@ class UserController extends Controller
     /**
      * Search for a list of users.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function search(Request $request)
     {

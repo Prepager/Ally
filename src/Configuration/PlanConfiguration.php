@@ -13,6 +13,11 @@ trait PlanConfiguration
 
     /**
      * Add a new plan.
+     *
+     * @param  string  $id
+     * @param  string  $name
+     * @param  int  $price
+     * @return \ZapsterStudios\Ally\Configuration\Models\Plan
      */
     public static function addPlan($id, $name, $price = 0)
     {
@@ -24,6 +29,12 @@ trait PlanConfiguration
 
     /**
      * Duplicate an existing plan.
+     *
+     * @param  string  $duplicate
+     * @param  string  $id
+     * @param  string|null  $name
+     * @param  int|null  $price
+     * @return \ZapsterStudios\Ally\Configuration\Models\Plan
      */
     public static function duplicatePlan($duplicate, $id, $name = null, $price = null)
     {
@@ -43,7 +54,7 @@ trait PlanConfiguration
     /**
      * Return all plans.
      *
-     * @returns array
+     * @return Collection
      */
     public static function plans()
     {
@@ -53,7 +64,8 @@ trait PlanConfiguration
     /**
      * Return single plan.
      *
-     * @returns array
+     * @param  string  $id
+     * @return Collection
      */
     public static function plan($id)
     {
@@ -65,7 +77,7 @@ trait PlanConfiguration
     /**
      * Return free plans.
      *
-     * @returns array
+     * @return Collection
      */
     public static function freePlans()
     {
@@ -77,7 +89,7 @@ trait PlanConfiguration
     /**
      * Return the default free plan.
      *
-     * @returns array
+     * @return array
      */
     public static function freePlan()
     {
@@ -87,7 +99,7 @@ trait PlanConfiguration
     /**
      * Return active plans.
      *
-     * @returns array
+     * @return Collection
      */
     public static function activePlans()
     {
@@ -99,7 +111,7 @@ trait PlanConfiguration
     /**
      * Return active plan ids.
      *
-     * @returns array
+     * @return Collection
      */
     public static function activePlanIDs()
     {
@@ -111,7 +123,7 @@ trait PlanConfiguration
     /**
      * Return archived plans.
      *
-     * @returns array
+     * @return Collection
      */
     public static function archivedPlans()
     {

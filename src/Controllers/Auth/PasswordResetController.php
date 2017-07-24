@@ -37,6 +37,8 @@ class PasswordResetController extends Controller
     /**
      * Update an existing password requested to be reset.
      *
+     * @param  Request  $request
+     * @param  \ZapsterStudios\Ally\Models\PasswordReset  $reset
      * @return Response
      */
     public function update(Request $request, PasswordReset $reset)

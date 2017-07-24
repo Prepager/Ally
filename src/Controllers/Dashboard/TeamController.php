@@ -11,7 +11,7 @@ class TeamController extends Controller
     /**
      * Display a listing of teams.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -21,7 +21,8 @@ class TeamController extends Controller
     /**
      * Display a single team.
      *
-     * @return \Illuminate\Http\Response
+     * @param  integer  $id
+     * @return Response
      */
     public function show($id)
     {
@@ -31,7 +32,8 @@ class TeamController extends Controller
     /**
      * Search for a list of teams.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function search(Request $request)
     {

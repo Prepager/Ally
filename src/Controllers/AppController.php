@@ -13,7 +13,7 @@ class AppController extends Controller
     /**
      * Display a listing of the app settings.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -26,8 +26,8 @@ class AppController extends Controller
     /**
      * Display a listing of the app settings.
      *
-     * @param  Router  $router
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Routing\Router  $router
+     * @return Response
      */
     public function routes(Router $router)
     {
@@ -48,7 +48,7 @@ class AppController extends Controller
      * Return a new billing provider token.
      *
      * @param  Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function token(Request $request)
     {

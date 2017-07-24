@@ -10,7 +10,7 @@ class ImpersonationController extends Controller
     /**
      * Create a new impersonation token.
      *
-     * @param  User  $user
+     * @param  \App\User  $user
      * @return Response
      */
     public function store(User $user)
@@ -23,7 +23,6 @@ class ImpersonationController extends Controller
     /**
      * Delete an impersonation token.
      *
-     * @param  User  $user
      * @return Response
      */
     public function destroy()

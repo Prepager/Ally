@@ -16,9 +16,9 @@ class SubscriptionController extends Controller
     /**
      * Subscribe the team to a plan.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function subscription(Request $request, Team $team)
     {
@@ -60,9 +60,9 @@ class SubscriptionController extends Controller
     /**
      * Cancel a teams subscription.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function cancel(Request $request, Team $team)
     {
@@ -77,9 +77,9 @@ class SubscriptionController extends Controller
     /**
      * Resume a teams subscription.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function resume(Request $request, Team $team)
     {
