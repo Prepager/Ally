@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Braintree_Configuration as Braintree;
 
-class allyServiceProvider extends Providers\ExtendedServiceProvider
+class AllyServiceProvider extends Providers\ExtendedServiceProvider
 {
     /**
      * Boot the package service provider.
