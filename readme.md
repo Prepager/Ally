@@ -37,14 +37,9 @@ Providers
 ]
 ```
 
-Migrate
+Install
 ```
-php artisan migrate
-```
-
-Passport
-```
-php artisan passport:install
+php artisan ally:install
 ```
 
 ## Tests
