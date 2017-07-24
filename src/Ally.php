@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapsterStudios\ally;
+namespace ZapsterStudios\Ally;
 
 class Ally
 {
