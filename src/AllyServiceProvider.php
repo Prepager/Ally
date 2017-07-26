@@ -6,6 +6,7 @@ use Ally;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Braintree_Configuration as Braintree;
+use ZapsterStudios\Ally\Commands\CleanTrashedTeams;
 use ZapsterStudios\Ally\Commands\InstallationCommand;
 
 class AllyServiceProvider extends Providers\ExtendedServiceProvider
@@ -38,6 +39,7 @@ class AllyServiceProvider extends Providers\ExtendedServiceProvider
 
         $this->registerCommands([
             InstallationCommand::class,
+            CleanTrashedTeams::class,
         ]);
     }
 

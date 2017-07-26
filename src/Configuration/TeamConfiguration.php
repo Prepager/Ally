@@ -19,6 +19,13 @@ trait TeamConfiguration
     public static $skipDeletionGracePeriod = false;
 
     /**
+     * The amount of time before a trashed team should be deleated.
+     *
+     * @var int
+     */
+    public static $gracePeriodDays = 1;
+
+    /**
      * The groups used for the teams members.
      *
      * @var array
