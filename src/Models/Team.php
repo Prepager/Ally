@@ -230,11 +230,11 @@ class Team extends Model
      */
     public function cancelIfSubscribed($now = false)
     {
-        if (!$this->subscribed()) {
+        if (! $this->subscribed()) {
             return;
         }
 
-        if($now) {
+        if ($now) {
             $team->subscription()->cancelNow();
         } else {
             $team->subscription()->cancel();
