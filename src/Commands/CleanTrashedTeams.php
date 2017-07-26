@@ -37,7 +37,7 @@ class CleanTrashedTeams extends Command
         $time = Carbon::now()->subDays(Ally::$gracePeriodDays);
         $teams = Team::where('deleted_at', '<=', $time)->withTrashed();
 
-        $teams->each(function($team) {
+        $teams->each(function ($team) {
             $team->forceDelete();
         });
     }
