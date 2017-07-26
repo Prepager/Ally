@@ -6,8 +6,8 @@ use Ally;
 use Validator;
 use Carbon\Carbon;
 use Laravel\Cashier\Billable;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
