@@ -13,12 +13,12 @@ Coming soon.
 Installation and updating are currently just based on git clone/pull (will be change).
 
 ### Clone the Repository
-```
-git clone git@github.com:ZapsterStudios/Ally.git
+```bash
+$ git clone git@github.com:ZapsterStudios/Ally.git
 ```
 
 ### Require and Register the Repository in ``composer.json``
-```
+```json
 "require": {
     ...
     "zapsterstudios/ally": "*@dev"
@@ -32,8 +32,8 @@ git clone git@github.com:ZapsterStudios/Ally.git
 ```
 
 ### Run Installation
-```
-php artisan ally:install
+```bash
+$ php artisan ally:install
 ```
 
 ## Testing
@@ -41,8 +41,8 @@ Some tests require a Braintree Sandbox account and are grouped under 'Subscripti
 
 ### Non-Subscription Tests
 #### Command
-```
-vendor/bin/phpunit Ally --exclude-group Subscription
+```bash
+$ vendor/bin/phpunit Ally --exclude-group Subscription
 ```
 
 ### Subscription Tests
@@ -53,8 +53,8 @@ valid-second-plan | Valid Second Plan | $10
 ```
 
 #### Command
-```
-vendor/bin/phpunit Ally --group Subscription
+```bash
+$ vendor/bin/phpunit Ally --group Subscription
 ```
 
 ## License
