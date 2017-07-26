@@ -32,8 +32,8 @@ trait LinkConfiguration
      */
     public static function linkSetup()
     {
-        static::$linkPasswordReset = env('APP_URL').static::$linkPasswordReset;
-        static::$linkAccountVerification = env('APP_URL').static::$linkAccountVerification;
-        static::$linkInvitations = env('APP_URL').static::$linkInvitations;
+        static::$linkPasswordReset = config('app.url').static::$linkPasswordReset;
+        static::$linkAccountVerification = config('app.url').static::$linkAccountVerification;
+        static::$linkInvitations = config('app.url').static::$linkInvitations;
     }
 }
