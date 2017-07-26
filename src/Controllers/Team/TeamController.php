@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Controllers\Team;
 
-use Ally;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
