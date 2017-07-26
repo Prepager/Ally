@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\Ally\Tests\Team;
 
+use Ally;
 use App\Team;
 use App\User;
 use Carbon\Carbon;
@@ -130,7 +131,7 @@ class TeamTest extends TestCase
         ]);
 
         $response->assertStatus(200);
-        $response->assertJson(array_merge($team->toArray(), [
+        $response->assertJson(array_merge($team->makeHidden('updated_at')->toArray(), [
             'name' => 'Foobar',
             'slug' => str_slug('Foobar'),
         ]));
@@ -146,9 +147,10 @@ class TeamTest extends TestCase
      * @test
      * @group Team
      */
-    public function userCanDeleteTeam()
+    public function userCanDeleteTeamWithGrace()
     {
         Event::fake();
+        Ally::$skipDeletionGracePeriod = false;
 
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create(['user_id' => $user->id]);
@@ -160,6 +162,38 @@ class TeamTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertSoftDeleted('teams', [
+            'slug' => $team->slug,
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'team_id' => 0,
+        ]);
+
+        Event::assertDispatched(TeamDeleated::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
+    }
+
+    /**
+     * @test
+     * @group Team
+     */
+    public function userCanDeleteTeamWithoutGrace()
+    {
+        Event::fake();
+        Ally::$skipDeletionGracePeriod = true;
+
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
+
+        $user->team_id = $team->id;
+
+        Passport::actingAs($user, ['teams.delete']);
+        $response = $this->json('DELETE', route('teams.destroy', $team->slug));
+
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('teams', [
             'slug' => $team->slug,
         ]);
 

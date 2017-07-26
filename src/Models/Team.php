@@ -3,6 +3,7 @@
 namespace ZapsterStudios\Ally\Models;
 
 use Ally;
+use App\User;
 use Validator;
 use Carbon\Carbon;
 use Laravel\Cashier\Billable;
@@ -219,5 +220,58 @@ class Team extends Model
     public function gravatar()
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->slug)).'?d=identicon&s=150';
+    }
+
+    /**
+     * Cancel team subscription if subscribed.
+     *
+     * @param  bool  $now
+     * @return void
+     */
+    public function cancelIfSubscribed($now = false)
+    {
+        if (!$this->subscribed()) {
+            return;
+        }
+
+        if($now) {
+            $team->subscription()->cancelNow();
+        } else {
+            $team->subscription()->cancel();
+        }
+    }
+
+    /**
+     * Remove team members.
+     *
+     * @return void
+     */
+    public function removeMembers()
+    {
+        $this->teamMembers()->delete();
+
+        User::where('team_id', $this->id)->update([
+            'team_id' => 0,
+        ]);
+    }
+
+    /**
+     * Delete a team based on configuration.
+     *
+     * @return void
+     */
+    public function performDeletion()
+    {
+        $skipGrace = Ally::$skipDeletionGracePeriod;
+        $this->cancelIfSubscribed($skipGrace);
+
+        if ($skipGrace) {
+            $this->removeMembers();
+            $this->forceDelete();
+
+            return;
+        }
+
+        $this->delete();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\Ally\Controllers\Team;
 
+use Ally;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -102,7 +103,7 @@ class TeamController extends Controller
     {
         $this->authorize('delete', $team);
 
-        $team->delete();
+        $team->performDeletion();
 
         $user = $request->user();
         if ($user->team_id === $team->id) {

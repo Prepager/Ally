@@ -12,6 +12,13 @@ trait TeamConfiguration
     public static $teamName = 'team';
 
     /**
+     * Whether or not the teams should be instantly deleated.
+     *
+     * @var bool
+     */
+    public static $skipDeletionGracePeriod = false;
+
+    /**
      * The groups used for the teams members.
      *
      * @var array
