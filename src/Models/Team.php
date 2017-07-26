@@ -6,6 +6,7 @@ use Ally;
 use Validator;
 use Carbon\Carbon;
 use Laravel\Cashier\Billable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,7 +34,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug',
+        'name', 'slug', 'avatar',
     ];
 
     /**
@@ -198,5 +199,25 @@ class Team extends Model
             ! $this->suspended_to
             || $this->suspended_to->toDateTimeString() >= Carbon::now()->toDateTimeString()
         );
+    }
+
+    /**
+     * Return a users custom avatar or Gravatar.
+     *
+     * @return string
+     */
+    public function getAvatarAttribute($avatar)
+    {
+        return empty($avatar) ? $this->gravatar() : Storage::url($avatar);
+    }
+
+    /**
+     * Return a users Gravatar.
+     *
+     * @return string
+     */
+    public function gravatar()
+    {
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->slug)).'?d=identicon&s=150';
     }
 }

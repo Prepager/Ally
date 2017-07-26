@@ -18,6 +18,7 @@ class CreateTeamsTable extends Migration
             $table->integer('user_id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->string('avatar')->nullable();
             $table->string('braintree_id')->nullable();
             $table->string('paypal_email')->nullable();
             $table->string('card_brand')->nullable();

@@ -6,6 +6,7 @@ use Ally;
 use App\Team;
 use Carbon\Carbon;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -40,7 +41,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'country', 'email_verified', 'email_token',
+        'name', 'email', 'avatar', 'password', 'country', 'email_verified', 'email_token',
     ];
 
     /**
@@ -214,5 +215,25 @@ class User extends Authenticatable
             ! $this->suspended_to
             || $this->suspended_to->toDateTimeString() >= Carbon::now()->toDateTimeString()
         );
+    }
+
+    /**
+     * Return a users custom avatar or Gravatar.
+     *
+     * @return string
+     */
+    public function getAvatarAttribute($avatar)
+    {
+        return empty($avatar) ? $this->gravatar() : Storage::url($avatar);
+    }
+
+    /**
+     * Return a users Gravatar.
+     *
+     * @return string
+     */
+    public function gravatar()
+    {
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'?d=identicon&s=150';
     }
 }

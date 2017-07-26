@@ -4,8 +4,10 @@ namespace ZapsterStudios\Ally\Tests\Account;
 
 use App\User;
 use Laravel\Passport\Passport;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use ZapsterStudios\Ally\Tests\TestCase;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
 use ZapsterStudios\Ally\Events\Users\UserCreated;
 use ZapsterStudios\Ally\Notifications\EmailVerification;
@@ -199,6 +201,52 @@ class AccountTest extends TestCase
             'email' => 'newmail@example.com',
             'email_verified' => 0,
         ]);
+    }
+
+    /**
+     * @test
+     * @group Account
+     */
+    public function userCanNotUpdateAvatarWithoutImage()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user, ['user.update']);
+        $response = $this->json('POST', route('account.avatar.update'));
+
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @test
+     * @group Account
+     */
+    public function userCanUpdateAvatar()
+    {
+        Storage::fake('public');
+
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user, ['user.update']);
+        $response = $this->json('POST', route('account.avatar.update'), [
+            'avatar' => UploadedFile::fake()->image('avatar.jpg'),
+        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertTrue($user->getOriginal('avatar') !== null);
+        Storage::disk('public')->assertExists($user->getOriginal('avatar'));
+
+        $avatar = $user->getOriginal('avatar');
+        $response = $this->json('POST', route('account.avatar.update'), [
+            'avatar' => UploadedFile::fake()->image('new-avatar.jpg'),
+        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertTrue($user->getOriginal('avatar') !== null);
+        Storage::disk('public')->assertExists($user->getOriginal('avatar'));
+        Storage::disk('public')->assertMissing($avatar);
     }
 
     /**

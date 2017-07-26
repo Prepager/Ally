@@ -6,8 +6,10 @@ use App\Team;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use ZapsterStudios\Ally\Tests\TestCase;
+use Illuminate\Support\Facades\Storage;
 use ZapsterStudios\Ally\Models\TeamMember;
 use ZapsterStudios\Ally\Events\Teams\TeamCreated;
 use ZapsterStudios\Ally\Events\Teams\TeamDeleated;
@@ -257,5 +259,55 @@ class TeamTest extends TestCase
         $response = $this->json('GET', route('teams.show', $team->slug));
 
         $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     * @group Team
+     */
+    public function userCanNotUpdateTeamAvatarWithoutImage()
+    {
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
+
+        Passport::actingAs($user, ['teams.update']);
+        $response = $this->json('POST', route('teams.avatar.update', $team->slug));
+
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @test
+     * @group Team
+     */
+    public function userCanUpdateTeamAvatar()
+    {
+        Storage::fake('public');
+
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
+
+        Passport::actingAs($user, ['teams.update']);
+        $response = $this->json('POST', route('teams.avatar.update', $team->slug), [
+            'avatar' => UploadedFile::fake()->image('avatar.jpg'),
+        ]);
+
+        $team = $team->fresh();
+        $response->assertStatus(200);
+
+        $this->assertTrue($team->getOriginal('avatar') !== null);
+        Storage::disk('public')->assertExists($team->getOriginal('avatar'));
+
+        $avatar = $team->getOriginal('avatar');
+        $response = $this->json('POST', route('teams.avatar.update', $team->slug), [
+            'avatar' => UploadedFile::fake()->image('new-avatar.jpg'),
+        ]);
+
+        $team = $team->fresh();
+        $response->assertStatus(200);
+
+        $this->assertTrue($team->getOriginal('avatar') !== null);
+        Storage::disk('public')->assertExists($team->getOriginal('avatar'));
+        Storage::disk('public')->assertMissing($avatar);
     }
 }

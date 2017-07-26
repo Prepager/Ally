@@ -12,6 +12,13 @@ class Ally
     use Data\ResponseList;
 
     /**
+     * The current version number.
+     *
+     * @var int
+     */
+    public static $version = '1.0.0';
+
+    /**
      * Setup configuration.
      *
      * @return void
