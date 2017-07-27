@@ -83,7 +83,7 @@ class AccountController extends Controller
         ]);
 
         $user = $request->user();
-        $inputs = $request->intersect('name', 'email', 'country');
+        $inputs = $request->only('name', 'email', 'country');
         if ($request->email && $user->email !== $request->email) {
             $inputs['email_verified'] = 0;
             $inputs['email_token'] = str_random(32);

@@ -108,7 +108,9 @@ class InvitationTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonStructure([
-            'group',
+            'errors' => [
+                'group',
+            ],
         ]);
     }
 
@@ -256,7 +258,9 @@ class InvitationTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonStructure([
-            'group',
+            'errors' => [
+                'group',
+            ],
         ]);
     }
 

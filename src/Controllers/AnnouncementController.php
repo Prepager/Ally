@@ -38,7 +38,7 @@ class AnnouncementController extends Controller
         ]);
 
         $announcement = Announcement::create(
-            $request->intersect(['user_id', 'message', 'visit'])
+            $request->only(['user_id', 'message', 'visit'])
         );
 
         event(new AnnouncementCreated($announcement));
@@ -67,7 +67,7 @@ class AnnouncementController extends Controller
     public function update(Request $request, Announcement $announcement)
     {
         return response()->json(tap($announcement)->update(
-            $request->intersect(['user_id', 'message', 'visit'])
+            $request->only(['user_id', 'message', 'visit'])
         ));
     }
 
