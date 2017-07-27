@@ -4,7 +4,7 @@ namespace ZapsterStudios\Ally\Controllers\Team;
 
 use App\Team;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 use ZapsterStudios\Ally\Events\Teams\TeamCreated;
 use ZapsterStudios\Ally\Events\Teams\TeamDeleated;
 use ZapsterStudios\Ally\Events\Teams\TeamRestored;

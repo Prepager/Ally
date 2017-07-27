@@ -4,9 +4,9 @@ namespace ZapsterStudios\Ally\Controllers\Account;
 
 use App\Team;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use ZapsterStudios\Ally\Models\TeamMember;
 use ZapsterStudios\Ally\Models\TeamInvitation;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class InvitationController extends Controller
 {

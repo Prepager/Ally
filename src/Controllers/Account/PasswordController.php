@@ -5,7 +5,7 @@ namespace ZapsterStudios\Ally\Controllers\Account;
 use Hash;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class PasswordController extends Controller
 {

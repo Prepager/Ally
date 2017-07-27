@@ -6,8 +6,8 @@ use Ally;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use ZapsterStudios\Ally\Models\TeamMember;
+use ZapsterStudios\Ally\Controllers\Controller;
 use ZapsterStudios\Ally\Events\Teams\Members\TeamMemberKicked;
 
 class MemberController extends Controller

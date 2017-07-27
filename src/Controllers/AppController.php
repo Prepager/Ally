@@ -4,7 +4,6 @@ namespace ZapsterStudios\Ally\Controllers;
 
 use Ally;
 use Illuminate\Routing\Router;
-use App\Http\Controllers\Controller;
 
 class AppController extends Controller
 {

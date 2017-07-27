@@ -4,7 +4,7 @@ namespace ZapsterStudios\Ally\Controllers\Subscription;
 
 use App\Team;
 use Braintree\ClientToken;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class TokenController extends Controller
 {

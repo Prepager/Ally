@@ -4,7 +4,7 @@ namespace ZapsterStudios\Ally\Controllers\Subscription;
 
 use App\Team;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class InvoiceController extends Controller
 {

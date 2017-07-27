@@ -2,7 +2,7 @@
 
 namespace ZapsterStudios\Ally\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class AnalyticsController extends Controller
 {

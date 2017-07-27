@@ -4,7 +4,7 @@ namespace ZapsterStudios\Ally\Controllers\Dashboard;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class UserController extends Controller
 {

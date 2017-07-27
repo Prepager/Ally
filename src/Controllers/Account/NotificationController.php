@@ -3,8 +3,8 @@
 namespace ZapsterStudios\Ally\Controllers\Account;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Notifications\Notification;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class NotificationController extends Controller
 {

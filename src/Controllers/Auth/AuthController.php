@@ -5,7 +5,7 @@ namespace ZapsterStudios\Ally\Controllers\Auth;
 use App\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class AuthController extends Controller
 {

@@ -5,7 +5,7 @@ namespace ZapsterStudios\Ally\Controllers\Subscription;
 use Ally;
 use App\Team;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCreated;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionResumed;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionSwapped;

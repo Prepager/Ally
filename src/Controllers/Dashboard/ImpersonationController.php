@@ -3,7 +3,7 @@
 namespace ZapsterStudios\Ally\Controllers\Dashboard;
 
 use App\User;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class ImpersonationController extends Controller
 {

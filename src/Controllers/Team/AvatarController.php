@@ -5,8 +5,8 @@ namespace ZapsterStudios\Ally\Controllers\Team;
 use Image;
 use App\Team;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use ZapsterStudios\Ally\Controllers\Controller;
 
 class AvatarController extends Controller
 {

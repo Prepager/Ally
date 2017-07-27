@@ -3,7 +3,6 @@
 namespace ZapsterStudios\Ally\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use ZapsterStudios\Ally\Models\Announcement;
 use ZapsterStudios\Ally\Events\Announcements\AnnouncementCreated;
 

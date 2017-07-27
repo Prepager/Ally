@@ -6,7 +6,7 @@ use Ally;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 use ZapsterStudios\Ally\Events\Teams\TeamCreated;
 use ZapsterStudios\Ally\Events\Users\UserCreated;
 use ZapsterStudios\Ally\Events\Users\UserUpdated;

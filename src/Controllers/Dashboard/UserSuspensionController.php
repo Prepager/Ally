@@ -5,7 +5,7 @@ namespace ZapsterStudios\Ally\Controllers\Dashboard;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use ZapsterStudios\Ally\Controllers\Controller;
 use ZapsterStudios\Ally\Events\Users\UserSuspended;
 
 class UserSuspensionController extends Controller
