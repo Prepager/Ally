@@ -18,7 +18,7 @@ trait UserConfiguration
      */
     public static function userModel()
     {
-        return config('auth.providers.users.model', 'ZapsterStudios\Ally\Models\Team');
+        return config('auth.providers.users.model', 'App\User');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\Ally\Models;
 
+use Ally;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamMember extends Model

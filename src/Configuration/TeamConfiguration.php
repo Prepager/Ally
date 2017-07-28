@@ -18,7 +18,7 @@ trait TeamConfiguration
      */
     public static function teamModel()
     {
-        return config('auth.providers.teams.model', 'ZapsterStudios\Ally\Models\Team');
+        return config('auth.providers.teams.model', 'App\Team');
     }
 
     /**
