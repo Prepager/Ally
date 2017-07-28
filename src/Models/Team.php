@@ -81,7 +81,7 @@ class Team extends Model
      */
     public function members()
     {
-        return $this->belongsToMany('App\User', 'team_members', 'team_id', 'user_id')
+        return $this->belongsToMany(Ally::userModel(), 'team_members', 'team_id', 'user_id')
             ->withPivot('id', 'group', 'overwrites');
     }
 

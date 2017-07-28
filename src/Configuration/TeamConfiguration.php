@@ -12,6 +12,16 @@ trait TeamConfiguration
     public static $teamName = 'team';
 
     /**
+     * Return the team model.
+     *
+     * @return string
+     */
+    public static function teamModel()
+    {
+        return config('auth.providers.teams.model', 'ZapsterStudios\Ally\Models\Team');
+    }
+
+    /**
      * Whether or not the teams should be instantly deleated.
      *
      * @var bool

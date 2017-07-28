@@ -22,7 +22,7 @@ class TeamMember extends Model
      */
     public function team()
     {
-        return $this->belongsTo('App\Team');
+        return $this->belongsTo(Ally::teamModel());
     }
 
     /**
@@ -32,6 +32,6 @@ class TeamMember extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(Ally::userModel());
     }
 }

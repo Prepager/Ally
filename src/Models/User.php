@@ -70,7 +70,7 @@ class User extends Authenticatable
      */
     public function team()
     {
-        return $this->hasOne('App\Team', 'id', 'team_id');
+        return $this->hasOne(Ally::teamModel(), 'id', 'team_id');
     }
 
     /**
@@ -80,7 +80,7 @@ class User extends Authenticatable
      */
     public function teams()
     {
-        return $this->belongsToMany('App\Team', 'team_members', 'user_id', 'team_id');
+        return $this->belongsToMany(Ally::teamModel(), 'team_members', 'user_id', 'team_id');
     }
 
     /**
@@ -90,7 +90,7 @@ class User extends Authenticatable
      */
     public function ownedTeams()
     {
-        return $this->hasMany('App\Team', 'user_id', 'id');
+        return $this->hasMany(Ally::teamModel(), 'user_id', 'id');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\Ally\Models;
 
+use Ally;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -37,6 +38,6 @@ class Announcement extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo(Ally::userModel(), 'user_id');
     }
 }

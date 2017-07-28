@@ -12,6 +12,16 @@ trait UserConfiguration
     public static $admins = [];
 
     /**
+     * Return the team model.
+     *
+     * @return string
+     */
+    public static function userModel()
+    {
+        return config('auth.providers.users.model', 'ZapsterStudios\Ally\Models\Team');
+    }
+
+    /**
      * Return all admins.
      *
      * @return Collection
