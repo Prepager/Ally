@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests;
 
-use DB;
 use Ally;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
