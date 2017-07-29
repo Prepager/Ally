@@ -63,14 +63,12 @@ abstract class TestCase extends BaseTestCase
             return;
         }
 
-        $this->artisan('migrate', ['--database' => 'testing']);
+        $this->artisan('migrate');
         $this->artisan('migrate', [
-            '--database' => 'testing',
             '--path' => '../../../../install-stubs/database/migrations',
         ]);
 
         $this->artisan('migrate', [
-            '--database' => 'testing',
             '--path' => '../../laravel/passport/database/migrations',
         ]);
 
