@@ -14,4 +14,4 @@ before_install: mysql -e 'CREATE DATABASE testing;'
 
 before_script: travis_retry composer install --no-interaction --prefer-source
 
-script: phpunit --verbose
+script: vendor/bin/phpunit --verbose
