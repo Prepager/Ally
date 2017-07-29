@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests;
 
-use Ally;
 use Braintree_Configuration;
 
 abstract class BraintreeTestCase extends TestCase

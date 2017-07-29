@@ -3,15 +3,14 @@
 namespace ZapsterStudios\Ally;
 
 use Ally;
-use Route;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Braintree_Configuration as Braintree;
 use ZapsterStudios\Ally\Middleware\Suspended;
 use ZapsterStudios\Ally\Middleware\Subscribed;
 use ZapsterStudios\Ally\Middleware\Administrator;
-use ZapsterStudios\Ally\Middleware\Unauthenticated;
 use ZapsterStudios\Ally\Commands\CleanTrashedTeams;
+use ZapsterStudios\Ally\Middleware\Unauthenticated;
 use ZapsterStudios\Ally\Commands\InstallationCommand;
 
 class AllyServiceProvider extends Providers\ExtendedServiceProvider
@@ -29,10 +28,10 @@ class AllyServiceProvider extends Providers\ExtendedServiceProvider
         $this->loadPolicies([
             'App\User' => 'ZapsterStudios\Ally\Policies\UserPolicy',
             'App\Team' => 'ZapsterStudios\Ally\Policies\TeamPolicy',
-    
+
             'ZapsterStudios\Ally\Models\TeamMember' => 'ZapsterStudios\Ally\Policies\TeamMemberPolicy',
             'ZapsterStudios\Ally\Models\TeamInvitation' => 'ZapsterStudios\Ally\Policies\TeamInvitationPolicy',
-    
+
             'Illuminate\Notifications\Notification' => 'ZapsterStudios\Ally\Policies\NotificationPolicy',
         ]);
 

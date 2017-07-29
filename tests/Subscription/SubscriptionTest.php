@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests\Subscription;
 
-use Ally;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
