@@ -18,7 +18,7 @@ class CreateTeamMembersTable extends Migration
             $table->integer('team_id');
             $table->integer('user_id');
             $table->string('group')->default('owner');
-            $table->json('overwrites')->nullable();
+            $table->text('overwrites')->nullable();
             $table->timestamps();
         });
     }
