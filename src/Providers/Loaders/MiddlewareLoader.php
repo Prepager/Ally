@@ -24,7 +24,7 @@ trait MiddlewareLoader
      */
     protected function loadAliasMiddlewares($list)
     {
-        collect($list)->each(function($file, $key) {
+        collect($list)->each(function ($file, $key) {
             $this->loadAliasMiddleware($key, $file);
         });
     }

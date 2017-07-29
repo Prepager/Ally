@@ -59,6 +59,7 @@ abstract class TestCase extends BaseTestCase
 
         if (static::$migrated) {
             $this->setUpPassport();
+
             return;
         }
 

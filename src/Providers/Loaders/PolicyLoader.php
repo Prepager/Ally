@@ -26,7 +26,7 @@ trait PolicyLoader
      */
     protected function loadPolicies($list)
     {
-        collect($list)->each(function($policy, $class) {
+        collect($list)->each(function ($policy, $class) {
             $this->loadPolicy($class, $policy);
         });
     }
