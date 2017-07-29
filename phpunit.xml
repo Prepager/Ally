@@ -22,9 +22,7 @@
         <env name="APP_KEY" value="base64:q65218I2o8yjVhPtvGsfSoH06dhyNTabdFxt7VLy5xY="/>
         <env name="APP_ENV" value="testing"/>
 
-        <env name="DB_CONNECTION" value="mysql"/>
-        <env name="DB_DATABASE" value="testing"/>
-        <env name="DB_USERNAME" value="root"/>
-        <env name="DB_PASSWORD" value=""/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
     </php>
 </phpunit>

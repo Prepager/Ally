@@ -24,7 +24,7 @@ class TeamMemberPolicy
 
         return $user->tokenCan('teams.show')
             && (! $team || $user->onTeam($team))
-            && (! $member || $member->team_id === $team->id);
+            && (! $member || $member->team_id == $team->id);
     }
 
     /**
@@ -40,7 +40,7 @@ class TeamMemberPolicy
 
         return $user->tokenCan('teams.members.update')
             && $user->ownsTeam($team)
-            && $member->team_id === $team->id;
+            && $member->team_id == $team->id;
     }
 
     /**
@@ -56,6 +56,6 @@ class TeamMemberPolicy
 
         return $user->tokenCan('teams.members.delete')
             && $user->ownsTeam($team)
-            && $member->team_id === $team->id;
+            && $member->team_id == $team->id;
     }
 }

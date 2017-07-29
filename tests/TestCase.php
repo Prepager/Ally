@@ -9,20 +9,6 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     /**
-     * If the migrations was migrated.
-     *
-     * @var bool
-     */
-    protected static $migrated = false;
-
-    /**
-     * List of database tables.
-     *
-     * @var array
-     */
-    protected static $tables = [];
-
-    /**
      * Setup passport clients.
      *
      * @return void
@@ -57,12 +43,6 @@ abstract class TestCase extends BaseTestCase
         $this->withFactories(__DIR__.'/../src/Database/Factories');
         $this->withFactories(__DIR__.'/../install-stubs/database/factories');
 
-        if (static::$migrated) {
-            $this->setUpPassport();
-
-            return;
-        }
-
         $this->artisan('migrate');
         $this->artisan('migrate', [
             '--path' => '../../../../install-stubs/database/migrations',
@@ -74,27 +54,6 @@ abstract class TestCase extends BaseTestCase
 
         $this->setUpPassport();
         $this->setUpPlans();
-
-        static::$migrated = true;
-        static::$tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
-    }
-
-    /**
-     * Clean up the testing environment before the next test.
-     *
-     * @return void
-     */
-    protected function tearDown()
-    {
-        foreach (static::$tables as $table) {
-            if ($table == 'migrations' || fnmatch('oauth*', $table)) {
-                continue;
-            }
-
-            DB::table($table)->truncate();
-        }
-
-        parent::tearDown();
     }
 
     /**

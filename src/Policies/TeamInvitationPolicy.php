@@ -21,7 +21,7 @@ class TeamInvitationPolicy
     public function userView(User $user, TeamInvitation $invitation = null)
     {
         return $user->tokenCan('invitations.show')
-            && (! $invitation || $invitation->user_id === $user->id);
+            && (! $invitation || $invitation->user_id == $user->id);
     }
 
     /**
@@ -63,7 +63,7 @@ class TeamInvitationPolicy
 
         return $user->tokenCan('teams.show')
             && (! $team || $user->onTeam($team))
-            && (! $invitation || $invitation->team_id === $team->id);
+            && (! $invitation || $invitation->team_id == $team->id);
     }
 
     /**
@@ -93,7 +93,7 @@ class TeamInvitationPolicy
 
         return $user->tokenCan('teams.members.update')
             && $user->ownsTeam($team)
-            && $invitation->team_id === $team->id;
+            && $invitation->team_id == $team->id;
     }
 
     /**
@@ -109,6 +109,6 @@ class TeamInvitationPolicy
 
         return $user->tokenCan('teams.members.delete')
             && $user->ownsTeam($team)
-            && $invitation->team_id === $team->id;
+            && $invitation->team_id == $team->id;
     }
 }
