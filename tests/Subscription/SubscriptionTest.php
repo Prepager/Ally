@@ -5,27 +5,17 @@ namespace ZapsterStudios\Ally\Tests\Subscription;
 use Ally;
 use App\Team;
 use App\User;
-use Braintree_Configuration;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
-use ZapsterStudios\Ally\Tests\TestCase;
 use ZapsterStudios\Ally\Models\TeamMember;
+use ZapsterStudios\Ally\Tests\BraintreeTestCase;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCreated;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionResumed;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionSwapped;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCancelled;
 
-class SubscriptionTest extends TestCase
+class SubscriptionTest extends BraintreeTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        Braintree_Configuration::environment('sandbox');
-        Ally::addPlan('valid-first-plan', 'Valid First Plan', 5);
-        Ally::addPlan('valid-second-plan', 'Valid Second Plan', 10);
-    }
-
     /**
      * @test
      * @group Subscription

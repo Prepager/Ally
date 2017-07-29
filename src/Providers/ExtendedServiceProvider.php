@@ -6,15 +6,19 @@ use Illuminate\Support\ServiceProvider;
 
 class ExtendedServiceProvider extends ServiceProvider
 {
+    use Loaders\PolicyLoader;
+    use Loaders\MiddlewareLoader;
+
     /**
-     * Load factories from directory.
+     * Make needed classes for loaders.
      *
-     * @param  string  $path
      * @return void
      */
-    protected function loadFactoriesFrom($path)
+    public function __construct($app)
     {
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load($path);
+        parent::__construct($app);
+
+        $this->router = $app->router;
     }
 
     /**

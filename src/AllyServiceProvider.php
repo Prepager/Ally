@@ -3,9 +3,14 @@
 namespace ZapsterStudios\Ally;
 
 use Ally;
+use Route;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Braintree_Configuration as Braintree;
+use ZapsterStudios\Ally\Middleware\Suspended;
+use ZapsterStudios\Ally\Middleware\Subscribed;
+use ZapsterStudios\Ally\Middleware\Administrator;
+use ZapsterStudios\Ally\Middleware\Unauthenticated;
 use ZapsterStudios\Ally\Commands\CleanTrashedTeams;
 use ZapsterStudios\Ally\Commands\InstallationCommand;
 
@@ -20,7 +25,23 @@ class AllyServiceProvider extends Providers\ExtendedServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
-        $this->loadFactoriesFrom(__DIR__.'/Database/Factories');
+
+        $this->loadPolicies([
+            'App\User' => 'ZapsterStudios\Ally\Policies\UserPolicy',
+            'App\Team' => 'ZapsterStudios\Ally\Policies\TeamPolicy',
+    
+            'ZapsterStudios\Ally\Models\TeamMember' => 'ZapsterStudios\Ally\Policies\TeamMemberPolicy',
+            'ZapsterStudios\Ally\Models\TeamInvitation' => 'ZapsterStudios\Ally\Policies\TeamInvitationPolicy',
+    
+            'Illuminate\Notifications\Notification' => 'ZapsterStudios\Ally\Policies\NotificationPolicy',
+        ]);
+
+        $this->loadAliasMiddlewares([
+            'suspended' => Suspended::class,
+            'subscribed' => Subscribed::class,
+            'administrator' => Administrator::class,
+            'unauthenticated' => Unauthenticated::class,
+        ]);
 
         $this->bootPassport();
         $this->bootBraintree();
@@ -33,9 +54,8 @@ class AllyServiceProvider extends Providers\ExtendedServiceProvider
      */
     public function register()
     {
-        $this->registerAlias('ZapsterStudios\Ally\Ally', 'Ally', function () {
-            Ally::setup();
-        });
+        $this->registerAlias('ZapsterStudios\Ally\Ally', 'Ally');
+        Ally::setup();
 
         $this->registerCommands([
             InstallationCommand::class,

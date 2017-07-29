@@ -46,9 +46,7 @@ class InstallationCommand extends Command
             Publish\PublishDatabase::class,
             Publish\PublishEnv::class,
             Publish\PublishExceptions::class,
-            Publish\PublishMiddlewares::class,
             Publish\PublishModels::class,
-            Publish\PublishProviders::class,
             Publish\PublishRoutes::class,
         ]);
 

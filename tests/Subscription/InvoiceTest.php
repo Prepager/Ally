@@ -5,9 +5,9 @@ namespace ZapsterStudios\Ally\Tests\Subscription;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\BraintreeTestCase;
 
-class InvoiceTest extends TestCase
+class InvoiceTest extends BraintreeTestCase
 {
     /**
      * @test
@@ -24,7 +24,9 @@ class InvoiceTest extends TestCase
         Passport::actingAs($user, ['teams.invoices']);
         $response = $this->json('GET', route('invoices.index', $team->slug));
 
+        $response->assertStatus(200);
         $this->assertCount(2, $response->getData());
+
         $response = $this->json('GET', route('invoices.show', [
             $team->slug,
             $response->getData()[0]->id,

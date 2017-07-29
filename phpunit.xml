@@ -19,15 +19,11 @@
         </whitelist>
     </filter>
     <php>
+        <env name="APP_KEY" value="base64:q65218I2o8yjVhPtvGsfSoH06dhyNTabdFxt7VLy5xY="/>
         <env name="APP_ENV" value="testing"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="QUEUE_DRIVER" value="sync"/>
-        
+
         <env name="DB_CONNECTION" value="mysql"/>
         <env name="DB_DATABASE" value="testing"/>
-        <env name="DB_LOGGER" value="false"/>
-        <!-- <env name="DB_CONNECTION value="sqlite"/> -->
-        <!-- <env name="DB_DATABASE value=":memory:"/> -->
+        <env name="DB_USERNAME" value="root"/>
     </php>
 </phpunit>

@@ -72,7 +72,7 @@ class AccountTest extends TestCase
             'password' => 'secret',
             'password_confirmation' => 'secret',
             'country' => 'DK',
-            'team' => 'Some Team',
+            'team' => 'My Unique Team',
         ]);
 
         $response->assertStatus(200);
@@ -80,7 +80,7 @@ class AccountTest extends TestCase
             'name' => 'Andreas',
             'email' => 'andreas@example.com',
             'team' => [
-                'name' => 'Some Team',
+                'name' => 'My Unique Team',
             ],
         ]);
 
@@ -90,7 +90,7 @@ class AccountTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('teams', [
-            'name' => 'Some Team',
+            'name' => 'My Unique Team',
         ]);
 
         Event::assertDispatched(UserCreated::class, function ($e) {

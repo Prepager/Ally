@@ -124,7 +124,7 @@ class User extends Authenticatable
      */
     public function ownsTeam($team)
     {
-        return $this->id === $team->user_id;
+        return $this->id == $team->user_id;
     }
 
     /**

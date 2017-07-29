@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
 
         $plan = Ally::activePlans()->where('id', $request->plan)->first();
 
-        if ($plan->id === Ally::freePlan()->id) {
+        if (Ally::freePlan() && $plan->id === Ally::freePlan()->id) {
             $team->subscription()->cancel();
 
             event(new SubscriptionCancelled($team));

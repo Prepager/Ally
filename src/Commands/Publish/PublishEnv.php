@@ -22,8 +22,8 @@ class PublishEnv extends Publisher
      */
     public function publish()
     {
-        $this->append('.env', base_path('.env.example'));
-        $this->append('.env', base_path('.env'));
+        $this->append('../.env.example', base_path('.env.example'), PHP_EOL.PHP_EOL);
+        $this->append('../.env.example', base_path('.env'), PHP_EOL.PHP_EOL);
 
         $this->notify('Publishing: Env File');
     }

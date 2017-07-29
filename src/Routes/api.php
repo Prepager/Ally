@@ -4,7 +4,7 @@
 Route::pattern('method', 'recent|all');
 
 // Group: Third-Party
-Route::group(['middleware' => 'api'], function () {
+Route::group(['middleware' => ['api', 'suspended']], function () {
 
     // Laravel: Passport
     \Laravel\Passport\Passport::routes();
@@ -15,7 +15,7 @@ Route::group(['middleware' => 'api'], function () {
 
 // Group: API
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api', 'suspended'],
     'namespace' => 'ZapsterStudios\Ally\Controllers',
 ], function () {
 

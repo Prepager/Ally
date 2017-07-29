@@ -153,7 +153,7 @@ class AuthTest extends TestCase
             'suspended_reason' => 'Some test',
         ]);
 
-        Passport::actingAs($user, ['view-teams']);
+        Passport::actingAs($user, ['teams.show']);
         $response = $this->json('GET', route('teams.index'));
 
         $response->assertStatus(403);

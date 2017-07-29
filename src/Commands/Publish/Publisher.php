@@ -14,11 +14,14 @@ class Publisher
     /**
      * Get the installation stubs folder dir.
      *
+     * @param  string  $path
      * @return string
      */
-    protected function stubs()
+    protected function stubs($path)
     {
-        return explode('/src/', __DIR__)[0].'/install-stubs/';
+        $base = explode('/src/', __DIR__)[0].'/install-stubs/';
+
+        return realpath($base.$path);
     }
 
     /**
@@ -30,7 +33,7 @@ class Publisher
      */
     protected function move($source, $dest)
     {
-        $source = $this->stubs().$source;
+        $source = $this->stubs($source);
         if (! $this->exists($source)) {
             return false;
         }
@@ -48,14 +51,16 @@ class Publisher
      * @param  string  $dest
      * @return bool
      */
-    protected function append($source, $dest)
+    protected function append($source, $dest, $spacer = false)
     {
-        $source = $this->stubs().$source;
+        $source = $this->stubs($source);
         if (! $this->exists($source) || ! $this->exists($dest)) {
             return false;
         }
 
-        $moved = file_put_contents($dest, file_get_contents($source), FILE_APPEND);
+        $content = ($spacer ? $spacer : '').file_get_contents($source);
+
+        $moved = file_put_contents($dest, $content, FILE_APPEND);
         $this->moved = $this->moved && $moved;
 
         return $moved;
@@ -69,8 +74,8 @@ class Publisher
      */
     protected function exists($dist)
     {
-        if (! file_exists($dist)) {
-            $this->command->comment('[✕] > File missing: '.$source);
+        if (! $dist || ! file_exists($dist)) {
+            $this->command->comment('[✕] > File missing: '.$dist);
             $this->moved = false;
 
             return false;

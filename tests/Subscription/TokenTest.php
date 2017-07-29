@@ -5,9 +5,9 @@ namespace ZapsterStudios\Ally\Tests\Subscription;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\Ally\Tests\TestCase;
+use ZapsterStudios\Ally\Tests\BraintreeTestCase;
 
-class TokenTest extends TestCase
+class TokenTest extends BraintreeTestCase
 {
     /**
      * @test

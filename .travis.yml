@@ -3,7 +3,11 @@ language: php
 php:
   - 7.1
 
+services:
+  - mysql
+
 before_script:
+  - mysql -e 'CREATE DATABASE testing;'
   - travis_retry composer self-update
   - travis_retry composer update --no-interaction --prefer-source
 
