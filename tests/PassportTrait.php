@@ -36,5 +36,4 @@ trait PassportTrait
         $this->artisan('passport:client', ['--personal' => true, '--name' => config('app.name').' Personal Access Client']);
         $this->artisan('passport:client', ['--password' => true, '--name' => config('app.name').' Password Grant Client']);
     }
-
 }
