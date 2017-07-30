@@ -3,7 +3,6 @@
 namespace ZapsterStudios\Ally\Tests\Stubs;
 
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class DatabaseNotification extends Notification
 {
