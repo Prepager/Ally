@@ -1,8 +1,6 @@
 language: php
 
-php:
-  - 7.0
-  - 7.1
+php: 7.1
 
 notifications:
   email: false
@@ -14,3 +12,7 @@ cache:
 before_script: travis_retry composer install --no-interaction --prefer-source
 
 script: vendor/bin/phpunit --verbose
+
+after_failure: cat vendor/orchestra/testbench-core/laravel/storage/logs/laravel*.log
+
+after_script: rm -rf vendor/orchestra/testbench-core/laravel/storage/logs/laravel*.log
