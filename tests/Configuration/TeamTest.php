@@ -14,7 +14,7 @@ class TeamTest extends TestCase
     public function canAddGroup()
     {
         Ally::addGroup('some-group', 'Some Group', ['*']);
-        $group = collect(Ally::$groups)->first(function($info) {
+        $group = collect(Ally::$groups)->first(function ($info) {
             return $info->id == 'some-group';
         });
 
