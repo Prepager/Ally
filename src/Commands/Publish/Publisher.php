@@ -12,6 +12,19 @@ class Publisher
     protected $moved = true;
 
     /**
+     * Construct the publishable command.
+     *
+     * @param  string  $command
+     * @param  string  $testing
+     * @return void
+     */
+    public function __construct($command, $testing)
+    {
+        $this->command = $command;
+        $this->testing = $testing;
+    }
+
+    /**
      * Get the installation stubs folder dir.
      *
      * @param  string  $path
@@ -31,14 +44,16 @@ class Publisher
      * @param  string  $dest
      * @return bool
      */
-    protected function move($source, $dest)
+    protected function move($source, $folder, $file)
     {
         $source = $this->stubs($source);
         if (! $this->exists($source)) {
             return false;
         }
 
-        $moved = copy($source, $dest);
+        $path = ($this->testing ? $this->testing : $folder).'/'.$file;
+
+        $moved = copy($source, $path);
         $this->moved = $this->moved && $moved;
 
         return $moved;
@@ -51,16 +66,18 @@ class Publisher
      * @param  string  $dest
      * @return bool
      */
-    protected function append($source, $dest, $spacer = false)
+    protected function append($source, $folder, $file, $spacer = false)
     {
+        $path = ($this->testing ? $this->testing : $folder).'/'.$file;
+
         $source = $this->stubs($source);
-        if (! $this->exists($source) || ! $this->exists($dest)) {
+        if (! $this->exists($source) || ! $this->exists($path)) {
             return false;
         }
 
         $content = ($spacer ? $spacer : '').file_get_contents($source);
 
-        $moved = file_put_contents($dest, $content, FILE_APPEND);
+        $moved = file_put_contents($path, $content, FILE_APPEND);
         $this->moved = $this->moved && $moved;
 
         return $moved;

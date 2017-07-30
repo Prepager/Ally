@@ -12,7 +12,9 @@ class InstallationCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ally:install';
+    protected $signature = 'ally:install
+                            {--force=false}
+                            {--testing=false}';
 
     /**
      * The console command description.
@@ -34,7 +36,7 @@ class InstallationCommand extends Command
             return;
         }
 
-        if (! $this->confirm('Existing changes will be overwritten. Do you wish to continue?')) {
+        if (! $this->userConfirmation()) {
             return;
         }
 
@@ -51,7 +53,7 @@ class InstallationCommand extends Command
         ]);
 
         $publishers->each(function ($publisher) {
-            (new $publisher($this))->publish();
+            (new $publisher($this, $this->option('testing')))->publish();
         });
 
         $this->line('');
@@ -66,6 +68,28 @@ class InstallationCommand extends Command
         $this->comment('> Compleated Laravel Ally installation.');
     }
 
+    /**
+     * Ask the user for confirmation.
+     *
+     * @return bool
+     */
+    public function userConfirmation()
+    {
+        $force = $this->option('force');
+        $confirmation = true;
+
+        if (! $force) {
+            $confirmation = $this->confirm('Existing changes will be overwritten. Do you wish to continue?');
+        }
+
+        return $confirmation;
+    }
+
+    /**
+     * Check the SQL connection.
+     *
+     * @return bool
+     */
     private function checkConnection()
     {
         try {
@@ -76,4 +100,5 @@ class InstallationCommand extends Command
             return false;
         }
     }
+
 }
