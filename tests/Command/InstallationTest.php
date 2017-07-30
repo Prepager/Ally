@@ -8,7 +8,7 @@ use ZapsterStudios\Ally\Tests\TestCase;
 class InstallationTest extends TestCase
 {
     /**
-     * root directory
+     * root directory.
      *
      * @var vfsStreamDirectory
      */

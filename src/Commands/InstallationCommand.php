@@ -100,5 +100,4 @@ class InstallationCommand extends Command
             return false;
         }
     }
-
 }
