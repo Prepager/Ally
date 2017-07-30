@@ -118,22 +118,4 @@ class Plan
 
         return $this;
     }
-
-    /**
-     * Convert the plan as an array.
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'price' => $this->price,
-            'active' => $this->active,
-            'members' => $this->members,
-            'features' => $this->features,
-            'permissions' => $this->permissions,
-        ];
-    }
 }

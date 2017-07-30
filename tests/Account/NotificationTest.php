@@ -84,4 +84,24 @@ class NotificationTest extends TestCase
         $notificaton = $notificaton->fresh();
         $this->assertTrue($notificaton->unread());
     }
+
+    /**
+     * @test
+     * @group Account
+     */
+    public function userCanDeleteNotification()
+    {
+        $user = factory(User::class)->create();
+
+        $user->notify(new DatabaseNotification());
+        $notificaton = $user->notifications()->orderBy('id', 'desc')->first();
+
+        Passport::actingAs($user, ['notifications.delete']);
+        $response = $this->json('DELETE', route('account.notifications.destroy', $notificaton));
+
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('notifications', [
+            'id' => $notificaton->id,
+        ]);
+    }
 }

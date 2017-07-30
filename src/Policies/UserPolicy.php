@@ -41,15 +41,4 @@ class UserPolicy
     {
         return $user->tokenCan('user.password');
     }
-
-    /**
-     * Determine whether the user can access the dashboard.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function admin(User $user)
-    {
-        return $user->tokenCan('user.admin');
-    }
 }
