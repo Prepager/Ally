@@ -14,7 +14,7 @@ class PlanTest extends TestCase
     public function canAddPlan()
     {
         Ally::addPlan('added-plan', 'Added Plan', 5);
-        $plan = collect(Ally::$plans)->first(function($info) {
+        $plan = collect(Ally::$plans)->first(function ($info) {
             return $info->id == 'added-plan';
         });
 
@@ -63,7 +63,7 @@ class PlanTest extends TestCase
             ]);
 
         Ally::duplicatePlan('some-plan', 'duplicated-plan', 'Duplicated Plan');
-        $plan = collect(Ally::$plans)->first(function($info) {
+        $plan = collect(Ally::$plans)->first(function ($info) {
             return $info->id == 'duplicated-plan';
         });
 
@@ -85,7 +85,7 @@ class PlanTest extends TestCase
         $this->expectException(\Exception::class);
 
         Ally::duplicatePlan('invalud-plan', 'duplicated-invalid-plan', 'Duplicated Plan');
-        $plan = collect(Ally::$plans)->first(function($info) {
+        $plan = collect(Ally::$plans)->first(function ($info) {
             return $info->id == 'duplicated-invalid-plan';
         });
 
@@ -109,7 +109,7 @@ class PlanTest extends TestCase
 
         Ally::addPlan('disabled-plan', 'Disabled plan', 1)->archive();
         $this->assertSame(Ally::activePlans()->all(), $activePlans);
-        $this->assertSame(Ally::activePlanIDs()->all(), array_map(function($active) {
+        $this->assertSame(Ally::activePlanIDs()->all(), array_map(function ($active) {
             return $active->id;
         }, $activePlans));
 
