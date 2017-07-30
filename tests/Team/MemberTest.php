@@ -64,6 +64,28 @@ class MemberTest extends TestCase
      * @test
      * @group Team
      */
+    public function memberCanRetrieveMember()
+    {
+        $user = factory(User::class)->create();
+        $team = $user->teams()->save(factory(Team::class)->create());
+        $extra = $team->members()->save(factory(User::class)->create());
+
+        $teamMember = $extra->teamMember($team);
+
+        Passport::actingAs($extra, ['teams.show']);
+        $response = $this->json('GET', route('teams.members.show', [$team->slug, $teamMember]));
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'id' => $teamMember->id,
+            'user_id' => $extra->id,
+        ]);
+    }
+
+    /**
+     * @test
+     * @group Team
+     */
     public function ownerCanUpdateMemberGroup()
     {
         $user = factory(User::class)->create();

@@ -25,6 +25,7 @@ class CreateAnnouncementsTable extends Migration
     /**
      * Reverse the migrations.
      *
+     * @codeCoverageIgnore
      * @return void
      */
     public function down()

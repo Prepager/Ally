@@ -31,7 +31,7 @@ class PasswordTest extends TestCase
         $response = $this->json('PUT', route('account.password.update'), [
             'current' => 'not-my-password',
             'password' => 'new-secret',
-            'password_confirmation' >= 'new-secret',
+            'password_confirmation' => 'new-secret',
         ]);
 
         $response->assertStatus(422);

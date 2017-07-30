@@ -19,4 +19,19 @@ class AppDataTest extends TestCase
             'plans', 'groups', // Reset of config options.
         ]);
     }
+
+    /**
+     * @test
+     * @group Open
+     */
+    public function guestCanRetrieveRoutes()
+    {
+        $response = $this->json('GET', route('app.routes'));
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'app' => 'app',
+            'app.routes' => 'app/routes',
+        ]);
+    }
 }

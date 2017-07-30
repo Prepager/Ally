@@ -141,5 +141,19 @@ class SubscriptionTest extends TestCase
             return $e->team->slug == $team->slug
                 && $e->subscription->braintree_plan == 'valid-second-plan';
         });
+
+        Passport::actingAs($user, ['teams.billing']);
+        $response = $this->json('POST', route('subscription', $team->slug), [
+            'plan' => 'free-plan',
+            'nonce' => 'fake-valid-nonce',
+        ]);
+        $team = $team->fresh();
+
+        $response->assertStatus(200);
+        $this->assertTrue($team->subscription()->cancelled());
+
+        Event::assertDispatched(SubscriptionCancelled::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
     }
 }

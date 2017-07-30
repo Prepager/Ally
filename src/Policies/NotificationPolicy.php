@@ -3,8 +3,8 @@
 namespace ZapsterStudios\Ally\Policies;
 
 use App\User;
-use Illuminate\Notifications\Notification;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Notifications\DatabaseNotification;
 
 class NotificationPolicy
 {
@@ -14,14 +14,14 @@ class NotificationPolicy
      * Determine whether the user can view the notification.
      *
      * @param  \App\User  $user
-     * @param  \Illuminate\Notifications\Notification  $notification
+     * @param  \Illuminate\Notifications\DatabaseNotification  $notification
      * @return mixed
      */
-    public function view(User $user, Notification $notification = null)
+    public function view(User $user, DatabaseNotification $notification = null)
     {
         return $user->tokenCan('notifications.show')
             && (! $notification || (
-                $notification->notifiable_id === $user->id
+                $notification->notifiable_id == $user->id
                 && $notification->notifiable_type == 'App\User'
             ));
     }
@@ -30,13 +30,13 @@ class NotificationPolicy
      * Determine whether the user can update the notification.
      *
      * @param  \App\User  $user
-     * @param  \Illuminate\Notifications\Notification  $notification
+     * @param  \Illuminate\Notifications\DatabaseNotification  $notification
      * @return mixed
      */
-    public function update(User $user, Notification $notification)
+    public function update(User $user, DatabaseNotification $notification)
     {
         return $user->tokenCan('notifications.update')
-            && $notification->notifiable_id === $user->id
+            && $notification->notifiable_id == $user->id
             && $notification->notifiable_type == 'App\User';
     }
 
@@ -44,13 +44,13 @@ class NotificationPolicy
      * Determine whether the user can delete the notification.
      *
      * @param  \App\User  $user
-     * @param  \Illuminate\Notifications\Notification  $notification
+     * @param  \Illuminate\Notifications\DatabaseNotification  $notification
      * @return mixed
      */
-    public function delete(User $user, Notification $notification)
+    public function delete(User $user, DatabaseNotification $notification)
     {
         return $user->tokenCan('notifications.delete')
-            && $notification->notifiable_id === $user->id
+            && $notification->notifiable_id == $user->id
             && $notification->notifiable_type == 'App\User';
     }
 }

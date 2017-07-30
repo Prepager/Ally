@@ -27,7 +27,7 @@ class PasswordController extends Controller
         if (! Hash::check($request->current, $user->password)) {
             return response()->json([
                 'current' => [
-                    lang('auth.failed'),
+                    trans('auth.failed'),
                 ],
             ], 422);
         }

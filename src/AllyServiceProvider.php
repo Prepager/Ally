@@ -32,7 +32,7 @@ class AllyServiceProvider extends Providers\ExtendedServiceProvider
             'ZapsterStudios\Ally\Models\TeamMember' => 'ZapsterStudios\Ally\Policies\TeamMemberPolicy',
             'ZapsterStudios\Ally\Models\TeamInvitation' => 'ZapsterStudios\Ally\Policies\TeamInvitationPolicy',
 
-            'Illuminate\Notifications\Notification' => 'ZapsterStudios\Ally\Policies\NotificationPolicy',
+            'Illuminate\Notifications\DatabaseNotification' => 'ZapsterStudios\Ally\Policies\NotificationPolicy',
         ]);
 
         $this->loadAliasMiddlewares([

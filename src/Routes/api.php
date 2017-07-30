@@ -68,7 +68,8 @@ Route::group([
 
         // Notifications
         Route::get('/account/notifications/{method?}', 'Account\NotificationController@index')->name('account.notifications.index');
-        Route::post('/account/notifications/{notification}', 'Account\NotificationController@update')->name('account.notifications.update');
+        Route::get('/account/notifications/{notifications}', 'Account\NotificationController@show')->name('account.notifications.show');
+        Route::put('/account/notifications/{notification}', 'Account\NotificationController@update')->name('account.notifications.update');
         Route::delete('/account/notifications/{notification}', 'Account\NotificationController@destroy')->name('account.notifications.destroy');
 
         // Invitations
