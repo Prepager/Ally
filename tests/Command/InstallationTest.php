@@ -8,7 +8,7 @@ use ZapsterStudios\Ally\Tests\TestCase;
 class InstallationTest extends TestCase
 {
     /**
-     * root directory.
+     * The vfs stream root directory.
      *
      * @var vfsStreamDirectory
      */
@@ -28,6 +28,7 @@ class InstallationTest extends TestCase
             '.env.example' => 'ENV_EXAMPLE=true',
 
             'routes' => [],
+            'Console' => [],
             'factories' => [],
             'migrations' => [],
             'Exceptions' => [],
@@ -105,5 +106,8 @@ class InstallationTest extends TestCase
         // PublishRoutes
         $this->assertPublished('routes/api.php', 'routes/api.php');
         $this->assertPublished('routes/web.php', 'routes/web.php');
+
+        // PublishSchedule
+        $this->assertPublished('Console/Kernel.php', 'app/Console/Kernel.php');
     }
 }

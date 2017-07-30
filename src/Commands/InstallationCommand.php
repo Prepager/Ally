@@ -50,6 +50,7 @@ class InstallationCommand extends Command
             Publish\PublishExceptions::class,
             Publish\PublishModels::class,
             Publish\PublishRoutes::class,
+            Publish\PublishSchedule::class,
         ]);
 
         $publishers->each(function ($publisher) {

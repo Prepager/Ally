@@ -182,9 +182,14 @@ class InvitationTest extends TestCase
 
         Notification::assertSentTo($extra, TeamInvitationMail::class,
             function ($notification, $channels) use ($team, $extra) {
-                return $notification->team->slug === $team->slug &&
-                    $notification->user->email === $extra->email &&
-                    $notification->exists === false;
+                $data = $notification->toMail($extra)->toArray();
+
+                $this->assertSame($data['actionUrl'], Ally::$linkInvitations);
+                $this->assertSame($notification->team->slug, $team->slug);
+                $this->assertSame($notification->user->email, $extra->email);
+                $this->assertFalse($notification->exists);
+
+                return true;
             }
         );
     }
@@ -229,9 +234,14 @@ class InvitationTest extends TestCase
 
         Notification::assertSentTo($extra, TeamInvitationMail::class,
             function ($notification, $channels) use ($team, $extra) {
-                return $notification->team->slug === $team->slug &&
-                    $notification->user->email === $extra->email &&
-                    $notification->exists === true;
+                $mailData = $notification->toMail($extra)->toArray();
+
+                $this->assertSame($mailData['actionUrl'], Ally::$linkInvitations);
+                $this->assertSame($notification->team->slug, $team->slug);
+                $this->assertSame($notification->user->email, $extra->email);
+                $this->assertTrue($notification->exists);
+
+                return true;
             }
         );
     }

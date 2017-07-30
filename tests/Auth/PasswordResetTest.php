@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\Ally\Tests\Auth;
 
+use Ally;
 use App\User;
 use Laravel\Passport\Passport;
 use ZapsterStudios\Ally\Tests\TestCase;
@@ -61,8 +62,13 @@ class PasswordResetTest extends TestCase
 
         Notification::assertSentTo($user, PasswordResetMail::class,
             function ($notification, $channels) use ($user, $request) {
-                return $notification->user->name === $user->name &&
-                    $notification->token === $request->token;
+                $data = $notification->toMail($user)->toArray();
+
+                $this->assertSame($data['actionUrl'], str_replace('{token}', $notification->token, Ally::$linkPasswordReset));
+                $this->assertSame($notification->user->name, $user->name);
+                $this->assertSame($notification->token, $request->token);
+
+                return true;
             }
         );
     }

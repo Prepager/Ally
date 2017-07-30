@@ -2,6 +2,7 @@
 
 namespace ZapsterStudios\Ally\Tests\Account;
 
+use Ally;
 use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Http\UploadedFile;
@@ -100,8 +101,13 @@ class AccountTest extends TestCase
         $user = User::findOrFail(json_decode($response->getContent())->id);
         Notification::assertSentTo($user, EmailVerification::class,
             function ($notification, $channels) use ($user) {
-                return $notification->user->name === $user->name &&
-                    $notification->token === $user->email_token;
+                $data = $notification->toMail($user)->toArray();
+
+                $this->assertSame($data['actionUrl'], str_replace('{token}', $notification->token, Ally::$linkAccountVerification));
+                $this->assertSame($notification->user->name, $user->name);
+                $this->assertSame($notification->token, $user->email_token);
+
+                return true;
             }
         );
     }
@@ -247,23 +253,5 @@ class AccountTest extends TestCase
         $this->assertTrue($user->getOriginal('avatar') !== null);
         Storage::disk('public')->assertExists($user->getOriginal('avatar'));
         Storage::disk('public')->assertMissing($avatar);
-    }
-
-    /**
-     * @test
-     * @group Account
-     */
-    public function userCanRetrieveNotifications()
-    {
-        $user = factory(User::class)->create();
-
-        Passport::actingAs($user, ['notifications.show']);
-        $responseAll = $this->json('GET', route('account.notifications.index', 'all'));
-        $responseRecent = $this->json('GET', route('account.notifications.index', 'recent'));
-
-        $responseAll->assertStatus(200);
-        $responseRecent->assertStatus(200);
-
-        // Check response data.
     }
 }
