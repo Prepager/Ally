@@ -5,10 +5,17 @@ namespace ZapsterStudios\Ally\Tests\Subscription;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
-use ZapsterStudios\Ally\Tests\BraintreeTestCase;
+use ZapsterStudios\Ally\Tests\TestCase;
 
-class InvoiceTest extends BraintreeTestCase
+class InvoiceTest extends TestCase
 {
+    public function __construct()
+    {
+        $this->usesEnv = true;
+
+        parent::__construct();
+    }
+
     /**
      * @test
      * @group Subscription

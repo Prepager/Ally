@@ -1,7 +1,7 @@
 <h1 align="center">Laravel Ally</h1>
-<h1 align="center">
+<p align="center">
     <img src="https://travis-ci.org/ZapsterStudios/Ally.svg?branch=master">
-</h1>
+</p>
 
 ## Introduction
 Laravel Ally is a fully API based team subscription service currently supporting the [Braintree](https://www.braintreepayments.com) payment system.

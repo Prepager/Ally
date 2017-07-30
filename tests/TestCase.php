@@ -7,28 +7,9 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    /**
-     * Setup passport clients.
-     *
-     * @return void
-     */
-    public function setUpPassport()
-    {
-        $this->artisan('passport:client', ['--personal' => true, '--name' => config('app.name').' Personal Access Client']);
-        $this->artisan('passport:client', ['--password' => true, '--name' => config('app.name').' Password Grant Client']);
-    }
-
-    /**
-     * Setup billing plans.
-     *
-     * @return void
-     */
-    public function setUpPlans()
-    {
-        Ally::addPlan('free-plan', 'Free Plan', 0);
-        Ally::addPlan('valid-first-plan', 'Valid First Plan', 5);
-        Ally::addPlan('valid-second-plan', 'Valid Second Plan', 10);
-    }
+    use EnvTrait;
+    use CashierTrait;
+    use PassportTrait;
 
     /**
      * Setup the test environment.
@@ -51,8 +32,19 @@ abstract class TestCase extends BaseTestCase
             '--path' => '../../laravel/passport/database/migrations',
         ]);
 
-        $this->setUpPassport();
-        $this->setUpPlans();
+        $this->loadEnv();
+
+        $this->loadCashierPlans();
+        $this->loadCashierSettings();
+
+        $this->loadPassportKeys();
+        $this->loadPassportClients();
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        
     }
 
     /**

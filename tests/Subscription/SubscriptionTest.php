@@ -6,15 +6,22 @@ use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
+use ZapsterStudios\Ally\Tests\TestCase;
 use ZapsterStudios\Ally\Models\TeamMember;
-use ZapsterStudios\Ally\Tests\BraintreeTestCase;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCreated;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionResumed;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionSwapped;
 use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCancelled;
 
-class SubscriptionTest extends BraintreeTestCase
+class SubscriptionTest extends TestCase
 {
+    public function __construct()
+    {
+        $this->usesEnv = true;
+
+        parent::__construct();
+    }
+
     /**
      * @test
      * @group Subscription
