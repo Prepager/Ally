@@ -27,6 +27,7 @@ trait CashierTrait
      */
     public function loadCashierPlans()
     {
+        Ally::$plans = [];
         Ally::addPlan('free-plan', 'Free Plan', 0);
         Ally::addPlan('valid-first-plan', 'Valid First Plan', 5);
         Ally::addPlan('valid-second-plan', 'Valid Second Plan', 10);

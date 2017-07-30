@@ -12,16 +12,6 @@ trait TeamConfiguration
     public static $teamName = 'team';
 
     /**
-     * Return the team model.
-     *
-     * @return string
-     */
-    public static function teamModel()
-    {
-        return config('auth.providers.teams.model', 'App\Team');
-    }
-
-    /**
      * Whether or not the teams should be instantly deleated.
      *
      * @var bool
@@ -51,6 +41,16 @@ trait TeamConfiguration
     {
         static::addGroup('owner', 'Owner', ['*']);
         static::addGroup('member', 'Member');
+    }
+
+    /**
+     * Return the team model.
+     *
+     * @return string
+     */
+    public static function teamModel()
+    {
+        return config('auth.providers.teams.model', 'App\Team');
     }
 
     /**
