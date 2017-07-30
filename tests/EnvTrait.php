@@ -19,7 +19,7 @@ trait EnvTrait
     protected static $envLoaded = false;
 
     /**
-     * Load env file
+     * Load env file.
      *
      * @return void
      */

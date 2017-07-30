@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests;
 
-use Ally;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -44,7 +43,6 @@ abstract class TestCase extends BaseTestCase
     public function tearDown()
     {
         parent::tearDown();
-        
     }
 
     /**
