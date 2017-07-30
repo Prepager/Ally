@@ -18,6 +18,7 @@
     "require-dev": {
         "phpunit/phpunit": "dev-master",
         "orchestra/testbench": "dev-master",
+        "satooshi/php-coveralls": "^1.0",
         "mockery/mockery": "^1.0@dev",
         "doctrine/dbal": "v2.5.13"
     },

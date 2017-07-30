@@ -1,6 +1,11 @@
 <h1 align="center">Laravel Ally</h1>
 <p align="center">
-    <img src="https://travis-ci.org/ZapsterStudios/Ally.svg?branch=master">
+    <a href='https://travis-ci.org/ZapsterStudios/Ally'>
+        <img src='https://travis-ci.org/ZapsterStudios/Ally.svg?branch=master' alt='Travis Build Status'>
+    </a>
+    <a href='https://coveralls.io/github/ZapsterStudios/Ally?branch=master'>
+        <img src='https://coveralls.io/repos/github/ZapsterStudios/Ally/badge.svg?branch=master' alt='Coverage Status'>
+    </a>
 </p>
 
 ## Introduction

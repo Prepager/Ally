@@ -13,6 +13,8 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source
   - rm -rf vendor/orchestra/testbench-core/laravel/storage/logs/laravel*.log
 
-script: vendor/bin/phpunit --verbose
+script: vendor/bin/phpunit --verbose --coverage-clover tests/logs/clover.xml
+
+after_script: php vendor/bin/coveralls -v
 
 after_failure: cat vendor/orchestra/testbench-core/laravel/storage/logs/laravel*.log
