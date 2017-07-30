@@ -9,10 +9,10 @@ cache:
   directories:
     - vendor
 
-before_script: travis_retry composer install --no-interaction --prefer-source
+before_script:
+  - travis_retry composer install --no-interaction --prefer-source
+  - rm -rf vendor/orchestra/testbench-core/laravel/storage/logs/laravel*.log
 
 script: vendor/bin/phpunit --verbose
 
 after_failure: cat vendor/orchestra/testbench-core/laravel/storage/logs/laravel*.log
-
-after_script: rm -rf vendor/orchestra/testbench-core/laravel/storage/logs/laravel*.log
