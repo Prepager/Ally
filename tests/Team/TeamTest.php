@@ -250,6 +250,10 @@ class TeamTest extends TestCase
         $team1->assertJson(['slug' => 'example-community']);
         $team2->assertJson(['slug' => 'example-community-1']);
         $team3->assertJson(['slug' => 'example-community-2']);
+
+        $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
+
+        $team4 = $this->json('POST', route('teams.update', $team), ['name' => $team->name]);
     }
 
     /**
