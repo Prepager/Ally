@@ -33,6 +33,14 @@ $factory->state(App\User::class, 'verified', function (Faker\Generator $faker) {
 });
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->state(App\User::class, 'suspended', function (Faker\Generator $faker) {
+    return [
+        'suspended_at' => '2017-01-01 00:00:00',
+        'suspended_reason' => 'Factory',
+    ];
+});
+
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Team::class, function (Faker\Generator $faker) {
     $company = $faker->company;
 
@@ -40,5 +48,13 @@ $factory->define(App\Team::class, function (Faker\Generator $faker) {
         'user_id' => factory(App\User::class)->create()->id,
         'name' => $company,
         'slug' => App\Team::generateSlug(str_slug($company)),
+    ];
+});
+
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->state(App\Team::class, 'suspended', function (Faker\Generator $faker) {
+    return [
+        'suspended_at' => '2017-01-01 00:00:00',
+        'suspended_reason' => 'Factory',
     ];
 });

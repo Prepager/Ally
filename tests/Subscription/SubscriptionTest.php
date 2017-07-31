@@ -15,6 +15,11 @@ use ZapsterStudios\Ally\Events\Subscriptions\SubscriptionCancelled;
 
 class SubscriptionTest extends TestCase
 {
+    /**
+     * Enable env loading.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->usesEnv = true;

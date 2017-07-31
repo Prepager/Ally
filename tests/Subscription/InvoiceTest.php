@@ -9,6 +9,11 @@ use ZapsterStudios\Ally\Tests\TestCase;
 
 class InvoiceTest extends TestCase
 {
+    /**
+     * Enable env loading.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->usesEnv = true;
