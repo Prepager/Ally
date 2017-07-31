@@ -23,7 +23,7 @@ class AdministratorTest extends TestCase
             'middleware' => Administrator::class,
             function () {
                 return 'Middleware passed.';
-            }
+            },
         ]);
     }
 

@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests\Middleware;
 
-use Ally;
 use App\Team;
 use App\User;
 use Laravel\Passport\Passport;
@@ -24,7 +23,7 @@ class SuspendedTest extends TestCase
             'middleware' => Suspended::class,
             function () {
                 return 'Middleware passed.';
-            }
+            },
         ]);
     }
 

@@ -2,7 +2,6 @@
 
 namespace ZapsterStudios\Ally\Tests\Middleware;
 
-use Ally;
 use App\User;
 use Laravel\Passport\Passport;
 use ZapsterStudios\Ally\Tests\TestCase;
@@ -23,7 +22,7 @@ class UnauthenticatedTest extends TestCase
             'middleware' => Unauthenticated::class,
             function () {
                 return 'Middleware passed.';
-            }
+            },
         ]);
     }
 
