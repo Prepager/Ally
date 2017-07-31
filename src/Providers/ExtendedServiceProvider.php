@@ -26,17 +26,12 @@ class ExtendedServiceProvider extends ServiceProvider
      *
      * @param  string  $path
      * @param  string  $name
-     * @param  callable $callback
      * @return void
      */
-    protected function registerAlias($path, $name, $callback = false)
+    protected function registerAlias($path, $name)
     {
         if (! class_exists($name)) {
             class_alias($path, $name);
-
-            if ($callback) {
-                $callback();
-            }
         }
     }
 

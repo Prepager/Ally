@@ -3,6 +3,7 @@
 namespace ZapsterStudios\Ally\Middleware;
 
 use Closure;
+use App\Team;
 
 class Subscribed
 {

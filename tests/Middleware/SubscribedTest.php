@@ -37,6 +37,13 @@ class SubscribedTest extends TestCase
                 return 'Middleware passed.';
             },
         ]);
+
+        $this->app->router->get('test-route-param/{team}', [
+            'middleware' => Subscribed::class,
+            function ($team) {
+                return 'Middleware passed. Team: '.$team;
+            },
+        ]);
     }
 
     /**
@@ -104,6 +111,10 @@ class SubscribedTest extends TestCase
         $response->assertStatus(200);
 
         $response = $this->json('GET', 'test-route');
+
+        $response->assertStatus(200);
+
+        $response = $this->json('GET', 'test-route-param/'.$team->slug);
 
         $response->assertStatus(200);
     }
