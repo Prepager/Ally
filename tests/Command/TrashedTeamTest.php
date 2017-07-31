@@ -17,7 +17,7 @@ class TrashedTeamTest extends TestCase
         Ally::$skipDeletionGracePeriod = true;
 
         $team = factory(Team::class)->create([
-            'deleted_at' => '2017-01-01 00:00:00'
+            'deleted_at' => '2017-01-01 00:00:00',
         ]);
 
         $this->artisan('teams:clean');
@@ -36,7 +36,7 @@ class TrashedTeamTest extends TestCase
         Ally::$skipDeletionGracePeriod = false;
 
         $team = factory(Team::class)->create([
-            'deleted_at' => '2017-01-01 00:00:00'
+            'deleted_at' => '2017-01-01 00:00:00',
         ]);
 
         $this->artisan('teams:clean');
