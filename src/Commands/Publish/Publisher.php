@@ -47,7 +47,9 @@ class Publisher
     public function move($source, $folder, $file)
     {
         $source = $this->stubs($source);
-        if (! $this->exists($source)) return false;
+        if (! $this->exists($source)) {
+            return false;
+        }
 
         $path = ($this->testing ? $this->testing : $folder).'/'.$file;
 
@@ -69,7 +71,9 @@ class Publisher
         $path = ($this->testing ? $this->testing : $folder).'/'.$file;
 
         $source = $this->stubs($source);
-        if (! $this->exists($source) || ! $this->exists($path)) return false;
+        if (! $this->exists($source) || ! $this->exists($path)) {
+            return false;
+        }
 
         $content = ($spacer ? $spacer : '').file_get_contents($source);
 

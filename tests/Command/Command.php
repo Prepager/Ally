@@ -44,7 +44,9 @@ class Command
      */
     public function __call($name, $arguments)
     {
-        if (! isset($this->events[$name])) $this->events[$name] = [];
+        if (! isset($this->events[$name])) {
+            $this->events[$name] = [];
+        }
 
         $this->events[$name][] = $arguments[0];
     }
