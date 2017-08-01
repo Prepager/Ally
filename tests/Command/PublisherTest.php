@@ -60,7 +60,7 @@ class PublisherTest extends TestCase
     public function canNotMoveOrAppendNonExistingFile()
     {
         $this->assertFalse($this->publisher->move('missing-file.php', '/', 'missing-file.php'));
-    
+
         $this->assertFalse($this->publisher->append('missing-file.php', '/', 'missing-file.php'));
     }
 }
