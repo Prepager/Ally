@@ -280,7 +280,7 @@ class TeamTest extends TestCase
         $team = $user->teams()->save(factory(Team::class)->create([
             'user_id' => $user->id,
             'name' => 'Some Name',
-            'slug' => 'some-name'
+            'slug' => 'some-name',
         ]));
 
         $team4 = $this->json('PUT', route('teams.update', $team), [

@@ -176,7 +176,6 @@ class Team extends Model
             $original = $slug;
         }
 
-
         if ($current && $current == $slug) {
             return $slug;
         }
