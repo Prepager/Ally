@@ -52,4 +52,15 @@ class PublisherTest extends TestCase
         $this->assertSame(count($this->command->events['error']), 1);
         $this->assertRegExp('/test/', $this->command->events['error'][0]);
     }
+
+    /**
+     * @test
+     * @group Command
+     */
+    public function canNotMoveOrAppendNonExistingFile()
+    {
+        $this->assertFalse($this->publisher->move('missing-file.php', '/', 'missing-file.php'));
+    
+        $this->assertFalse($this->publisher->append('missing-file.php', '/', 'missing-file.php'));
+    }
 }

@@ -36,10 +36,6 @@ class InstallationCommand extends Command
             return;
         }
 
-        if (! $this->userConfirmation()) {
-            return;
-        }
-
         $this->comment('> Starting Laravel Ally installation.');
         $this->line('');
 
@@ -67,23 +63,6 @@ class InstallationCommand extends Command
 
         $this->line('');
         $this->comment('> Compleated Laravel Ally installation.');
-    }
-
-    /**
-     * Ask the user for confirmation.
-     *
-     * @return bool
-     */
-    public function userConfirmation()
-    {
-        $force = $this->option('force');
-        $confirmation = true;
-
-        if (! $force) {
-            $confirmation = $this->confirm('Existing changes will be overwritten. Do you wish to continue?');
-        }
-
-        return $confirmation;
     }
 
     /**
