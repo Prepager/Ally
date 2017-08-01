@@ -67,6 +67,35 @@ class InstallationTest extends TestCase
     }
 
     /**
+     * Assert file was published.
+     *
+     * @param  string  $file
+     * @return void
+     */
+    public function assertNotPublished($file)
+    {
+        $root = $this->root;
+
+        $this->assertFalse($root->hasChild($file));
+    }
+
+    /**
+     * @test
+     * @group Command
+     */
+    public function canNotRunInstallationWithoutConnection()
+    {
+        $this->app['config']->set('database.default', 'non-existing');
+
+        $this->artisan('ally:install', [
+            '--force' => true,
+            '--testing' => Stream::url('tests'),
+        ]);
+
+        $this->assertNotPublished('auth.php');
+    }
+
+    /**
      * @test
      * @group Command
      */

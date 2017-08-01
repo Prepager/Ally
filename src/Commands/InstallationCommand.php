@@ -36,9 +36,7 @@ class InstallationCommand extends Command
             return;
         }
 
-        if (! $this->userConfirmation()) {
-            return;
-        }
+        if (! $this->userConfirmation()) return;
 
         $this->comment('> Starting Laravel Ally installation.');
         $this->line('');

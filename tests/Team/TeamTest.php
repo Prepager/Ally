@@ -158,6 +158,37 @@ class TeamTest extends TestCase
     /**
      * @test
      * @group Team
+     */
+    public function userCanDeleteTeamWithoutSubscription()
+    {
+        Event::fake();
+        Ally::$skipDeletionGracePeriod = false;
+
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
+        $user->team_id = $team->id;
+
+        Passport::actingAs($user, ['teams.delete']);
+        $response = $this->json('DELETE', route('teams.destroy', $team->slug));
+
+        $response->assertStatus(200);
+        $this->assertSoftDeleted('teams', [
+            'slug' => $team->slug,
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'team_id' => 0,
+        ]);
+
+        Event::assertDispatched(TeamDeleated::class, function ($e) use ($team) {
+            return $e->team->slug == $team->slug;
+        });
+    }
+
+    /**
+     * @test
+     * @group Team
      * @group Subscription
      */
     public function userCanDeleteTeamWithGrace()
@@ -195,6 +226,7 @@ class TeamTest extends TestCase
     /**
      * @test
      * @group Team
+     * @group Subscription
      */
     public function userCanDeleteTeamWithoutGrace()
     {

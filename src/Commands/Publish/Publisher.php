@@ -9,7 +9,7 @@ class Publisher
      *
      * @var bool
      */
-    protected $moved = true;
+    public $moved = true;
 
     /**
      * Construct the publishable command.
@@ -30,7 +30,7 @@ class Publisher
      * @param  string  $path
      * @return string
      */
-    protected function stubs($path)
+    public function stubs($path)
     {
         $base = explode('/src/', __DIR__)[0].'/install-stubs/';
 
@@ -44,12 +44,10 @@ class Publisher
      * @param  string  $dest
      * @return bool
      */
-    protected function move($source, $folder, $file)
+    public function move($source, $folder, $file)
     {
         $source = $this->stubs($source);
-        if (! $this->exists($source)) {
-            return false;
-        }
+        if (! $this->exists($source)) return false;
 
         $path = ($this->testing ? $this->testing : $folder).'/'.$file;
 
@@ -66,14 +64,12 @@ class Publisher
      * @param  string  $dest
      * @return bool
      */
-    protected function append($source, $folder, $file, $spacer = false)
+    public function append($source, $folder, $file, $spacer = false)
     {
         $path = ($this->testing ? $this->testing : $folder).'/'.$file;
 
         $source = $this->stubs($source);
-        if (! $this->exists($source) || ! $this->exists($path)) {
-            return false;
-        }
+        if (! $this->exists($source) || ! $this->exists($path)) return false;
 
         $content = ($spacer ? $spacer : '').file_get_contents($source);
 
@@ -89,7 +85,7 @@ class Publisher
      * @param  string  $dist
      * @return bool
      */
-    protected function exists($dist)
+    public function exists($dist)
     {
         if (! $dist || ! file_exists($dist)) {
             $this->command->comment('[✕] > File missing: '.$dist);
@@ -107,7 +103,7 @@ class Publisher
      * @param  string  $message
      * @return void;
      */
-    protected function notify($message)
+    public function notify($message)
     {
         if ($this->moved) {
             $this->command->info('[✓] > '.$message);
