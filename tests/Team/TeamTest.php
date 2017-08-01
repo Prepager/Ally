@@ -24,6 +24,18 @@ class TeamTest extends TestCase
     ];
 
     /**
+     * Enable env loading.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->usesEnv = true;
+
+        parent::__construct();
+    }
+
+    /**
      * @test
      * @group Team
      */
@@ -146,6 +158,7 @@ class TeamTest extends TestCase
     /**
      * @test
      * @group Team
+     * @group Subscription
      */
     public function userCanDeleteTeamWithGrace()
     {
@@ -154,8 +167,9 @@ class TeamTest extends TestCase
 
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create(['user_id' => $user->id]);
-
         $user->team_id = $team->id;
+
+        $team->newSubscription('default', 'valid-first-plan')->create('fake-valid-nonce');
 
         Passport::actingAs($user, ['teams.delete']);
         $response = $this->json('DELETE', route('teams.destroy', $team->slug));
@@ -169,6 +183,9 @@ class TeamTest extends TestCase
             'id' => $user->id,
             'team_id' => 0,
         ]);
+
+        $this->assertTrue($team->subscription()->cancelled());
+        $this->assertTrue($team->subscription()->onGracePeriod());
 
         Event::assertDispatched(TeamDeleated::class, function ($e) use ($team) {
             return $e->team->slug == $team->slug;
@@ -186,8 +203,9 @@ class TeamTest extends TestCase
 
         $user = factory(User::class)->create();
         $team = factory(Team::class)->create(['user_id' => $user->id]);
-
         $user->team_id = $team->id;
+
+        $team->newSubscription('default', 'valid-first-plan')->create('fake-valid-nonce');
 
         Passport::actingAs($user, ['teams.delete']);
         $response = $this->json('DELETE', route('teams.destroy', $team->slug));
@@ -201,6 +219,9 @@ class TeamTest extends TestCase
             'id' => $user->id,
             'team_id' => 0,
         ]);
+
+        $this->assertTrue($team->subscription()->cancelled());
+        $this->assertFalse($team->subscription()->onGracePeriod());
 
         Event::assertDispatched(TeamDeleated::class, function ($e) use ($team) {
             return $e->team->slug == $team->slug;
@@ -242,18 +263,32 @@ class TeamTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user, ['teams.create']);
-        $team1 = $this->json('POST', route('teams.store'), ['name' => 'Example Community']);
-        $team2 = $this->json('POST', route('teams.store'), ['name' => 'Example-Community']);
-        $team3 = $this->json('POST', route('teams.store'), ['name' => 'Example_Community']);
+        Passport::actingAs($user, ['teams.create', 'teams.update']);
 
+        $team1 = $this->json('POST', route('teams.store'), ['name' => 'Example Community']);
+        $team1->assertStatus(200);
         $team1->assertJson(['slug' => 'example-community']);
+
+        $team2 = $this->json('POST', route('teams.store'), ['name' => 'Example-Community']);
+        $team2->assertStatus(200);
         $team2->assertJson(['slug' => 'example-community-1']);
+
+        $team3 = $this->json('POST', route('teams.store'), ['name' => 'Example_Community']);
+        $team3->assertStatus(200);
         $team3->assertJson(['slug' => 'example-community-2']);
 
-        $team = $user->teams()->save(factory(Team::class)->create(['user_id' => $user->id]));
+        $team = $user->teams()->save(factory(Team::class)->create([
+            'user_id' => $user->id,
+            'name' => 'Some Name',
+            'slug' => 'some-name'
+        ]));
 
-        $team4 = $this->json('POST', route('teams.update', $team), ['name' => $team->name]);
+        $team4 = $this->json('PUT', route('teams.update', $team), [
+            'name' => 'Some-Name',
+        ]);
+
+        $team4->assertStatus(200);
+        $team4->assertJson(['slug' => 'some-name']);
     }
 
     /**

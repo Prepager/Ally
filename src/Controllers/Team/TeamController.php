@@ -85,7 +85,7 @@ class TeamController extends Controller
 
         $this->validate($request, [
             'name' => 'required|min:2|unique:teams,name',
-            'slug' => 'sometimes|required|alpha_dash|unique:teams,slug',
+            'slug' => 'sometimes|required|alpha_dash|unique:teams,slug,'.$team->id,
         ]);
 
         return tap($team)->update($request->all());

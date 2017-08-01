@@ -107,6 +107,7 @@ class SubscriptionTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+        $this->assertTrue($team->plan()->id, 'valid-first-plan');
         $this->assertTrue($team->subscribed('default', 'valid-first-plan'));
 
         Event::assertDispatched(SubscriptionCreated::class, function ($e) use ($team) {
@@ -140,6 +141,7 @@ class SubscriptionTest extends TestCase
         $team = $team->fresh();
 
         $response->assertStatus(200);
+        $this->assertTrue($team->plan()->id, 'valid-second-plan');
         $this->assertTrue($team->subscribed('default', 'valid-second-plan'));
 
         Event::assertDispatched(SubscriptionSwapped::class, function ($e) use ($team) {

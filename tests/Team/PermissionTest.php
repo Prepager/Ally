@@ -51,4 +51,16 @@ class PermissionTest extends TestCase
         $this->assertSame($user->groupPermission($team, 'edit-other-feature'), $permissions['edit-other-feature']);
         $this->assertSame($user->groupCan($team, 'edit-other-feature'), $permissions['edit-other-feature']);
     }
+
+    /**
+     * @test
+     * @group Team
+     */
+    public function userCanNotCheckPermissionsForNonMemberTeam()
+    {
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create();
+
+        $this->assertSame($user->groupPermissions($team), []);
+    }
 }

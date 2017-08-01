@@ -176,6 +176,7 @@ class Team extends Model
             $original = $slug;
         }
 
+
         if ($current && $current == $slug) {
             return $slug;
         }
@@ -235,9 +236,9 @@ class Team extends Model
         }
 
         if ($now) {
-            $team->subscription()->cancelNow();
+            $this->subscription()->cancelNow();
         } else {
-            $team->subscription()->cancel();
+            $this->subscription()->cancel();
         }
     }
 
