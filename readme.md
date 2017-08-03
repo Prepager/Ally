@@ -1,10 +1,13 @@
 <h1 align="center">Laravel Ally</h1>
 <p align="center">
-    <a href='https://travis-ci.org/ZapsterStudios/Ally'>
-        <img src='https://travis-ci.org/ZapsterStudios/Ally.svg?branch=master' alt='Travis Build Status'>
+    <a href="https://travis-ci.org/ZapsterStudios/Ally">
+        <img src="https://travis-ci.org/ZapsterStudios/Ally.svg?branch=master" alt="Travis Build Status">
     </a>
-    <a href='https://coveralls.io/github/ZapsterStudios/Ally?branch=master'>
-        <img src='https://coveralls.io/repos/github/ZapsterStudios/Ally/badge.svg?branch=master' alt='Coverage Status'>
+    <a href="https://coveralls.io/github/ZapsterStudios/Ally?branch=master">
+        <img src="https://coveralls.io/repos/github/ZapsterStudios/Ally/badge.svg?branch=master" alt="Coverage Status">
+    </a>
+    <a href="https://styleci.io/repos/93747168">
+        <img src="https://styleci.io/repos/93747168/shield?style=flat">
     </a>
 </p>
 
@@ -45,7 +48,7 @@ $ php artisan ally:install
 ```
 
 ## Testing
-Some tests require a Braintree Sandbox account and are grouped under 'Subscription'.
+Some tests require a Braintree Sandbox account and are grouped under "Subscription".
 
 ### Non-Subscription Tests
 #### Command
