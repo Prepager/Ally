@@ -7,7 +7,10 @@
         <img src="https://coveralls.io/repos/github/ZapsterStudios/Ally/badge.svg?branch=master" alt="Coverage Status">
     </a>
     <a href="https://styleci.io/repos/93747168">
-        <img src="https://styleci.io/repos/93747168/shield?style=flat">
+        <img src="https://styleci.io/repos/93747168/shield?style=flat" alt="StyleCI Status">
+    </a>
+    <a href="https://gemnasium.com/github.com/ZapsterStudios/Ally">
+        <img src="https://gemnasium.com/badges/github.com/ZapsterStudios/Ally.svg" alt="Dependency Status">
     </a>
 </p>
 
@@ -19,6 +22,10 @@ The project is in a somewhat feature complete state however updating, versioning
 
 ## Documentation
 Coming soon.
+
+## Ecosystem
+[JavaScript SDK](https://github.com/ZapsterStudios/Ally-JS-SDK) - Consume the REST API from JavaScript.
+*VueJS module to come...*
 
 ## Installation
 Installation and updating are currently just based on git clone/pull (will be change).
@@ -48,7 +55,7 @@ $ php artisan ally:install
 ```
 
 ## Testing
-Some tests require a Braintree Sandbox account and are grouped under "Subscription".
+Some tests require a Braintree Sandbox account and are grouped under 'Subscription'.
 
 ### Non-Subscription Tests
 #### Command

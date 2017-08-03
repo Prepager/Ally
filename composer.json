@@ -1,6 +1,7 @@
 {
     "name": "zapsterstudios/ally",
     "description": "An attempt at building a team billing API for Laravel. Inspired by Laravel Spark.",
+    "license": "MIT",
     "authors": [
         {
             "name": "ZapsterStudios",
