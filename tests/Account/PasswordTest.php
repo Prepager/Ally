@@ -14,7 +14,7 @@ class PasswordTest extends TestCase
      */
     public function guestCanNotUpdatePassword()
     {
-        $response = $this->json('PUT', route('account.password.update'));
+        $response = $this->json('PATCH', route('account.password.update'));
 
         $response->assertStatus(401);
     }
@@ -28,7 +28,7 @@ class PasswordTest extends TestCase
         $user = factory(User::class)->create();
 
         Passport::actingAs($user, ['user.password']);
-        $response = $this->json('PUT', route('account.password.update'), [
+        $response = $this->json('PATCH', route('account.password.update'), [
             'current' => 'not-my-password',
             'password' => 'new-secret',
             'password_confirmation' => 'new-secret',
@@ -47,7 +47,7 @@ class PasswordTest extends TestCase
         $password = $user->password;
 
         Passport::actingAs($user, ['user.password']);
-        $response = $this->json('PUT', route('account.password.update'), [
+        $response = $this->json('PATCH', route('account.password.update'), [
             'current' => 'secret',
             'password' => 'new-secret',
             'password_confirmation' => 'new-secret',

@@ -25,6 +25,7 @@ Coming soon.
 
 ## Ecosystem
 [JavaScript SDK](https://github.com/ZapsterStudios/Ally-JS-SDK) - Consume the REST API from JavaScript.
+
 *VueJS module to come...*
 
 ## Installation

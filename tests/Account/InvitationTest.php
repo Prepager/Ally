@@ -61,7 +61,7 @@ class InvitationTest extends TestCase
         ]);
 
         Passport::actingAs($user, ['invitations.update']);
-        $response = $this->json('PUT', route('account.invitations.update', $invitation->id));
+        $response = $this->json('PATCH', route('account.invitations.update', $invitation->id));
 
         $response->assertStatus(200);
         $response->assertJson([

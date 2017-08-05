@@ -45,7 +45,7 @@ Route::group([
 
         // Password-Reset
         Route::post('/login/reset', 'Auth\PasswordResetController@store')->name('login.reset.store');
-        Route::put('/login/reset/{reset}', 'Auth\PasswordResetController@update')->name('login.reset.update');
+        Route::patch('/login/reset/{reset}', 'Auth\PasswordResetController@update')->name('login.reset.update');
 
         // Account
         Route::post('/register', 'Account\AccountController@store')->name('account.store');
@@ -64,17 +64,17 @@ Route::group([
         Route::get('/account', 'Account\AccountController@show')->name('account.show');
         Route::post('/account', 'Account\AccountController@update')->name('account.update');
         Route::post('/account/avatar', 'Account\AvatarController@update')->name('account.avatar.update');
-        Route::put('/account/password', 'Account\PasswordController@update')->name('account.password.update');
+        Route::patch('/account/password', 'Account\PasswordController@update')->name('account.password.update');
 
         // Notifications
         Route::get('/account/notifications/{method?}', 'Account\NotificationController@index')->name('account.notifications.index');
         Route::get('/account/notifications/{notifications}', 'Account\NotificationController@show')->name('account.notifications.show');
-        Route::put('/account/notifications/{notification}', 'Account\NotificationController@update')->name('account.notifications.update');
+        Route::patch('/account/notifications/{notification}', 'Account\NotificationController@update')->name('account.notifications.update');
         Route::delete('/account/notifications/{notification}', 'Account\NotificationController@destroy')->name('account.notifications.destroy');
 
         // Invitations
         Route::get('/account/invitations', 'Account\InvitationController@index')->name('account.invitations.index');
-        Route::put('/account/invitations/{invitation}', 'Account\InvitationController@update')->name('account.invitations.update');
+        Route::patch('/account/invitations/{invitation}', 'Account\InvitationController@update')->name('account.invitations.update');
         Route::delete('/account/invitations/{invitation}', 'Account\InvitationController@destroy')->name('account.invitations.destroy');
 
         // Teams
@@ -86,7 +86,7 @@ Route::group([
 
             // Teams
             Route::get('/', 'Team\TeamController@show')->name('teams.show');
-            Route::put('/', 'Team\TeamController@update')->name('teams.update');
+            Route::patch('/', 'Team\TeamController@update')->name('teams.update');
             Route::delete('/', 'Team\TeamController@destroy')->name('teams.destroy');
             Route::post('/change', 'Team\TeamController@change')->name('teams.change');
             Route::post('/restore', 'Team\TeamController@restore')->name('teams.restore');
@@ -111,14 +111,14 @@ Route::group([
             // Members
             Route::get('/members', 'Team\MemberController@index')->name('teams.members.index');
             Route::get('/members/{member}', 'Team\MemberController@show')->name('teams.members.show');
-            Route::put('/members/{member}', 'Team\MemberController@update')->name('teams.members.update');
+            Route::patch('/members/{member}', 'Team\MemberController@update')->name('teams.members.update');
             Route::delete('/members/{member}', 'Team\MemberController@destroy')->name('teams.members.destroy');
 
             // Invitations
             Route::get('/invitations', 'Team\InvitationController@index')->name('teams.invitations.index');
             Route::post('/invitations', 'Team\InvitationController@store')->name('teams.invitations.store');
             Route::get('/invitations/{invitation}', 'Team\InvitationController@show')->name('teams.invitations.show');
-            Route::put('/invitations/{invitation}', 'Team\InvitationController@update')->name('teams.invitations.update');
+            Route::patch('/invitations/{invitation}', 'Team\InvitationController@update')->name('teams.invitations.update');
             Route::delete('/invitations/{invitation}', 'Team\InvitationController@destroy')->name('teams.invitations.destroy');
         });
 
@@ -130,7 +130,7 @@ Route::group([
 
             // Announcements
             Route::post('/announcements', 'AnnouncementController@store')->name('announcements.store');
-            Route::put('/announcements/{announcement}', 'AnnouncementController@update')->name('announcements.update');
+            Route::patch('/announcements/{announcement}', 'AnnouncementController@update')->name('announcements.update');
             Route::delete('/announcements/{announcement}', 'AnnouncementController@destroy')->name('announcements.destroy');
 
             // Impersonate

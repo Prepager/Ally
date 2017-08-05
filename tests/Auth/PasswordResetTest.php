@@ -81,7 +81,7 @@ class PasswordResetTest extends TestCase
     {
         $request = factory(PasswordReset::class)->create();
 
-        $response = $this->json('PUT', route('login.reset.update', 'no-token'), [
+        $response = $this->json('PATCH', route('login.reset.update', 'no-token'), [
             'password' => 'new-secret',
             'password_confirmation' => 'new-secret',
         ]);
@@ -101,7 +101,7 @@ class PasswordResetTest extends TestCase
             'email' => $user->email,
         ]);
 
-        $response = $this->json('PUT', route('login.reset.update', $request->token), [
+        $response = $this->json('PATCH', route('login.reset.update', $request->token), [
             'email' => $user->email,
             'password' => 'new-secret',
             'password_confirmation' => 'new-secret',

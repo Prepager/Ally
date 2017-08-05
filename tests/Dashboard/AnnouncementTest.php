@@ -69,7 +69,7 @@ class AnnouncementTest extends TestCase
         $announcement = factory(Announcement::class)->create();
 
         Passport::actingAs($user, ['user.admin']);
-        $response = $this->json('PUT', route('announcements.update', $announcement->id), [
+        $response = $this->json('PATCH', route('announcements.update', $announcement->id), [
             'message' => 'Some other message here',
         ]);
 

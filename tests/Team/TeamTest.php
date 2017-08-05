@@ -138,7 +138,7 @@ class TeamTest extends TestCase
         $team = factory(Team::class)->create(['user_id' => $user->id]);
 
         Passport::actingAs($user, ['teams.update']);
-        $response = $this->json('PUT', route('teams.update', $team->slug), [
+        $response = $this->json('PATCH', route('teams.update', $team->slug), [
             'name' => 'Foobar',
         ]);
 
@@ -315,7 +315,7 @@ class TeamTest extends TestCase
             'slug' => 'some-name',
         ]));
 
-        $team4 = $this->json('PUT', route('teams.update', $team), [
+        $team4 = $this->json('PATCH', route('teams.update', $team), [
             'name' => 'Some-Name',
         ]);
 

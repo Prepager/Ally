@@ -95,7 +95,7 @@ class MemberTest extends TestCase
         $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
 
         Passport::actingAs($user, ['teams.members.update']);
-        $response = $this->json('PUT', route('teams.members.update', [$team->slug, $member->id]), [
+        $response = $this->json('PATCH', route('teams.members.update', [$team->slug, $member->id]), [
             'group' => 'member',
         ]);
 
@@ -120,7 +120,7 @@ class MemberTest extends TestCase
         $member = $team->teamMembers()->orderBy('user_id', 'desc')->firstOrFail();
 
         Passport::actingAs($user, ['teams.members.update']);
-        $response = $this->json('PUT', route('teams.members.update', [$team->slug, $member->id]), [
+        $response = $this->json('PATCH', route('teams.members.update', [$team->slug, $member->id]), [
             'group' => 'invalid-group',
         ]);
 

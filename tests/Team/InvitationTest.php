@@ -266,7 +266,7 @@ class InvitationTest extends TestCase
         ]);
 
         Passport::actingAs($user, ['teams.members.update']);
-        $response = $this->json('PUT', route('teams.invitations.update', [$team->slug, $invitation->id]), [
+        $response = $this->json('PATCH', route('teams.invitations.update', [$team->slug, $invitation->id]), [
             'group' => 'invalid-group',
         ]);
 
@@ -296,7 +296,7 @@ class InvitationTest extends TestCase
         ]);
 
         Passport::actingAs($user, ['teams.members.update']);
-        $response = $this->json('PUT', route('teams.invitations.update', [$team->slug, $invitation->id]), [
+        $response = $this->json('PATCH', route('teams.invitations.update', [$team->slug, $invitation->id]), [
             'group' => 'extra',
         ]);
 

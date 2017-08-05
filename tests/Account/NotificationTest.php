@@ -68,7 +68,7 @@ class NotificationTest extends TestCase
         $notificaton = $user->notifications()->orderBy('id', 'desc')->first();
 
         Passport::actingAs($user, ['notifications.update']);
-        $response = $this->json('PUT', route('account.notifications.update', $notificaton), [
+        $response = $this->json('PATCH', route('account.notifications.update', $notificaton), [
             'read' => true,
         ]);
 
@@ -76,7 +76,7 @@ class NotificationTest extends TestCase
         $notificaton = $notificaton->fresh();
         $this->assertTrue($notificaton->read());
 
-        $response = $this->json('PUT', route('account.notifications.update', $notificaton), [
+        $response = $this->json('PATCH', route('account.notifications.update', $notificaton), [
             'read' => false,
         ]);
 
