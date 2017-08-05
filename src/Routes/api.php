@@ -63,8 +63,11 @@ Route::group([
         // Account
         Route::get('/account', 'Account\AccountController@show')->name('account.show');
         Route::post('/account', 'Account\AccountController@update')->name('account.update');
-        Route::post('/account/avatar', 'Account\AvatarController@update')->name('account.avatar.update');
         Route::patch('/account/password', 'Account\PasswordController@update')->name('account.password.update');
+        
+        // Account Avatar
+        Route::post('/account/avatar', 'Account\AvatarController@update')->name('account.avatar.update');
+        Route::delete('/account/avatar', 'Account\AvatarController@destroy')->name('account.avatar.destroy');
 
         // Notifications
         Route::get('/account/notifications/{method?}', 'Account\NotificationController@index')->name('account.notifications.index');
@@ -90,7 +93,10 @@ Route::group([
             Route::delete('/', 'Team\TeamController@destroy')->name('teams.destroy');
             Route::post('/change', 'Team\TeamController@change')->name('teams.change');
             Route::post('/restore', 'Team\TeamController@restore')->name('teams.restore');
+
+            // Teams Avatar
             Route::post('/avatar', 'Team\AvatarController@update')->name('teams.avatar.update');
+            Route::delete('/avatar', 'Team\AvatarController@destroy')->name('teams.avatar.destroy');
 
             // Subscription
             Route::post('/subscription', 'Subscription\SubscriptionController@subscription')->name('subscription');

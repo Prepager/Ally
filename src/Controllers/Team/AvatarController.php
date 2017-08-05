@@ -14,6 +14,7 @@ class AvatarController extends Controller
      * Update an existing users avatar.
      *
      * @param  Request  $request
+     * @param  \App\Team  $team
      * @return Response
      */
     public function update(Request $request, Team $team)
@@ -37,6 +38,30 @@ class AvatarController extends Controller
 
         if (! empty($original)) {
             Storage::disk('public')->delete($original);
+        }
+
+        return response()->json($team);
+    }
+
+
+    /**
+     * Delete a teams avatar.
+     *
+     * @param  Request  $request
+     * @param  \App\Team  $team
+     * @return Response
+     */
+    public function destroy(Request $request, Team $team)
+    {
+        $this->authorize('update', $team);
+
+        $original = $team->getOriginal('avatar');
+        if (! empty($original)) {
+            Storage::disk('public')->delete($original);
+
+            $team->update([
+                'avatar' => null,
+            ]);
         }
 
         return response()->json($team);

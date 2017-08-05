@@ -254,4 +254,30 @@ class AccountTest extends TestCase
         Storage::disk('public')->assertExists($user->getOriginal('avatar'));
         Storage::disk('public')->assertMissing($avatar);
     }
+
+    /**
+     * @test
+     * @group Account
+     */
+    public function userCanDeleteAvatar()
+    {
+        Storage::fake('public');
+
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user, ['user.update']);
+        $response = $this->json('POST', route('account.avatar.update'), [
+            'avatar' => UploadedFile::fake()->image('avatar.jpg'),
+        ]);
+
+        $response->assertStatus(200);
+
+        $response = $this->json('DELETE', route('account.avatar.destroy'));
+
+        $response->assertStatus(200);
+        $user->fresh();
+
+        $this->assertTrue($user->getOriginal('avatar') === null);
+        Storage::disk('public')->assertMissing($user->getOriginal('avatar'));
+    }
 }

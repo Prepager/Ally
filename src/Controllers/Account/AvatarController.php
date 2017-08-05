@@ -42,4 +42,27 @@ class AvatarController extends Controller
 
         return response()->json($user);
     }
+
+    /**
+     * Delete a users avatar.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function destroy(Request $request)
+    {
+        $this->authorize('update', User::class);
+        $user = $request->user();
+
+        $original = $user->getOriginal('avatar');
+        if (! empty($original)) {
+            Storage::disk('public')->delete($original);
+
+            $user->update([
+                'avatar' => null,
+            ]);
+        }
+
+        return response()->json($user);
+    }
 }

@@ -415,4 +415,31 @@ class TeamTest extends TestCase
         Storage::disk('public')->assertExists($team->getOriginal('avatar'));
         Storage::disk('public')->assertMissing($avatar);
     }
+
+    /**
+     * @test
+     * @group Team
+     */
+    public function teamCanDeleteAvatar()
+    {
+        Storage::fake('public');
+
+        $user = factory(User::class)->create();
+        $team = factory(Team::class)->create(['user_id' => $user->id]);
+
+        Passport::actingAs($user, ['teams.update']);
+        $response = $this->json('POST', route('teams.avatar.update', $team->slug), [
+            'avatar' => UploadedFile::fake()->image('avatar.jpg'),
+        ]);
+
+        $response->assertStatus(200);
+
+        $response = $this->json('DELETE', route('teams.avatar.destroy', $team->slug));
+
+        $response->assertStatus(200);
+        $team->fresh();
+
+        $this->assertTrue($team->getOriginal('avatar') === null);
+        Storage::disk('public')->assertMissing($team->getOriginal('avatar'));
+    }
 }
