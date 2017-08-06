@@ -31,8 +31,13 @@ class AppController extends Controller
         $routes = collect($router->getRoutes())->reject(function ($route) {
             return ! $route->getName();
         })->mapWithKeys(function ($route) {
+            $methods = collect($route->methods());
+
             return [
-                $route->getName() => $route->uri(),
+                $route->getName() => [
+                    'method' => $methods->first(),
+                    'url' => $route->uri()
+                ],
             ];
         })->sortBy(function ($route, $key) {
             return $key;

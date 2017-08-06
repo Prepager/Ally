@@ -30,8 +30,14 @@ class AppDataTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'app' => 'app',
-            'app.routes' => 'app/routes',
+            'app' => [
+                'method' => 'GET',
+                'url' => 'app',
+            ],
+            'app.routes' => [
+                'method' => 'GET',
+                'url' => 'app/routes',
+            ],
         ]);
     }
 }
