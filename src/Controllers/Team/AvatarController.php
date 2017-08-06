@@ -43,7 +43,6 @@ class AvatarController extends Controller
         return response()->json($team);
     }
 
-
     /**
      * Delete a teams avatar.
      *

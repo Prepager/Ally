@@ -64,7 +64,7 @@ Route::group([
         Route::get('/account', 'Account\AccountController@show')->name('account.show');
         Route::post('/account', 'Account\AccountController@update')->name('account.update');
         Route::patch('/account/password', 'Account\PasswordController@update')->name('account.password.update');
-        
+
         // Account Avatar
         Route::post('/account/avatar', 'Account\AvatarController@update')->name('account.avatar.update');
         Route::delete('/account/avatar', 'Account\AvatarController@destroy')->name('account.avatar.destroy');
